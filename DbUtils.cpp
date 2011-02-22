@@ -9,32 +9,9 @@ static const char *RcsId = "$Header$";
 //
 // $Author$
 //
-// Copyright (C) :      2004,2005,2006,2007,2008,2009,2010
-//						European Synchrotron Radiation Facility
-//                      BP 220, Grenoble 38043
-//                      FRANCE
-//
-// This file is part of Tango.
-//
-// Tango is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// Tango is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with Tango.  If not, see <http://www.gnu.org/licenses/>.
-//
 // $Revision$
 //
 // $Log$
-// Revision 1.14  2009/09/11 10:46:09  taurel
-// - Set the MySQL reconnection flag only for MySQL V5
-//
 // Revision 1.13  2009/09/10 07:48:55  taurel
 // - The database name can now be defined using a configure option
 //
@@ -74,6 +51,11 @@ static const char *RcsId = "$Header$";
 //
 // Revision 1.1.1.1  2006/09/15 11:55:43  pascal_verdier
 // Initial Revision
+//
+//
+// copyleft :     European Synchrotron Radiation Facility
+//                BP 220, Grenoble 38043
+//                FRANCE
 //
 //-=============================================================================
 
