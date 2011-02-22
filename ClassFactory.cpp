@@ -1,4 +1,3 @@
-/*----- PROTECTED REGION ID(TangoAccessControl::ClassFactory.cpp) ENABLED START -----*/
 static const char *RcsId = "$Header$";
 //+=============================================================================
 //
@@ -36,9 +35,6 @@ static const char *RcsId = "$Header$";
 // $Revision$
 //
 // $Log$
-// Revision 1.2  2010/09/21 11:33:29  taurel
-// - Added GPL info
-//
 // Revision 1.1.1.1  2006/09/15 11:55:42  pascal_verdier
 // Initial Revision
 //
@@ -64,4 +60,3 @@ void Tango::DServer::class_factory()
 	add_class(TangoAccessControl_ns::TangoAccessControlClass::init("TangoAccessControl"));
 
 }
-/*----- PROTECTED REGION END -----*/
