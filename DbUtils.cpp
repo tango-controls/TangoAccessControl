@@ -9,38 +9,9 @@ static const char *RcsId = "$Header$";
 //
 // $Author$
 //
-// Copyright (C) :      2004,2005,2006,2007,2008,2009,2010
-//						European Synchrotron Radiation Facility
-//                      BP 220, Grenoble 38043
-//                      FRANCE
-//
-// This file is part of Tango.
-//
-// Tango is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// Tango is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with Tango.  If not, see <http://www.gnu.org/licenses/>.
-//
 // $Revision$
 //
 // $Log$
-// Revision 1.14  2009/09/11 10:46:09  taurel
-// - Set the MySQL reconnection flag only for MySQL V5
-//
-// Revision 1.13  2009/09/10 07:48:55  taurel
-// - The database name can now be defined using a configure option
-//
-// Revision 1.12  2009/05/11 08:56:58  taurel
-// Fix bug in previous change !!
-//
 // Revision 1.11  2009/05/11 07:29:10  taurel
 // - Now, the my.cnf file is correctly taken into account
 //
@@ -75,11 +46,12 @@ static const char *RcsId = "$Header$";
 // Revision 1.1.1.1  2006/09/15 11:55:43  pascal_verdier
 // Initial Revision
 //
+//
+// copyleft :     European Synchrotron Radiation Facility
+//                BP 220, Grenoble 38043
+//                FRANCE
+//
 //-=============================================================================
-
-#if HAVE_CONFIG_H
-#include <ac_config.h>
-#endif
 
 #include <tango.h>
 #include <TangoAccessControl.h>
@@ -113,12 +85,7 @@ void TangoAccessControl::mysql_connection()
 {
 	// Initialise variables to default values
 	//--------------------------------------------
-	
-#ifndef HAVE_CONFIG_H
 	char *database = (char *)"tango";
-#else
-	char *database = (char *)TANGO_DB_NAME;
-#endif
 	const char *mysql_user = NULL;
 	const char *mysql_password = NULL;
 
@@ -144,8 +111,7 @@ void TangoAccessControl::mysql_connection()
 	            << " , password = " << mysql_password << endl;
 
 	mysql_options(&mysql,MYSQL_READ_DEFAULT_GROUP,"client");
-
-#if   (MYSQL_VERSION_ID > 50000)	
+	
 	if(mysql_get_client_version() >= 50013)
 	{
 		my_bool my_auto_reconnect=1;
@@ -154,7 +120,6 @@ void TangoAccessControl::mysql_connection()
 		else
 			WARN_STREAM << "AccessControl: set mysql auto reconnect to true" << endl;
 	}
-#endif
 		
 	if (!mysql_real_connect(&mysql, NULL, mysql_user, mysql_password, database, 0, NULL, 0))
 	{
