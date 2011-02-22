@@ -12,9 +12,6 @@
 # $Revision$
 #
 # $Log$
-# Revision 1.8  2011/02/11 15:14:13  pascal_verdier
-# Typing mistake corrected.
-#
 # Revision 1.7  2011/02/11 13:28:43  pascal_verdier
 # Pogo-7 compatibility.
 #
@@ -51,7 +48,7 @@
 
 CLASS      = TangoAccessControl
 MAJOR_VERS = 2
-MINOR_VERS = 2
+MINOR_VERS = 1
 RELEASE    = Release_$(MAJOR_VERS)_$(MINOR_VERS)
 OS         = $(shell /csadmin/common/scripts/get_os)
 #-----------------------------------------
@@ -84,13 +81,6 @@ MYSQL_LIB_DIR=/usr/local/mysql/lib/mysql
 endif
 
 ifdef linux
-PROCESSOR  = $(shell uname -p)
-$(PROCESSOR)=1
-ifdef x86_64
-NBITS=64
-endif
-BIN_DIR   = $(OS)_$(NBITS)
-
 CC = c++
 CC_SHLIB = $(CC)  -fPIC
 AR = ar
@@ -101,7 +91,7 @@ SL_EXT = so
 VERS_OPT = -Wl,-soname,
 
 MYSQL_INC_DIR=/usr/include/mysql
-MYSQL_LIB_DIR=/usr/lib$(NBITS)/mysql
+MYSQL_LIB_DIR=/usr/lib/mysql
 endif
 
 ACCESSCONTROL_HOME  = /segfs/tango/templates/AbstractClasses/AccessControl
