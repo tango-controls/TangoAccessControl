@@ -18,9 +18,6 @@
 // CVS only:
 // $Source$
 // $Log$
-// Revision 1.12  2011/02/11 14:21:42  pascal_verdier
-// GetAccessForMutiIP  command added.
-//
 // Revision 1.11  2011/02/11 13:28:43  pascal_verdier
 // Pogo-7 compatibility.
 //
@@ -226,10 +223,10 @@ public:
 	virtual bool is_GetAccess_allowed(const CORBA::Any &any);
 
 	/**
-	 *	Command GetAccessForMultiIP related methods.
+	 *	Command GetAccessForMutiIP related methods.
 	 */
-	Tango::DevString get_access_for_multi_ip(const Tango::DevVarStringArray *argin);
-	virtual bool is_GetAccessForMultiIP_allowed(const CORBA::Any &any);
+	Tango::DevString get_access_for_muti_ip(const Tango::DevVarStringArray *argin);
+	virtual bool is_GetAccessForMutiIP_allowed(const CORBA::Any &any);
 
 	/**
 	 *	Command GetAddressByUser related methods.

@@ -23,15 +23,6 @@ static const char *RcsId = "$Id$";
 // CVS only:
 // $Source$
 // $Log$
-// Revision 1.14  2011/02/11 15:30:59  pascal_verdier
-// Trace removed.
-//
-// Revision 1.13  2011/02/11 15:14:13  pascal_verdier
-// Typing mistake corrected.
-//
-// Revision 1.12  2011/02/11 14:21:42  pascal_verdier
-// GetAccessForMutiIP  command added.
-//
 // Revision 1.11  2011/02/11 13:28:43  pascal_verdier
 // Pogo-7 compatibility.
 //
@@ -72,7 +63,7 @@ static const char *RcsId = "$Id$";
 //  AddDeviceForUser            |  add_device_for_user
 //  CloneUser                   |  clone_user
 //  GetAccess                   |  get_access
-//  GetAccessForMultiIP         |  get_access_for_multi_ip
+//  GetAccessForMutiIP          |  Inherited (no method)
 //  GetAddressByUser            |  get_address_by_user
 //  GetAllowedCommandClassList  |  get_allowed_command_class_list
 //  GetAllowedCommands          |  get_allowed_commands
@@ -484,7 +475,7 @@ Tango::DevString TangoAccessControl::get_access(const Tango::DevVarStringArray *
 
 //--------------------------------------------------------
 /**
- *	Execute the GetAccessForMultiIP command:
+ *	Execute the GetAccessForMutiIP command:
  *	Description: Check access for specified user, device and addresses
  *	                  and returns access (read or write).
  *
@@ -498,11 +489,11 @@ Tango::DevString TangoAccessControl::get_access(const Tango::DevVarStringArray *
  *	@returns access for specified inputs  read/write.
  */
 //--------------------------------------------------------
-Tango::DevString TangoAccessControl::get_access_for_multi_ip(const Tango::DevVarStringArray *argin)
+Tango::DevString TangoAccessControl::get_access_for_muti_ip(const Tango::DevVarStringArray *argin)
 {
 	Tango::DevString argout;
-	DEBUG_STREAM << "TangoAccessControl::GetAccessForMultiIP()  - " << device_name << endl;
-	/*----- PROTECTED REGION ID(TangoAccessControl::get_access_for_multi_ip) ENABLED START -----*/
+	DEBUG_STREAM << "TangoAccessControl::GetAccessForMutiIP()  - " << device_name << endl;
+	/*----- PROTECTED REGION ID(TangoAccessControl::get_access_for_muti_ip) ENABLED START -----*/
 
 	if (argin->length() < 3)
 		Tango::Except::throw_exception((const char *)AC_IncorrectArguments,
@@ -515,7 +506,7 @@ Tango::DevString TangoAccessControl::get_access_for_multi_ip(const Tango::DevVar
 	
 	//	First pass, Check if User and at least one of the addresses is defined (autorized)
 	bool	ip_found = false;
-	while (x < argin->length() && !ip_found)
+	while (x < argin->length())
 	{
 		string	ip_add((*argin)[x++]);
 		vector<AccessStruct>	as_read =
@@ -525,16 +516,7 @@ Tango::DevString TangoAccessControl::get_access_for_multi_ip(const Tango::DevVar
 		if (as_read.size()>0)
 		{
 			ip_found = true;
-			/* 
-			for (int i=0 ; i<as_read.size() ; i++)
-				cout << "	found  for "<< as_read[i].address << endl;
-			 */
-		 }
-		 /*
-		 else
-			cout << "	NOT found  for "<< ip_add << endl;
-		*/
-		 	
+		}
 	}
 	
 	if (!ip_found)
@@ -548,7 +530,7 @@ Tango::DevString TangoAccessControl::get_access_for_multi_ip(const Tango::DevVar
 	string	result = get_access_for_user_device(user, device);;
 	argout = CORBA::string_dup(result.c_str());
 
-	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::get_access_for_multi_ip
+	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::get_access_for_muti_ip
 
 	return argout;
 }

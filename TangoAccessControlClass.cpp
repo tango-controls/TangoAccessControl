@@ -26,9 +26,6 @@ static const char *HttpServer = "http://www.esrf.eu/computing/cs/tango/tango_doc
 // CVS only:
 // $Source$
 // $Log$
-// Revision 1.7  2011/02/11 14:21:42  pascal_verdier
-// GetAccessForMutiIP  command added.
-//
 // Revision 1.6  2011/02/11 13:28:43  pascal_verdier
 // Pogo-7 compatibility.
 //
@@ -243,7 +240,7 @@ CORBA::Any *GetAccessClass::execute(Tango::DeviceImpl *device, const CORBA::Any 
 }
 //--------------------------------------------------------
 /**
- * method : 		GetAccessForMultiIPClass::execute()
+ * method : 		GetAccessForMutiIPClass::execute()
  * description : 	method to trigger the execution of the command.
  *
  * @param	device	The device on which the command must be executed
@@ -252,13 +249,13 @@ CORBA::Any *GetAccessClass::execute(Tango::DeviceImpl *device, const CORBA::Any 
  *	returns The command output data (packed in the Any object)
  */
 //--------------------------------------------------------
-CORBA::Any *GetAccessForMultiIPClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
+CORBA::Any *GetAccessForMutiIPClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
-	cout2 << "GetAccessForMultiIPClass::execute(): arrived" << endl;
+	cout2 << "GetAccessForMutiIPClass::execute(): arrived" << endl;
 
 	const Tango::DevVarStringArray	*argin;
 	extract(in_any, argin);
-	return insert((static_cast<TangoAccessControl *>(device))->get_access_for_multi_ip(argin));
+	return insert((static_cast<TangoAccessControl *>(device))->get_access_for_muti_ip(argin));
 }
 //--------------------------------------------------------
 /**
@@ -838,13 +835,13 @@ void TangoAccessControlClass::command_factory()
 			"access for specified inputs  read/write.",
 			Tango::OPERATOR);
 	command_list.push_back(pGetAccessCmd);
-	GetAccessForMultiIPClass	*pGetAccessForMultiIPCmd =
-		new GetAccessForMultiIPClass("GetAccessForMultiIP",
+	GetAccessForMutiIPClass	*pGetAccessForMutiIPCmd =
+		new GetAccessForMutiIPClass("GetAccessForMutiIP",
 			Tango::DEVVAR_STRINGARRAY, Tango::DEV_STRING,
 			"[0] - User name\n[1] - Device\n[2] - IP Address #1\n[3] - IP Address #2\n[4] - IP Address #3\n[5] - IP Address #4\n......",
 			"access for specified inputs  read/write.",
 			Tango::OPERATOR);
-	command_list.push_back(pGetAccessForMultiIPCmd);
+	command_list.push_back(pGetAccessForMutiIPCmd);
 	GetAddressByUserClass	*pGetAddressByUserCmd =
 		new GetAddressByUserClass("GetAddressByUser",
 			Tango::DEV_STRING, Tango::DEVVAR_STRINGARRAY,

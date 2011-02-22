@@ -22,9 +22,6 @@
 // CVS only:
 // $Source$
 // $Log$
-// Revision 1.5  2011/02/11 14:21:42  pascal_verdier
-// GetAccessForMutiIP  command added.
-//
 // Revision 1.4  2011/02/11 13:28:43  pascal_verdier
 // Pogo-7 compatibility.
 //
@@ -154,11 +151,11 @@ public:
 	{return (static_cast<TangoAccessControl *>(dev))->is_GetAccess_allowed(any);}
 };
 
-//	Command GetAccessForMultiIP class definition
-class GetAccessForMultiIPClass : public Tango::Command
+//	Command GetAccessForMutiIP class definition
+class GetAccessForMutiIPClass : public Tango::Command
 {
 public:
-	GetAccessForMultiIPClass(const char   *name,
+	GetAccessForMutiIPClass(const char   *name,
 	               Tango::CmdArgType in,
 				   Tango::CmdArgType out,
 				   const char        *in_desc,
@@ -166,15 +163,15 @@ public:
 				   Tango::DispLevel  level)
 	:Command(name,in,out,in_desc,out_desc, level)	{};
 
-	GetAccessForMultiIPClass(const char   *name,
+	GetAccessForMutiIPClass(const char   *name,
 	               Tango::CmdArgType in,
 				   Tango::CmdArgType out)
 	:Command(name,in,out)	{};
-	~GetAccessForMultiIPClass() {};
+	~GetAccessForMutiIPClass() {};
 	
 	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
 	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
-	{return (static_cast<TangoAccessControl *>(dev))->is_GetAccessForMultiIP_allowed(any);}
+	{return (static_cast<TangoAccessControl *>(dev))->is_GetAccessForMutiIP_allowed(any);}
 };
 
 //	Command GetAddressByUser class definition

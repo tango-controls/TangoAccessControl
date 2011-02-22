@@ -20,9 +20,6 @@ static const char *RcsId = "$Id$";
 // CVS only:
 // $Source$
 // $Log$
-// Revision 1.5  2011/02/11 14:21:42  pascal_verdier
-// GetAccessForMutiIP  command added.
-//
 // Revision 1.4  2011/02/11 13:28:43  pascal_verdier
 // Pogo-7 compatibility.
 //
@@ -153,18 +150,18 @@ bool TangoAccessControl::is_GetAccess_allowed(const CORBA::Any &any)
 
 //--------------------------------------------------------
 /**
- *	Method      : TangoAccessControl::is_GetAccessForMultiIPState_allowed()
- *	Description : Execution allowed for GetAccessForMultiIP command.
+ *	Method      : TangoAccessControl::is_GetAccessForMutiIPState_allowed()
+ *	Description : Execution allowed for GetAccessForMutiIP command.
  */
 //--------------------------------------------------------
 
-bool TangoAccessControl::is_GetAccessForMultiIP_allowed(const CORBA::Any &any)
+bool TangoAccessControl::is_GetAccessForMutiIP_allowed(const CORBA::Any &any)
 {
-	//	Not any excluded states for GetAccessForMultiIP command.
+	//	Not any excluded states for GetAccessForMutiIP command.
 
-	/*----- PROTECTED REGION ID(TangoAccessControl::GetAccessForMultiIPStateAllowed) ENABLED START -----*/
+	/*----- PROTECTED REGION ID(TangoAccessControl::GetAccessForMutiIPStateAllowed) ENABLED START -----*/
 
-	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::GetAccessForMultiIPStateAllowed
+	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::GetAccessForMutiIPStateAllowed
 
 	return true;
 }
