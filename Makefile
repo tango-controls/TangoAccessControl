@@ -1,4 +1,3 @@
-#PROTECTED REGION ID(TangoAccessControlMakefile) ENABLED START#
 #=============================================================================
 #
 # file :        Makefile
@@ -12,15 +11,6 @@
 # $Revision$
 #
 # $Log$
-# Revision 1.8  2011/02/11 15:14:13  pascal_verdier
-# Typing mistake corrected.
-#
-# Revision 1.7  2011/02/11 13:28:43  pascal_verdier
-# Pogo-7 compatibility.
-#
-# Revision 1.6  2008/11/21 07:39:26  pascal_verdier
-# *** empty log message ***
-#
 # Revision 1.5  2008/09/25 08:07:13  pascal_verdier
 # *** empty log message ***
 #
@@ -50,8 +40,8 @@
 #
 
 CLASS      = TangoAccessControl
-MAJOR_VERS = 2
-MINOR_VERS = 2
+MAJOR_VERS = 1
+MINOR_VERS = 0
 RELEASE    = Release_$(MAJOR_VERS)_$(MINOR_VERS)
 OS         = $(shell /csadmin/common/scripts/get_os)
 #-----------------------------------------
@@ -84,13 +74,6 @@ MYSQL_LIB_DIR=/usr/local/mysql/lib/mysql
 endif
 
 ifdef linux
-PROCESSOR  = $(shell uname -p)
-$(PROCESSOR)=1
-ifdef x86_64
-NBITS=64
-endif
-BIN_DIR   = $(OS)_$(NBITS)
-
 CC = c++
 CC_SHLIB = $(CC)  -fPIC
 AR = ar
@@ -101,16 +84,16 @@ SL_EXT = so
 VERS_OPT = -Wl,-soname,
 
 MYSQL_INC_DIR=/usr/include/mysql
-MYSQL_LIB_DIR=/usr/lib$(NBITS)/mysql
+MYSQL_LIB_DIR=/usr/lib/mysql
 endif
 
-ACCESSCONTROL_HOME  = /segfs/tango/templates/AbstractClasses/AccessControl
+SUPER_HOME   =  /segfs/tango/templates/AbstractClasses/AccessControl
 INCLUDE_DIRS =  -I$(MYSQL_INC_DIR) \
 				-I$(TANGO_HOME)/$(BIN_DIR)/include	\
-				-I.	 -I$(ACCESSCONTROL_HOME) \
+				-I.	 -I$(SUPER_HOME) \
                 -I$(CPP_SERVERS)/include
 
-OBJDIR    = obj/$(BIN_DIR)
+OBJS_DIR    = obj/$(BIN_DIR)
 LIB_DIRS    = -L $(MYSQL_LIB_DIR) \
 				-L $(TANGO_HOME)/$(BIN_DIR)/lib
 
@@ -159,38 +142,28 @@ endif
 #	Set  dependences
 #-----------------------------------------
 
-SVC_OBJS = $(OBJDIR)/DbUtils.o	\
-			$(OBJDIR)/$(CLASS).o \
-			$(OBJDIR)/main.o	\
-			$(OBJDIR)/ClassFactory.o	\
-			$(OBJDIR)/$(CLASS)Class.o	\
-			$(OBJDIR)/$(CLASS)StateMachine.o \
-            $(SVC_ACCESSCONTROL_OBJ)	
+SVC_OBJS = $(OBJS_DIR)/DbUtils.o	\
+		$(OBJS_DIR)/$(CLASS).o \
+		$(OBJS_DIR)/main.o	\
+		$(OBJS_DIR)/ClassFactory.o	\
+		$(OBJS_DIR)/$(CLASS)Class.o	\
+		$(OBJS_DIR)/$(CLASS)StateMachine.o
 
 
-
-#------------  Object files for AccessControl class  ------------
-SVC_ACCESSCONTROL_OBJ = \
-		$(OBJDIR)/AccessControl.o \
-		$(OBJDIR)/AccessControlClass.o \
-		$(OBJDIR)/AccessControlStateMachine.o
-
-
-
-SHLIB_OBJS = $(OBJDIR)/$(CLASS)Class.so.o	\
-		$(OBJDIR)/$(CLASS)StateMachine.so.o	\
-		$(OBJDIR)/$(CLASS).so.o
+SHLIB_OBJS = $(OBJS_DIR)/$(CLASS)Class.so.o	\
+		$(OBJS_DIR)/$(CLASS)StateMachine.so.o	\
+		$(OBJS_DIR)/$(CLASS).so.o
 
 
 SVC_INC = $(CLASS)Class.h \
 		$(CLASS).h
 
 
-$(OBJDIR)/%.o: %.cpp $(SVC_INC)
-	$(CC) $(CXXFLAGS) -c $< -o $(OBJDIR)/$*.o
+$(OBJS_DIR)/%.o: %.cpp $(SVC_INC)
+	$(CC) $(CXXFLAGS) -c $< -o $(OBJS_DIR)/$*.o
 			
-$(OBJDIR)/%.so.o: %.cpp $(SVC_INC)
-	$(CC_SHLIB) $(CXXFLAGS) -c $< -o $(OBJDIR)/$*.so.o
+$(OBJS_DIR)/%.so.o: %.cpp $(SVC_INC)
+	$(CC_SHLIB) $(CXXFLAGS) -c $< -o $(OBJS_DIR)/$*.so.o
 
 
 #-----------------------------------------
@@ -211,30 +184,9 @@ shlib:	make_obj_dir make_shlib_dir $(SHLIB_OBJS)
 	@cd  shlib/$(BIN_DIR); \
 		ln -s $(CLASS).$(SL_EXT).$(MAJOR_VERS).$(MINOR_VERS) $(CLASS).$(SL_EXT)
 
-
-#------------  Object files dependancies for AccessControl class  ------------
-ACCESSCONTROL_INCL = $(ACCESSCONTROL_HOME)/AccessControl.h $(ACCESSCONTROL_HOME)/AccessControlClass.h
-
-
-$(OBJDIR)/AccessControl.o: $(ACCESSCONTROL_HOME)/AccessControl.cpp $(ACCESSCONTROL_INCL)
-	$(CC) $(CXXFLAGS) -c $< -o $(OBJDIR)/AccessControl.o
-$(OBJDIR)/AccessControlClass.o: $(ACCESSCONTROL_HOME)/AccessControlClass.cpp $(ACCESSCONTROL_INCL)
-	$(CC) $(CXXFLAGS) -c $< -o $(OBJDIR)/AccessControlClass.o
-$(OBJDIR)/AccessControlStateMachine.o: $(ACCESSCONTROL_HOME)/AccessControlStateMachine.cpp $(ACCESSCONTROL_INCL)
-	$(CC) $(CXXFLAGS) -c $< -o $(OBJDIR)/AccessControlStateMachine.o
-
-
-SVC_INHERITANCE_INCL =  $(ACCESSCONTROL_INCL) 
-
-
-
-
-
-
-
 clean:
-	rm -f $(OBJDIR)/*.o  \
-	$(OBJDIR)/*.so.o \
+	rm -f $(OBJS_DIR)/*.o  \
+	$(OBJS_DIR)/*.so.o \
 	bin/$(BIN_DIR)/$(CLASS) \
 	core
 
@@ -278,4 +230,3 @@ tag:
 
 show_tag:
 	@cvstag -d 
-#PROTECTED REGION END#

@@ -9,54 +9,9 @@ static const char *RcsId = "$Header$";
 //
 // $Author$
 //
-// Copyright (C) :      2004,2005,2006,2007,2008,2009,2010
-//						European Synchrotron Radiation Facility
-//                      BP 220, Grenoble 38043
-//                      FRANCE
-//
-// This file is part of Tango.
-//
-// Tango is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// Tango is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with Tango.  If not, see <http://www.gnu.org/licenses/>.
-//
 // $Revision$
 //
 // $Log$
-// Revision 1.14  2009/09/11 10:46:09  taurel
-// - Set the MySQL reconnection flag only for MySQL V5
-//
-// Revision 1.13  2009/09/10 07:48:55  taurel
-// - The database name can now be defined using a configure option
-//
-// Revision 1.12  2009/05/11 08:56:58  taurel
-// Fix bug in previous change !!
-//
-// Revision 1.11  2009/05/11 07:29:10  taurel
-// - Now, the my.cnf file is correctly taken into account
-//
-// Revision 1.10  2009/04/28 16:34:32  taurel
-// - Add a mysql_option() call to take the my.cnf file into account
-//
-// Revision 1.9  2009/04/04 18:46:28  taurel
-// Fixed warnings when compiled with gcc 4.3
-//
-// Revision 1.8  2009/04/04 17:42:36  taurel
-// Device now inherits from Device_4Impl.
-// Environment variable got from Tango library (To manage tangorc files)
-//
-// Revision 1.7  2009/02/06 08:07:19  pascal_verdier
-// Running on same host than mysql test removed.
-//
 // Revision 1.6  2008/10/08 09:28:22  pascal_verdier
 // GetAllowedCommandClassList command added.
 //
@@ -75,11 +30,12 @@ static const char *RcsId = "$Header$";
 // Revision 1.1.1.1  2006/09/15 11:55:43  pascal_verdier
 // Initial Revision
 //
+//
+// copyleft :     European Synchrotron Radiation Facility
+//                BP 220, Grenoble 38043
+//                FRANCE
+//
 //-=============================================================================
-
-#if HAVE_CONFIG_H
-#include <ac_config.h>
-#endif
 
 #include <tango.h>
 #include <TangoAccessControl.h>
@@ -113,14 +69,9 @@ void TangoAccessControl::mysql_connection()
 {
 	// Initialise variables to default values
 	//--------------------------------------------
-	
-#ifndef HAVE_CONFIG_H
 	char *database = (char *)"tango";
-#else
-	char *database = (char *)TANGO_DB_NAME;
-#endif
-	const char *mysql_user = NULL;
-	const char *mysql_password = NULL;
+	char *mysql_user = (char *)"root";
+	char *mysql_password = (char *)"";
 
 	WARN_STREAM << "AccessControl::init_device() create database device " << device_name << endl;
 
@@ -128,24 +79,17 @@ void TangoAccessControl::mysql_connection()
 
 	mysql_init(&mysql);
 
-	DummyDev d;
-	string my_user,my_password;
-	
-	if (d.get_env_var("MYSQL_USER",my_user) != -1)
+	if (getenv("MYSQL_USER") != NULL)
 	{
-		mysql_user = my_user.c_str();
+		mysql_user = getenv("MYSQL_USER");
 	}
-	if (d.get_env_var("MYSQL_PASSWORD",my_password) != -1)
+	if (getenv("MYSQL_PASSWORD") != NULL)
 	{
-		mysql_password = my_password.c_str();
+		mysql_password = getenv("MYSQL_PASSWORD");
 	}
-	
 	WARN_STREAM << "AccessControl::init_device() mysql database user =  " << mysql_user 
 	            << " , password = " << mysql_password << endl;
 
-	mysql_options(&mysql,MYSQL_READ_DEFAULT_GROUP,"client");
-
-#if   (MYSQL_VERSION_ID > 50000)	
 	if(mysql_get_client_version() >= 50013)
 	{
 		my_bool my_auto_reconnect=1;
@@ -154,9 +98,8 @@ void TangoAccessControl::mysql_connection()
 		else
 			WARN_STREAM << "AccessControl: set mysql auto reconnect to true" << endl;
 	}
-#endif
 		
-	if (!mysql_real_connect(&mysql, NULL, mysql_user, mysql_password, database, 0, NULL, 0))
+	if (!mysql_real_connect(&mysql, "localhost", mysql_user, mysql_password, database, 0, NULL, 0))
 	{
 		TangoSys_MemStream out_stream;
 		out_stream << "Failed to connect to TANGO database (error = "
