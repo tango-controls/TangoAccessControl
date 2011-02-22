@@ -23,9 +23,6 @@ static const char *RcsId = "$Id$";
 // CVS only:
 // $Source$
 // $Log$
-// Revision 1.2  2011/02/11 14:20:27  pascal_verdier
-// GetAccessForMutiIP  command added.
-//
 // Revision 1.1  2011/02/11 13:43:12  pascal_verdier
 // Pogo-7 compatibility.
 //
@@ -63,7 +60,7 @@ static const char *RcsId = "$Id$";
 //  AddDeviceForUser      |  Inherited (no method)
 //  CloneUser             |  Inherited (no method)
 //  GetAccess             |  Inherited (no method)
-//  GetAccessForMultiIP   |  Inherited (no method)
+//  GetAccessForMutiIP    |  Inherited (no method)
 //  GetAddressByUser      |  Inherited (no method)
 //  GetAllowedCommands    |  Inherited (no method)
 //  GetDeviceByUser       |  Inherited (no method)

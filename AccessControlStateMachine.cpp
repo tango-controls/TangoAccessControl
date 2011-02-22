@@ -20,9 +20,6 @@ static const char *RcsId = "$Id$";
 // CVS only:
 // $Source$
 // $Log$
-// Revision 1.4  2011/02/11 14:20:27  pascal_verdier
-// GetAccessForMutiIP  command added.
-//
 // Revision 1.3  2011/02/11 13:43:12  pascal_verdier
 // Pogo-7 compatibility.
 //
@@ -153,18 +150,18 @@ bool AccessControl::is_GetAccess_allowed(const CORBA::Any &any)
 
 //--------------------------------------------------------
 /**
- *	Method      : AccessControl::is_GetAccessForMultiIPState_allowed()
- *	Description : Execution allowed for GetAccessForMultiIP command.
+ *	Method      : AccessControl::is_GetAccessForMutiIPState_allowed()
+ *	Description : Execution allowed for GetAccessForMutiIP command.
  */
 //--------------------------------------------------------
 
-bool AccessControl::is_GetAccessForMultiIP_allowed(const CORBA::Any &any)
+bool AccessControl::is_GetAccessForMutiIP_allowed(const CORBA::Any &any)
 {
-	//	Not any excluded states for GetAccessForMultiIP command.
+	//	Not any excluded states for GetAccessForMutiIP command.
 
-	/*----- PROTECTED REGION ID(AccessControl::GetAccessForMultiIPStateAllowed) ENABLED START -----*/
+	/*----- PROTECTED REGION ID(AccessControl::GetAccessForMutiIPStateAllowed) ENABLED START -----*/
 
-	/*----- PROTECTED REGION END -----*/	//	AccessControl::GetAccessForMultiIPStateAllowed
+	/*----- PROTECTED REGION END -----*/	//	AccessControl::GetAccessForMutiIPStateAllowed
 
 	return true;
 }
