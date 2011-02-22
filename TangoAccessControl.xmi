@@ -4,7 +4,7 @@
     <description description="This class is a conceate class inherited from AccessControl abstract class.&lt;Br>&#xA;&lt;Br>&#xA;This class defines how to manage the TANGO access control.&lt;Br>&#xA;It implements commands for tool to defines access for users, devices and IP addresses.&lt;Br>&#xA;It implements also commands used by client API to check access for specified user, device and address.&lt;Br>&#xA;And it implements register and unregister it as TANGO service." title="Tango Access Control Management" sourcePath="/mntdirect/_segfs/tango/cppserver/admin/TangoAccessControl" language="Cpp" filestogenerate="XMI   file,Code files" hasAbstractCommand="false" hasAbstractAttribute="false">
       <inheritances classname="AccessControl" sourcePath="/segfs/tango/templates/AbstractClasses/AccessControl"/>
       <identification contact="at esrf.fr - accelerator-control" author="accelerator-control" emailDomain="esrf.fr" classFamily="System" siteSpecific="" platform="All Platforms" bus="Not Applicable" manufacturer="none" reference=""/>
-      <comments htmlInheritance="         &lt;ul>&lt;li>TangoAccessControl&lt;/l>         &lt;/ul>" commandsTable="//================================================================&#xA;//&#xA;//  The following table gives the correspondence&#xA;//  between command and method names.&#xA;//&#xA;//  Command name                |  Method name&#xA;//----------------------------------------------------------------&#xA;//  State                       |  dev_state&#xA;//  Status                      |  dev_status&#xA;//  AddAddressForUser           |  add_address_for_user&#xA;//  AddDeviceForUser            |  add_device_for_user&#xA;//  CloneUser                   |  clone_user&#xA;//  GetAccess                   |  get_access&#xA;//  GetAccessForMultiIP         |  Inherited (no method)&#xA;//  GetAddressByUser            |  get_address_by_user&#xA;//  GetAllowedCommandClassList  |  get_allowed_command_class_list&#xA;//  GetAllowedCommands          |  get_allowed_commands&#xA;//  GetDeviceByUser             |  get_device_by_user&#xA;//  GetDeviceClass              |  get_device_class&#xA;//  GetUsers                    |  get_users&#xA;//  RegisterService             |  register_service&#xA;//  RemoveAddressForUser        |  remove_address_for_user&#xA;//  RemoveDeviceForUser         |  remove_device_for_user&#xA;//  RemoveUser                  |  remove_user&#xA;//  UnregisterService           |  unregister_service&#xA;//================================================================"/>
+      <comments htmlInheritance="         &lt;ul>&lt;li>TangoAccessControl&lt;/l>         &lt;/ul>" commandsTable="//================================================================&#xA;//&#xA;//  The following table gives the correspondence&#xA;//  between command and method names.&#xA;//&#xA;//  Command name                |  Method name&#xA;//----------------------------------------------------------------&#xA;//  State                       |  dev_state&#xA;//  Status                      |  dev_status&#xA;//  AddAddressForUser           |  add_address_for_user&#xA;//  AddDeviceForUser            |  add_device_for_user&#xA;//  CloneUser                   |  clone_user&#xA;//  GetAccess                   |  get_access&#xA;//  GetAddressByUser            |  get_address_by_user&#xA;//  GetAllowedCommands          |  get_allowed_commands&#xA;//  GetAllowedCommandClassList  |  get_allowed_command_class_list&#xA;//  GetDeviceByUser             |  get_device_by_user&#xA;//  GetDeviceClass              |  get_device_class&#xA;//  GetUsers                    |  get_users&#xA;//  RemoveAddressForUser        |  remove_address_for_user&#xA;//  RemoveDeviceForUser         |  remove_device_for_user&#xA;//  RemoveUser                  |  remove_user&#xA;//  RegisterService             |  register_service&#xA;//  UnregisterService           |  unregister_service&#xA;//================================================================"/>
     </description>
     <commands name="State" description="This command gets the device state (stored in its &lt;i>device_state&lt;/i> data member) and returns it to the caller." execMethod="dev_state" displayLevel="OPERATOR">
       <argin description="none.">
@@ -63,20 +63,21 @@
       </argout>
       <status abstract="true" inherited="true" concrete="true" concreteHere="true"/>
     </commands>
-    <commands name="GetAccessForMultiIP" description="Check access for specified user, device and addresses&#xA;     and returns access (read or write)." execMethod="get_access_for_multi_ip" displayLevel="OPERATOR">
-      <argin description="[0] - User name&#xA;[1] - Device&#xA;[2] - IP Address #1&#xA;[3] - IP Address #2&#xA;[4] - IP Address #3&#xA;[5] - IP Address #4&#xA;......">
-        <type xsi:type="pogoDsl:StringArrayType"/>
-      </argin>
-      <argout description="access for specified inputs  read/write.">
-        <type xsi:type="pogoDsl:StringType"/>
-      </argout>
-      <status abstract="true" inherited="true" concrete="false" concreteHere="true"/>
-    </commands>
     <commands name="GetAddressByUser" description="Returns address list  found for the specified user." execMethod="get_address_by_user" displayLevel="OPERATOR">
       <argin description="user name.">
         <type xsi:type="pogoDsl:StringType"/>
       </argin>
       <argout description="Addresses found for the specified user.">
+        <type xsi:type="pogoDsl:StringArrayType"/>
+      </argout>
+      <status abstract="true" inherited="true" concrete="true" concreteHere="true"/>
+      <excludedStates>FAULT</excludedStates>
+    </commands>
+    <commands name="GetAllowedCommands" description="Returns allowed command list found in database for specified device&#xA;It search the class of the specified device and then uses the class property &lt;b>AllowedAccessCmd&lt;/b>" execMethod="get_allowed_commands" displayLevel="OPERATOR">
+      <argin description="Device name OR Device Class name">
+        <type xsi:type="pogoDsl:StringType"/>
+      </argin>
+      <argout description="Allowed commands found in database for specified device">
         <type xsi:type="pogoDsl:StringArrayType"/>
       </argout>
       <status abstract="true" inherited="true" concrete="true" concreteHere="true"/>
@@ -90,16 +91,6 @@
         <type xsi:type="pogoDsl:StringArrayType"/>
       </argout>
       <status abstract="false" inherited="true" concrete="true" concreteHere="true"/>
-    </commands>
-    <commands name="GetAllowedCommands" description="Returns allowed command list found in database for specified device&#xA;It search the class of the specified device and then uses the class property &lt;b>AllowedAccessCmd&lt;/b>" execMethod="get_allowed_commands" displayLevel="OPERATOR">
-      <argin description="Device name OR Device Class name">
-        <type xsi:type="pogoDsl:StringType"/>
-      </argin>
-      <argout description="Allowed commands found in database for specified device">
-        <type xsi:type="pogoDsl:StringArrayType"/>
-      </argout>
-      <status abstract="true" inherited="true" concrete="true" concreteHere="true"/>
-      <excludedStates>FAULT</excludedStates>
     </commands>
     <commands name="GetDeviceByUser" description="Returns devices and rights found for the specified user." execMethod="get_device_by_user" displayLevel="OPERATOR">
       <argin description="user name.">
@@ -131,15 +122,6 @@
       <status abstract="true" inherited="true" concrete="true" concreteHere="true"/>
       <excludedStates>FAULT</excludedStates>
     </commands>
-    <commands name="RegisterService" description="Register device as a TANGO service." execMethod="register_service" displayLevel="OPERATOR">
-      <argin description="">
-        <type xsi:type="pogoDsl:VoidType"/>
-      </argin>
-      <argout description="">
-        <type xsi:type="pogoDsl:VoidType"/>
-      </argout>
-      <status abstract="true" inherited="true" concrete="true" concreteHere="true"/>
-    </commands>
     <commands name="RemoveAddressForUser" description="Remove an address for the specified user.." execMethod="remove_address_for_user" displayLevel="OPERATOR">
       <argin description="user name, address">
         <type xsi:type="pogoDsl:StringArrayType"/>
@@ -169,6 +151,15 @@
       </argout>
       <status abstract="true" inherited="true" concrete="true" concreteHere="true"/>
       <excludedStates>FAULT</excludedStates>
+    </commands>
+    <commands name="RegisterService" description="Register device as a TANGO service." execMethod="register_service" displayLevel="OPERATOR">
+      <argin description="">
+        <type xsi:type="pogoDsl:VoidType"/>
+      </argin>
+      <argout description="">
+        <type xsi:type="pogoDsl:VoidType"/>
+      </argout>
+      <status abstract="true" inherited="true" concrete="true" concreteHere="true"/>
     </commands>
     <commands name="UnregisterService" description="Unregister device as a TANGO service." execMethod="unregister_service" displayLevel="OPERATOR">
       <argin description="">
