@@ -58,7 +58,7 @@ static const char *RcsId = "$Id$";
 int main(int argc,char *argv[])
 {
 
-	Tango::Util *tg;
+	Tango::Util *tg = NULL;
 	try
 	{
 		// Initialise the device server

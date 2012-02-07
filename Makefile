@@ -51,9 +51,10 @@
 
 CLASS      = TangoAccessControl
 MAJOR_VERS = 2
-MINOR_VERS = 2
+MINOR_VERS = 3
 RELEASE    = Release_$(MAJOR_VERS)_$(MINOR_VERS)
 OS         = $(shell /csadmin/common/scripts/get_os)
+
 #-----------------------------------------
 #	Set default home directories
 #-----------------------------------------
@@ -139,17 +140,18 @@ LFLAGS =  $(DEBUG) $(LIB_DIRS)  		\
 endif
 
 ifdef linux
-CXXFLAGS =  $(DEBUG) -D_REENTRANT $(INCLUDE_DIRS)
-LFLAGS =  $(DEBUG) $(LIB_DIRS)  		\
+CXXFLAGS =  $(DEBUG) -D_REENTRANT $(INCLUDE_DIRS) \
+			-Wall -Wextra -D_FORTIFY_SOURCE=2 -O1 \
+		    -fpie -fstack-protector
+LFLAGS =  $(DEBUG) -Wl,-z,now -Wl,-z,relro -pie $(LIB_DIRS)  		\
 				-ltango			\
 				-llog4tango		\
 				-lomniORB4 		\
 				-lomniDynamic4	\
 				-lomnithread	\
 				-lCOS4			\
-				-lmysqlclient	\
-				-lz				\
-				-ldl -lpthread
+				-lmysqlclient_r	\
+				-ldl -lpthread 
 endif
 
 

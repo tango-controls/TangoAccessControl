@@ -110,9 +110,8 @@ TangoAccessControlClass::TangoAccessControlClass(string &s):AccessControl_ns::Ac
 	get_class_property();
 	write_class_property();
 
-	/*----- PROTECTED REGION ID(TangoAccessControl::Class::constructor) ENABLED START -----*/
-	
-
+	/*----- PROTECTED REGION ID(TangoAccessControl::Class::constructor) ENABLED START -----*/	
+	string str_rcs(RcsId);
 	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::Class::constructor
 
 	cout2 << "Leaving TangoAccessControlClass constructor" << endl;
@@ -312,7 +311,7 @@ CORBA::Any *GetAddressByUserClass::execute(Tango::DeviceImpl *device, const CORB
  *	returns The command output data (packed in the Any object)
  */
 //--------------------------------------------------------
-CORBA::Any *GetAllowedCommandClassListClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
+CORBA::Any *GetAllowedCommandClassListClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
 {
 	cout2 << "GetAllowedCommandClassListClass::execute(): arrived" << endl;
 
@@ -387,7 +386,7 @@ CORBA::Any *GetDeviceClassClass::execute(Tango::DeviceImpl *device, const CORBA:
  *	returns The command output data (packed in the Any object)
  */
 //--------------------------------------------------------
-CORBA::Any *GetUsersClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
+CORBA::Any *GetUsersClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
 {
 	cout2 << "GetUsersClass::execute(): arrived" << endl;
 
@@ -405,7 +404,7 @@ CORBA::Any *GetUsersClass::execute(Tango::DeviceImpl *device, const CORBA::Any &
  *	returns The command output data (packed in the Any object)
  */
 //--------------------------------------------------------
-CORBA::Any *RegisterServiceClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
+CORBA::Any *RegisterServiceClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
 {
 	cout2 << "RegisterServiceClass::execute(): arrived" << endl;
 
@@ -484,7 +483,7 @@ CORBA::Any *RemoveUserClass::execute(Tango::DeviceImpl *device, const CORBA::Any
  *	returns The command output data (packed in the Any object)
  */
 //--------------------------------------------------------
-CORBA::Any *UnregisterServiceClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
+CORBA::Any *UnregisterServiceClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
 {
 	cout2 << "UnregisterServiceClass::execute(): arrived" << endl;
 
