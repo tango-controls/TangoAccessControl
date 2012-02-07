@@ -102,7 +102,7 @@ AccessControlClass::AccessControlClass(string &s):DeviceClass(s)
 	write_class_property();
 
 	/*----- PROTECTED REGION ID(AccessControl::Class::constructor) ENABLED START -----*/
-
+	string str_rcs(RcsId);
 	/*----- PROTECTED REGION END -----*/	//	AccessControl::Class::constructor
 
 	cout2 << "Leaving AccessControlClass constructor" << endl;
@@ -292,7 +292,7 @@ void AccessControlClass::write_class_property()
  * @param	*devlist_ptr	The device name list
  */
 //--------------------------------------------------------
-void AccessControlClass::device_factory(const Tango::DevVarStringArray *devlist_ptr)
+void AccessControlClass::device_factory(TANGO_UNUSED(const Tango::DevVarStringArray *devlist_ptr))
 {
 
 
@@ -310,7 +310,7 @@ void AccessControlClass::device_factory(const Tango::DevVarStringArray *devlist_
  *	              and store them in the attribute list
  */
 //--------------------------------------------------------
-void AccessControlClass::attribute_factory(vector<Tango::Attr *> &att_list)
+void AccessControlClass::attribute_factory(TANGO_UNUSED(vector<Tango::Attr *> &att_list))
 {
 	/*----- PROTECTED REGION ID(AccessControl::Class::attribute_factory_before) ENABLED START -----*/
 

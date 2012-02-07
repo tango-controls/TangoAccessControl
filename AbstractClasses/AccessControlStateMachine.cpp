@@ -96,7 +96,7 @@ namespace AccessControl_ns
  */
 //--------------------------------------------------------
 
-bool AccessControl::is_AddAddressForUser_allowed(const CORBA::Any &any)
+bool AccessControl::is_AddAddressForUser_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
 	if (	//	Compare device state with not allowed states for command 
 		get_state() == Tango::FAULT)
@@ -118,7 +118,7 @@ bool AccessControl::is_AddAddressForUser_allowed(const CORBA::Any &any)
  */
 //--------------------------------------------------------
 
-bool AccessControl::is_AddDeviceForUser_allowed(const CORBA::Any &any)
+bool AccessControl::is_AddDeviceForUser_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
 	if (	//	Compare device state with not allowed states for command 
 		get_state() == Tango::FAULT)
@@ -140,7 +140,7 @@ bool AccessControl::is_AddDeviceForUser_allowed(const CORBA::Any &any)
  */
 //--------------------------------------------------------
 
-bool AccessControl::is_CloneUser_allowed(const CORBA::Any &any)
+bool AccessControl::is_CloneUser_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
 	if (	//	Compare device state with not allowed states for command 
 		get_state() == Tango::FAULT)
@@ -162,7 +162,7 @@ bool AccessControl::is_CloneUser_allowed(const CORBA::Any &any)
  */
 //--------------------------------------------------------
 
-bool AccessControl::is_GetAccess_allowed(const CORBA::Any &any)
+bool AccessControl::is_GetAccess_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
 	//	Not any excluded states for GetAccess command.
 
@@ -180,7 +180,7 @@ bool AccessControl::is_GetAccess_allowed(const CORBA::Any &any)
  */
 //--------------------------------------------------------
 
-bool AccessControl::is_GetAccessForMultiIP_allowed(const CORBA::Any &any)
+bool AccessControl::is_GetAccessForMultiIP_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
 	//	Not any excluded states for GetAccessForMultiIP command.
 
@@ -198,7 +198,7 @@ bool AccessControl::is_GetAccessForMultiIP_allowed(const CORBA::Any &any)
  */
 //--------------------------------------------------------
 
-bool AccessControl::is_GetAddressByUser_allowed(const CORBA::Any &any)
+bool AccessControl::is_GetAddressByUser_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
 	if (	//	Compare device state with not allowed states for command 
 		get_state() == Tango::FAULT)
@@ -220,7 +220,7 @@ bool AccessControl::is_GetAddressByUser_allowed(const CORBA::Any &any)
  */
 //--------------------------------------------------------
 
-bool AccessControl::is_GetAllowedCommands_allowed(const CORBA::Any &any)
+bool AccessControl::is_GetAllowedCommands_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
 	if (	//	Compare device state with not allowed states for command 
 		get_state() == Tango::FAULT)
@@ -242,7 +242,7 @@ bool AccessControl::is_GetAllowedCommands_allowed(const CORBA::Any &any)
  */
 //--------------------------------------------------------
 
-bool AccessControl::is_GetDeviceByUser_allowed(const CORBA::Any &any)
+bool AccessControl::is_GetDeviceByUser_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
 	if (	//	Compare device state with not allowed states for command 
 		get_state() == Tango::FAULT)
@@ -264,7 +264,7 @@ bool AccessControl::is_GetDeviceByUser_allowed(const CORBA::Any &any)
  */
 //--------------------------------------------------------
 
-bool AccessControl::is_GetDeviceClass_allowed(const CORBA::Any &any)
+bool AccessControl::is_GetDeviceClass_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
 	if (	//	Compare device state with not allowed states for command 
 		get_state() == Tango::FAULT)
@@ -286,7 +286,7 @@ bool AccessControl::is_GetDeviceClass_allowed(const CORBA::Any &any)
  */
 //--------------------------------------------------------
 
-bool AccessControl::is_GetUsers_allowed(const CORBA::Any &any)
+bool AccessControl::is_GetUsers_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
 	if (	//	Compare device state with not allowed states for command 
 		get_state() == Tango::FAULT)
@@ -308,7 +308,7 @@ bool AccessControl::is_GetUsers_allowed(const CORBA::Any &any)
  */
 //--------------------------------------------------------
 
-bool AccessControl::is_RegisterService_allowed(const CORBA::Any &any)
+bool AccessControl::is_RegisterService_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
 	//	Not any excluded states for RegisterService command.
 
@@ -326,7 +326,7 @@ bool AccessControl::is_RegisterService_allowed(const CORBA::Any &any)
  */
 //--------------------------------------------------------
 
-bool AccessControl::is_RemoveAddressForUser_allowed(const CORBA::Any &any)
+bool AccessControl::is_RemoveAddressForUser_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
 	if (	//	Compare device state with not allowed states for command 
 		get_state() == Tango::FAULT)
@@ -348,7 +348,7 @@ bool AccessControl::is_RemoveAddressForUser_allowed(const CORBA::Any &any)
  */
 //--------------------------------------------------------
 
-bool AccessControl::is_RemoveDeviceForUser_allowed(const CORBA::Any &any)
+bool AccessControl::is_RemoveDeviceForUser_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
 	if (	//	Compare device state with not allowed states for command 
 		get_state() == Tango::FAULT)
@@ -370,7 +370,7 @@ bool AccessControl::is_RemoveDeviceForUser_allowed(const CORBA::Any &any)
  */
 //--------------------------------------------------------
 
-bool AccessControl::is_RemoveUser_allowed(const CORBA::Any &any)
+bool AccessControl::is_RemoveUser_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
 	if (	//	Compare device state with not allowed states for command 
 		get_state() == Tango::FAULT)
@@ -392,7 +392,7 @@ bool AccessControl::is_RemoveUser_allowed(const CORBA::Any &any)
  */
 //--------------------------------------------------------
 
-bool AccessControl::is_UnregisterService_allowed(const CORBA::Any &any)
+bool AccessControl::is_UnregisterService_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
 	//	Not any excluded states for UnregisterService command.
 
