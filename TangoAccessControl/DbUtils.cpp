@@ -1,4 +1,4 @@
-static const char *RcsId = "$Header$";
+static const char *RcsId = "$Id$";
 //+=============================================================================
 //
 // file :         DbUtils.cpp
@@ -150,9 +150,13 @@ void TangoAccessControl::mysql_connection()
 	{
 		my_bool my_auto_reconnect=1;
 		if (mysql_options(&mysql,MYSQL_OPT_RECONNECT,&my_auto_reconnect) !=0)
+		{
 			ERROR_STREAM << "AccessControl: error setting mysql auto reconnection: " << mysql_error(&mysql) << endl;
+		}		
 		else
+		{
 			WARN_STREAM << "AccessControl: set mysql auto reconnect to true" << endl;
+		}
 	}
 #endif
 		
@@ -426,7 +430,7 @@ int	TangoAccessControl::mini_nb_stars(vector<AccessStruct> v)
 {
 	int nb  = 3;
 	int	idx = 0;
-	for(int i=0 ; i<v.size() ; i++)
+	for(unsigned int i=0 ; i<v.size() ; i++)
 	{
 		int n = nb_chars(v[i].device, '*');
 		if (n<nb)
@@ -460,7 +464,7 @@ void TangoAccessControl::register_service(string servicename, string instname, s
 	//	Search if already exists
 	bool	exists = false;
 	vector<string>::iterator	pos = services.begin();
-	for (int i=0 ; i<services.size() ; i++, pos++)
+	for (unsigned int i=0 ; i<services.size() ; i++, pos++)
 	{
 		string::size_type	spos = services[i].find(':');
 		if (spos != string::npos)	// found
@@ -503,7 +507,7 @@ void TangoAccessControl::unregister_service(string servicename, string instname,
 
 	//	Search if exists
 	vector<string>::iterator	pos = services.begin();
-	for (int i=0 ; i<services.size() ; i++, pos++)
+	for (unsigned int i=0 ; i<services.size() ; i++, pos++)
 	{
 		string	s(services[i]);
 		transform(s.begin(), s.end(), s.begin(), ::tolower);
