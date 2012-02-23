@@ -9,7 +9,7 @@ static const char *RcsId = "$Id$";
 //
 // $Author$
 //
-// Copyright (C) :      2004,2005,2006,2007,2008,2009,2010
+// Copyright (C) :      2004,2005,2006,2007,2008,2009,2010,2011,2012
 //						European Synchrotron Radiation Facility
 //                      BP 220, Grenoble 38043
 //                      FRANCE
@@ -30,50 +30,6 @@ static const char *RcsId = "$Id$";
 // along with Tango.  If not, see <http://www.gnu.org/licenses/>.
 //
 // $Revision$
-//
-// $Log$
-// Revision 1.14  2009/09/11 10:46:09  taurel
-// - Set the MySQL reconnection flag only for MySQL V5
-//
-// Revision 1.13  2009/09/10 07:48:55  taurel
-// - The database name can now be defined using a configure option
-//
-// Revision 1.12  2009/05/11 08:56:58  taurel
-// Fix bug in previous change !!
-//
-// Revision 1.11  2009/05/11 07:29:10  taurel
-// - Now, the my.cnf file is correctly taken into account
-//
-// Revision 1.10  2009/04/28 16:34:32  taurel
-// - Add a mysql_option() call to take the my.cnf file into account
-//
-// Revision 1.9  2009/04/04 18:46:28  taurel
-// Fixed warnings when compiled with gcc 4.3
-//
-// Revision 1.8  2009/04/04 17:42:36  taurel
-// Device now inherits from Device_4Impl.
-// Environment variable got from Tango library (To manage tangorc files)
-//
-// Revision 1.7  2009/02/06 08:07:19  pascal_verdier
-// Running on same host than mysql test removed.
-//
-// Revision 1.6  2008/10/08 09:28:22  pascal_verdier
-// GetAllowedCommandClassList command added.
-//
-// Revision 1.5  2008/09/25 07:38:01  taurel
-// - Fix some bugs detected when porting the stuff to C++
-//
-// Revision 1.4  2006/09/28 08:59:58  pascal_verdier
-// Check of host where running added.
-//
-// Revision 1.3  2006/09/20 07:22:49  pascal_verdier
-// Another bug fixed in GetAccess command.
-//
-// Revision 1.2  2006/09/19 12:38:48  pascal_verdier
-// Bug in GetAccess fixed.
-//
-// Revision 1.1.1.1  2006/09/15 11:55:43  pascal_verdier
-// Initial Revision
 //
 //-=============================================================================
 
@@ -121,6 +77,8 @@ void TangoAccessControl::mysql_connection()
 #endif
 	const char *mysql_user = NULL;
 	const char *mysql_password = NULL;
+	const char *mysql_host = NULL;
+	unsigned int port_num = 0;
 
 	WARN_STREAM << "AccessControl::init_device() create database device " << device_name << endl;
 
@@ -129,7 +87,8 @@ void TangoAccessControl::mysql_connection()
 	mysql_init(&mysql);
 
 	DummyDev d;
-	string my_user,my_password;
+	string my_user,my_password,my_host;
+	string ho,port;
 	
 	if (d.get_env_var("MYSQL_USER",my_user) != -1)
 	{
@@ -138,6 +97,23 @@ void TangoAccessControl::mysql_connection()
 	if (d.get_env_var("MYSQL_PASSWORD",my_password) != -1)
 	{
 		mysql_password = my_password.c_str();
+	}
+	if (d.get_env_var("MYSQL_HOST",my_host) != -1)
+	{
+		string::size_type pos = my_host.find(':');
+		if (pos != string::npos)
+		{
+			ho = my_host.substr(0,pos);
+			pos++;
+			port = my_host.substr(pos);
+			stringstream ss(port);
+			ss >> port_num;
+			if (!ss)
+				port_num = 0;
+			mysql_host = ho.c_str();
+		}
+		else
+			mysql_host = my_host.c_str();
 	}
 	
 	WARN_STREAM << "AccessControl::init_device() mysql database user =  " << mysql_user 
@@ -160,7 +136,7 @@ void TangoAccessControl::mysql_connection()
 	}
 #endif
 		
-	if (!mysql_real_connect(&mysql, NULL, mysql_user, mysql_password, database, 0, NULL, 0))
+	if (!mysql_real_connect(&mysql, mysql_host, mysql_user, mysql_password, database, port_num, NULL, 0))
 	{
 		TangoSys_MemStream out_stream;
 		out_stream << "Failed to connect to TANGO database (error = "
