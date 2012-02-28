@@ -5,7 +5,9 @@ INCLUDES = -I$(top_srcdir)/lib/cpp/client \
            -I$(top_srcdir)/lib/cpp/log4tango/include \
            -I$(top_builddir)/lib/cpp/log4tango/include \
 		   -I$(top_srcdir)/cppserver/AbstractClass/AccessControl \
-		   $(MYSQLCLIENT_CFLAGS)
+		   $(MYSQLCLIENT_CFLAGS) $(LIBZMQ_CFLAGS)
+
+AM_CXXFLAGS= @CPP_ELEVEN@
 
 bin_PROGRAMS=TangoAccessControl
 
@@ -21,5 +23,5 @@ TangoAccessControl_SOURCES=ClassFactory.cpp     		\
 
 TangoAccessControl_LDADD = -L$(top_builddir)/lib/cpp/server -ltango \
         					-L$(top_builddir)/lib/cpp/log4tango/src -llog4tango \
-							$(MYSQLCLIENT_LDFLAGS) $(MYSQLCLIENT_LIBS) \
+							$(MYSQLCLIENT_LDFLAGS) $(MYSQLCLIENT_LIBS) $(LIBZMQ_LIBS) \
 							../AbstractClass/AccessControl/libaccesscontrol.la
