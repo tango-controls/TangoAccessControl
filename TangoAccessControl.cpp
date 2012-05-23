@@ -493,7 +493,7 @@ Tango::DevString TangoAccessControl::get_access(const Tango::DevVarStringArray *
 				get_access_for_user_address(user, ip_add);
 
 	//	Check if first pass has results
-	if (as_read.size()==0)
+	if (as_read.empty()==true)
 	{
 		argout = CORBA::string_dup("read");
 		return argout;
@@ -556,7 +556,7 @@ Tango::DevString TangoAccessControl::get_access_for_multi_ip(const Tango::DevVar
 					get_access_for_user_address(user, ip_add);
 
 		//	Check if first pass has results
-		if (as_read.size()>0)
+		if (as_read.empty()==false)
 		{
 			ip_found = true;
 			/* 
@@ -612,9 +612,10 @@ Tango::DevVarStringArray *TangoAccessControl::get_address_by_user(Tango::DevStri
 	int	n_rows = mysql_num_rows(result);
 
 	argout = new Tango::DevVarStringArray;
-	int		nb_col = 1;
+
 	if (n_rows > 0)
 	{
+		int nb_col = 1;
 		argout->length(n_rows*nb_col);
 		int		nb=0;
 		for (int i=0; i<n_rows; i++)
@@ -760,9 +761,11 @@ Tango::DevVarStringArray *TangoAccessControl::get_device_by_user(Tango::DevStrin
 	int	n_rows = mysql_num_rows(result);
 
 	argout = new Tango::DevVarStringArray;
-	int		nb_col = 2;
+
 	if (n_rows > 0)
 	{
+		int nb_col = 2;
+
 		argout->length(n_rows*nb_col);
 		int		nb=0;
 		for (int i=0; i<n_rows; i++)

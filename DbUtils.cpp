@@ -362,13 +362,13 @@ string TangoAccessControl::get_access_for_user_device(string &user, string &devi
 	}
 	mysql_free_result(result);
 
-	if (as_user.size()==0 && as_all.size()==0)
+	if (as_user.empty()==true && as_all.empty()==true)
 		return retval;
 	if (as_user.size()==1)
 		return as_user[0].rights;
 	//	check the minimum number of stars
 	int	idx = 0;
-	if (as_user.size()>0)
+	if (as_user.empty()==false)
 	{
 		idx = mini_nb_stars(as_user);
 		return as_user[idx].rights;
@@ -450,7 +450,7 @@ void TangoAccessControl::register_service(string servicename, string instname, s
 			if (s==target)
 			{
 				//	If exists --> replace
-				services.erase(pos);
+				pos = services.erase(pos);
 				services.insert(pos, new_line.str()); 
 				exists = true;
 			}
