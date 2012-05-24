@@ -84,7 +84,7 @@
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>
 ..;$(TANGO_ROOT)\win32_vc10\win32\include;$(TANGO_ROOT)\classes\win32_vc10\win32\include;TemplateAbstractPath;%(AdditionalIncludeDirectories)
-C;\tango_src\AbstractClasses\AccessControl;
+C:\tango_src\AbstractClasses\AccessControl;
       </AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_DEBUG;LOG4TANGO_HAS_DLL;TANGO_HAS_DLL;WIN32;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>false</StringPooling>
@@ -125,7 +125,7 @@ C;\tango_src\AbstractClasses\AccessControl;
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>
 ..;$(TANGO_ROOT)\win64_vc10\win64\include;$(TANGO_ROOT)\classes\win64_vc10\win64\include;TemplateAbstractPath;%(AdditionalIncludeDirectories)
-C;\tango_src\AbstractClasses\AccessControl;
+C:\tango_src\AbstractClasses\AccessControl;
       </AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_DEBUG;LOG4TANGO_HAS_DLL;TANGO_HAS_DLL;WIN32;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>false</StringPooling>
@@ -165,7 +165,7 @@ C;\tango_src\AbstractClasses\AccessControl;
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <AdditionalIncludeDirectories>
 ..;$(TANGO_ROOT)\win32_vc10\win32\include;$(TANGO_ROOT)\classes\win32_vc10\win32\include;TemplateAbstractPath;%(AdditionalIncludeDirectories)
-C;\tango_src\AbstractClasses\AccessControl;
+C:\tango_src\AbstractClasses\AccessControl;
       </AdditionalIncludeDirectories>
       <PreprocessorDefinitions>NDEBUG;LOG4TANGO_HAS_DLL;TANGO_HAS_DLL;WIN32;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
@@ -201,7 +201,7 @@ C;\tango_src\AbstractClasses\AccessControl;
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <AdditionalIncludeDirectories>
 ..;$(TANGO_ROOT)\win64_vc10\win64\include;$(TANGO_ROOT)\classes\win64_vc10\win64\include;TemplateAbstractPath;%(AdditionalIncludeDirectories)
-C;\tango_src\AbstractClasses\AccessControl;
+C:\tango_src\AbstractClasses\AccessControl;
       </AdditionalIncludeDirectories>
       <PreprocessorDefinitions>NDEBUG;LOG4TANGO_HAS_DLL;TANGO_HAS_DLL;WIN32;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -234,15 +234,15 @@ C;\tango_src\AbstractClasses\AccessControl;
 	<ClCompile Include="..\TangoAccessControlClass.cpp" />
 	<ClCompile Include="..\TangoAccessControlStateMachine.cpp" />
 	
-	<ClCompile Include="C;\tango_src\AbstractClasses\AccessControl/AccessControl.cpp" />
-	<ClCompile Include="C;\tango_src\AbstractClasses\AccessControl/AccessControlClass.cpp" />
-	<ClCompile Include="C;\tango_src\AbstractClasses\AccessControl/AccessControlStateMachine.cpp" />
+	<ClCompile Include="C:\tango_src\AbstractClasses\AccessControl/AccessControl.cpp" />
+	<ClCompile Include="C:\tango_src\AbstractClasses\AccessControl/AccessControlClass.cpp" />
+	<ClCompile Include="C:\tango_src\AbstractClasses\AccessControl/AccessControlStateMachine.cpp" />
   </ItemGroup>
   <ItemGroup>
 	<ClInclude Include="..\TangoAccessControl.h"></ClInclude>
 	<ClInclude Include="..\TangoAccessControlClass.h"></ClInclude>
-	<ClInclude Include="C;\tango_src\AbstractClasses\AccessControl/AccessControl.h"></ClInclude>
-	<ClInclude Include="C;\tango_src\AbstractClasses\AccessControl/AccessControlClass.h"></ClInclude>
+	<ClInclude Include="C:\tango_src\AbstractClasses\AccessControl/AccessControl.h"></ClInclude>
+	<ClInclude Include="C:\tango_src\AbstractClasses\AccessControl/AccessControlClass.h"></ClInclude>
 
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
