@@ -1,19 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-	<ClCompile Include="..\TangoAccessControl.cpp" />
-	<ClCompile Include="..\TangoAccessControlClass.cpp" />
-	<ClCompile Include="..\TangoAccessControlStateMachine.cpp" />
-	<ClCompile Include="C;\tango_src\AbstractClasses\AccessControl/AccessControl.cpp" />
-	<ClCompile Include="C;\tango_src\AbstractClasses\AccessControl/AccessControlClass.cpp" />
-	<ClCompile Include="C;\tango_src\AbstractClasses\AccessControl/AccessControlStateMachine.cpp" />
+    <ClCompile Include="..\TangoAccessControl.cpp" />
+    <ClCompile Include="..\TangoAccessControlClass.cpp" />
+    <ClCompile Include="..\TangoAccessControlStateMachine.cpp" />
+    <ClCompile Include="\tango_src\AbstractClasses\AccessControl/AccessControl.cpp" />
+    <ClCompile Include="\tango_src\AbstractClasses\AccessControl/AccessControlClass.cpp" />
+    <ClCompile Include="\tango_src\AbstractClasses\AccessControl/AccessControlStateMachine.cpp" />
+    <ClCompile Include="C:\tango_src\AbstractClasses\AccessControl/AccessControl.cpp" />
+    <ClCompile Include="C:\tango_src\AbstractClasses\AccessControl/AccessControlClass.cpp" />
+    <ClCompile Include="C:\tango_src\AbstractClasses\AccessControl/AccessControlStateMachine.cpp" />
+    <ClCompile Include="..\DbUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
-	<ClInclude Include="..\TangoAccessControl.h"><Filter>Header Files</Filter></ClInclude>
-	<ClInclude Include="..\TangoAccessControlClass.h"><Filter>Header Files</Filter></ClInclude>
-	<ClInclude Include="C;\tango_src\AbstractClasses\AccessControl/AccessControl.h"><Filter>Header Files</Filter></ClInclude>
-	<ClInclude Include="C;\tango_src\AbstractClasses\AccessControl/AccessControlClass.h"><Filter>Header Files</Filter></ClInclude>
-
+    <ClInclude Include="..\TangoAccessControl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TangoAccessControlClass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="\tango_src\AbstractClasses\AccessControl/AccessControl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="\tango_src\AbstractClasses\AccessControl/AccessControlClass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\tango_src\AbstractClasses\AccessControl/AccessControl.h" />
+    <ClInclude Include="C:\tango_src\AbstractClasses\AccessControl/AccessControlClass.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
