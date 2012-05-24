@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8,00"
+	Version="9,00"
 	Name="Class_lib"
 	ProjectGUID="{4C40E24A-E85F-4DD1-9E6D-F8B19CD7D2D4}"
 	RootNamespace="$(SolutionName)_lib"
 	Keyword="Win32Proj"
+	TargetFrameworkVersion="131072"
 	>
 	<Platforms>
 		<Platform
@@ -40,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..;&quot;$(TANGO_ABSTRACT)\AccessControl&quot;;&quot;$(TANGO_ROOT)\win32_vc8\win32\include&quot;;&quot;$(TANGO_ROOT)\classes\win32_vc8\win32\include&quot;;&quot;$(MySql_ROOT)\include&quot;"
+				AdditionalIncludeDirectories="..;C:\tango_src\ci\win32\include;&quot;$(TANGO_ABSTRACT)\AccessControl&quot;;&quot;$(TANGO_ROOT)\win32_vc9\win32\include&quot;;&quot;$(TANGO_ROOT)\classes\win32_vc9\win32\include&quot;;&quot;$(MySql_ROOT)\include&quot;"
 				PreprocessorDefinitions="WIN32;_WINSTATIC;_DEBUG;_CONSOLE"
 				StringPooling="false"
 				MinimalRebuild="true"
@@ -110,7 +111,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories="..;&quot;$(TANGO_ROOT)\win32_vc8\win32\include&quot;;&quot;$(TANGO_ROOT)\classes\win32_vc8\win32\include&quot;;&quot;/segfs/tango/templates/AbstractClasses/AccessControl&quot;"
+				AdditionalIncludeDirectories="..;C:\tango_src\ci\win32\include;&quot;$(TANGO_ROOT)\win32_vc9\win32\include&quot;;&quot;$(TANGO_ROOT)\classes\win32_vc9\win32\include&quot;;&quot;$(TANGO_ABSTRACT)\AbstractClasses\AccessControl&quot;;&quot;$(MySql_ROOT)\include&quot;"
 				PreprocessorDefinitions="WIN32;_WINSTATIC;NDEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -163,6 +164,18 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath="..\..\AbstractClasses\AccessControl\AccessControl.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\AbstractClasses\AccessControl\AccessControlClass.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\AbstractClasses\AccessControl\AccessControlStateMachine.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\DbUtils.cpp"
 				>
 			</File>
@@ -202,6 +215,14 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath="..\..\AbstractClasses\AccessControl\AccessControl.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\AbstractClasses\AccessControl\AccessControlClass.h"
+				>
+			</File>
 			<File
 				RelativePath="..\TangoAccessControl.h"
 				>
