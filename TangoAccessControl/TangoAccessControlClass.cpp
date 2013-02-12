@@ -65,7 +65,7 @@ static const char *HttpServer = "http://www.esrf.eu/computing/cs/tango/tango_doc
 #include <TangoAccessControl.h>
 #include <TangoAccessControlClass.h>
 
-/*----- PROTECTED REGION END -----*/
+/*----- PROTECTED REGION END -----*/	//	TangoAccessControlClass.cpp
 
 //-------------------------------------------------------------------
 /**
@@ -85,11 +85,8 @@ __declspec(dllexport)
 	}
 }
 
-
 namespace TangoAccessControl_ns
 {
-
-
 //===================================================================
 //	Initialize pointer for singleton pattern
 //===================================================================
@@ -107,16 +104,14 @@ TangoAccessControlClass::TangoAccessControlClass(string &s):AccessControl_ns::Ac
 {
 	cout2 << "Entering TangoAccessControlClass constructor" << endl;
 	set_default_property();
-	get_class_property();
 	write_class_property();
 
-	/*----- PROTECTED REGION ID(TangoAccessControl::Class::constructor) ENABLED START -----*/	
+	/*----- PROTECTED REGION ID(TangoAccessControlClass::constructor) ENABLED START -----*/	
 	string str_rcs(RcsId);
-	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::Class::constructor
+	/*----- PROTECTED REGION END -----*/	//	TangoAccessControlClass::constructor
 
 	cout2 << "Leaving TangoAccessControlClass constructor" << endl;
 }
-
 
 //--------------------------------------------------------
 /**
@@ -126,9 +121,9 @@ TangoAccessControlClass::TangoAccessControlClass(string &s):AccessControl_ns::Ac
 //--------------------------------------------------------
 TangoAccessControlClass::~TangoAccessControlClass()
 {
-	/*----- PROTECTED REGION ID(TangoAccessControl::Class::destructor) ENABLED START -----*/
+	/*----- PROTECTED REGION ID(TangoAccessControlClass::destructor) ENABLED START -----*/
 
-	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::Class::destructor
+	/*----- PROTECTED REGION END -----*/	//	TangoAccessControlClass::destructor
 
 	_instance = NULL;
 }
@@ -152,7 +147,7 @@ TangoAccessControlClass *TangoAccessControlClass::init(const char *name)
 			string s(name);
 			_instance = new TangoAccessControlClass(s);
 		}
-		catch (bad_alloc)
+		catch (bad_alloc &)
 		{
 			throw;
 		}		
@@ -179,7 +174,6 @@ TangoAccessControlClass *TangoAccessControlClass::instance()
 
 
 
-
 //===================================================================
 //	Command execution method calls
 //===================================================================
@@ -197,12 +191,12 @@ TangoAccessControlClass *TangoAccessControlClass::instance()
 CORBA::Any *AddAddressForUserClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
 	cout2 << "AddAddressForUserClass::execute(): arrived" << endl;
-
-	const Tango::DevVarStringArray	*argin;
+	const Tango::DevVarStringArray *argin;
 	extract(in_any, argin);
 	((static_cast<TangoAccessControl *>(device))->add_address_for_user(argin));
 	return new CORBA::Any();
 }
+
 //--------------------------------------------------------
 /**
  * method : 		AddDeviceForUserClass::execute()
@@ -217,12 +211,12 @@ CORBA::Any *AddAddressForUserClass::execute(Tango::DeviceImpl *device, const COR
 CORBA::Any *AddDeviceForUserClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
 	cout2 << "AddDeviceForUserClass::execute(): arrived" << endl;
-
-	const Tango::DevVarStringArray	*argin;
+	const Tango::DevVarStringArray *argin;
 	extract(in_any, argin);
 	((static_cast<TangoAccessControl *>(device))->add_device_for_user(argin));
 	return new CORBA::Any();
 }
+
 //--------------------------------------------------------
 /**
  * method : 		CloneUserClass::execute()
@@ -237,12 +231,12 @@ CORBA::Any *AddDeviceForUserClass::execute(Tango::DeviceImpl *device, const CORB
 CORBA::Any *CloneUserClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
 	cout2 << "CloneUserClass::execute(): arrived" << endl;
-
-	const Tango::DevVarStringArray	*argin;
+	const Tango::DevVarStringArray *argin;
 	extract(in_any, argin);
 	((static_cast<TangoAccessControl *>(device))->clone_user(argin));
 	return new CORBA::Any();
 }
+
 //--------------------------------------------------------
 /**
  * method : 		GetAccessClass::execute()
@@ -257,11 +251,11 @@ CORBA::Any *CloneUserClass::execute(Tango::DeviceImpl *device, const CORBA::Any 
 CORBA::Any *GetAccessClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
 	cout2 << "GetAccessClass::execute(): arrived" << endl;
-
-	const Tango::DevVarStringArray	*argin;
+	const Tango::DevVarStringArray *argin;
 	extract(in_any, argin);
 	return insert((static_cast<TangoAccessControl *>(device))->get_access(argin));
 }
+
 //--------------------------------------------------------
 /**
  * method : 		GetAccessForMultiIPClass::execute()
@@ -276,11 +270,11 @@ CORBA::Any *GetAccessClass::execute(Tango::DeviceImpl *device, const CORBA::Any 
 CORBA::Any *GetAccessForMultiIPClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
 	cout2 << "GetAccessForMultiIPClass::execute(): arrived" << endl;
-
-	const Tango::DevVarStringArray	*argin;
+	const Tango::DevVarStringArray *argin;
 	extract(in_any, argin);
 	return insert((static_cast<TangoAccessControl *>(device))->get_access_for_multi_ip(argin));
 }
+
 //--------------------------------------------------------
 /**
  * method : 		GetAddressByUserClass::execute()
@@ -295,11 +289,11 @@ CORBA::Any *GetAccessForMultiIPClass::execute(Tango::DeviceImpl *device, const C
 CORBA::Any *GetAddressByUserClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
 	cout2 << "GetAddressByUserClass::execute(): arrived" << endl;
-
-	Tango::DevString	argin;
+	Tango::DevString argin;
 	extract(in_any, argin);
 	return insert((static_cast<TangoAccessControl *>(device))->get_address_by_user(argin));
 }
+
 //--------------------------------------------------------
 /**
  * method : 		GetAllowedCommandClassListClass::execute()
@@ -314,10 +308,9 @@ CORBA::Any *GetAddressByUserClass::execute(Tango::DeviceImpl *device, const CORB
 CORBA::Any *GetAllowedCommandClassListClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
 {
 	cout2 << "GetAllowedCommandClassListClass::execute(): arrived" << endl;
-
-	
 	return insert((static_cast<TangoAccessControl *>(device))->get_allowed_command_class_list());
 }
+
 //--------------------------------------------------------
 /**
  * method : 		GetAllowedCommandsClass::execute()
@@ -332,11 +325,11 @@ CORBA::Any *GetAllowedCommandClassListClass::execute(Tango::DeviceImpl *device, 
 CORBA::Any *GetAllowedCommandsClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
 	cout2 << "GetAllowedCommandsClass::execute(): arrived" << endl;
-
-	Tango::DevString	argin;
+	Tango::DevString argin;
 	extract(in_any, argin);
 	return insert((static_cast<TangoAccessControl *>(device))->get_allowed_commands(argin));
 }
+
 //--------------------------------------------------------
 /**
  * method : 		GetDeviceByUserClass::execute()
@@ -351,11 +344,11 @@ CORBA::Any *GetAllowedCommandsClass::execute(Tango::DeviceImpl *device, const CO
 CORBA::Any *GetDeviceByUserClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
 	cout2 << "GetDeviceByUserClass::execute(): arrived" << endl;
-
-	Tango::DevString	argin;
+	Tango::DevString argin;
 	extract(in_any, argin);
 	return insert((static_cast<TangoAccessControl *>(device))->get_device_by_user(argin));
 }
+
 //--------------------------------------------------------
 /**
  * method : 		GetDeviceClassClass::execute()
@@ -370,11 +363,11 @@ CORBA::Any *GetDeviceByUserClass::execute(Tango::DeviceImpl *device, const CORBA
 CORBA::Any *GetDeviceClassClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
 	cout2 << "GetDeviceClassClass::execute(): arrived" << endl;
-
-	Tango::DevString	argin;
+	Tango::DevString argin;
 	extract(in_any, argin);
 	return insert((static_cast<TangoAccessControl *>(device))->get_device_class(argin));
 }
+
 //--------------------------------------------------------
 /**
  * method : 		GetUsersClass::execute()
@@ -389,10 +382,9 @@ CORBA::Any *GetDeviceClassClass::execute(Tango::DeviceImpl *device, const CORBA:
 CORBA::Any *GetUsersClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
 {
 	cout2 << "GetUsersClass::execute(): arrived" << endl;
-
-	
 	return insert((static_cast<TangoAccessControl *>(device))->get_users());
 }
+
 //--------------------------------------------------------
 /**
  * method : 		RegisterServiceClass::execute()
@@ -407,11 +399,10 @@ CORBA::Any *GetUsersClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const
 CORBA::Any *RegisterServiceClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
 {
 	cout2 << "RegisterServiceClass::execute(): arrived" << endl;
-
-	
 	((static_cast<TangoAccessControl *>(device))->register_service());
 	return new CORBA::Any();
 }
+
 //--------------------------------------------------------
 /**
  * method : 		RemoveAddressForUserClass::execute()
@@ -426,12 +417,12 @@ CORBA::Any *RegisterServiceClass::execute(Tango::DeviceImpl *device, TANGO_UNUSE
 CORBA::Any *RemoveAddressForUserClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
 	cout2 << "RemoveAddressForUserClass::execute(): arrived" << endl;
-
-	const Tango::DevVarStringArray	*argin;
+	const Tango::DevVarStringArray *argin;
 	extract(in_any, argin);
 	((static_cast<TangoAccessControl *>(device))->remove_address_for_user(argin));
 	return new CORBA::Any();
 }
+
 //--------------------------------------------------------
 /**
  * method : 		RemoveDeviceForUserClass::execute()
@@ -446,12 +437,12 @@ CORBA::Any *RemoveAddressForUserClass::execute(Tango::DeviceImpl *device, const 
 CORBA::Any *RemoveDeviceForUserClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
 	cout2 << "RemoveDeviceForUserClass::execute(): arrived" << endl;
-
-	const Tango::DevVarStringArray	*argin;
+	const Tango::DevVarStringArray *argin;
 	extract(in_any, argin);
 	((static_cast<TangoAccessControl *>(device))->remove_device_for_user(argin));
 	return new CORBA::Any();
 }
+
 //--------------------------------------------------------
 /**
  * method : 		RemoveUserClass::execute()
@@ -466,12 +457,12 @@ CORBA::Any *RemoveDeviceForUserClass::execute(Tango::DeviceImpl *device, const C
 CORBA::Any *RemoveUserClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
 	cout2 << "RemoveUserClass::execute(): arrived" << endl;
-
-	Tango::DevString	argin;
+	Tango::DevString argin;
 	extract(in_any, argin);
 	((static_cast<TangoAccessControl *>(device))->remove_user(argin));
 	return new CORBA::Any();
 }
+
 //--------------------------------------------------------
 /**
  * method : 		UnregisterServiceClass::execute()
@@ -486,25 +477,18 @@ CORBA::Any *RemoveUserClass::execute(Tango::DeviceImpl *device, const CORBA::Any
 CORBA::Any *UnregisterServiceClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
 {
 	cout2 << "UnregisterServiceClass::execute(): arrived" << endl;
-
-	
 	((static_cast<TangoAccessControl *>(device))->unregister_service());
 	return new CORBA::Any();
 }
 
 
-
-
 //===================================================================
 //	Properties management
 //===================================================================
-
 //--------------------------------------------------------
 /**
- * method : 		TangoAccessControlClass::get_class_property
- * description : 	Get the class property for specified name.
- *
- * @param	name  The property name
+ *	Method      : TangoAccessControlClass::get_class_property()
+ *	Description : Get the class property for specified name.
  */
 //--------------------------------------------------------
 Tango::DbDatum TangoAccessControlClass::get_class_property(string &prop_name)
@@ -516,10 +500,9 @@ Tango::DbDatum TangoAccessControlClass::get_class_property(string &prop_name)
 	return Tango::DbDatum(prop_name);
 }
 
-
 //--------------------------------------------------------
 /**
- *	Method      : TangoAccessControl::TangoAccessControlClass::get_default_device_property()()
+ *	Method      : TangoAccessControlClass::get_default_device_property()
  *	Description : Return the default value for device property.
  */
 //--------------------------------------------------------
@@ -532,10 +515,9 @@ Tango::DbDatum TangoAccessControlClass::get_default_device_property(string &prop
 	return Tango::DbDatum(prop_name);
 }
 
-
 //--------------------------------------------------------
 /**
- *	Method      : TangoAccessControl::TangoAccessControlClass::get_default_class_property()()
+ *	Method      : TangoAccessControlClass::get_default_class_property()
  *	Description : Return the default value for class property.
  */
 //--------------------------------------------------------
@@ -551,22 +533,11 @@ Tango::DbDatum TangoAccessControlClass::get_default_class_property(string &prop_
 
 //--------------------------------------------------------
 /**
- *	Method      : TangoAccessControl::TangoAccessControlClass::get_class_property()
- *	Description : //	Add your own code to initialize
- */
-//--------------------------------------------------------
-void TangoAccessControlClass::get_class_property()
-{
-}
-
-
-//--------------------------------------------------------
-/**
- *	Method      : TangoAccessControl::TangoAccessControlClass::set_default_property()
+ *	Method      : TangoAccessControlClass::set_default_property()
  *	Description : Set default property (class and device) for wizard.
- *	              For each property, add to wizard property name and description.
- *	              If default value has been set, add it to wizard property and.
- *	              store it in a DbDatum.
+ *                For each property, add to wizard property name and description.
+ *                If default value has been set, add it to wizard property and
+ *                store it in a DbDatum.
  */
 //--------------------------------------------------------
 void TangoAccessControlClass::set_default_property()
@@ -575,16 +546,15 @@ void TangoAccessControlClass::set_default_property()
 	string	prop_desc;
 	string	prop_def;
 	vector<string>	vect_data;
-	
+
 	//	Set Default Class Properties
 
-	//	Set Default Device Properties
+	//	Set Default device Properties
 }
-
 
 //--------------------------------------------------------
 /**
- *	Method      : TangoAccessControl::TangoAccessControlClass::write_class_property()
+ *	Method      : TangoAccessControlClass::write_class_property()
  *	Description : Set class description fields as property in database
  */
 //--------------------------------------------------------
@@ -616,11 +586,11 @@ void TangoAccessControlClass::write_class_property()
 	str_desc.push_back("And it implements register and unregister it as TANGO service.");
 	description << str_desc;
 	data.push_back(description);
-		
+
 	//	put cvs or svn location
 	string	filename("TangoAccessControl");
 	filename += "Class.cpp";
-	
+
 	// check for cvs information
 	string	src_path(CvsPath);
 	start = src_path.find("/");
@@ -643,6 +613,7 @@ void TangoAccessControlClass::write_class_property()
 			data.push_back(cvs_loc);
 		}
 	}
+
 	// check for svn information
 	else
 	{
@@ -717,7 +688,7 @@ void TangoAccessControlClass::write_class_property()
 	//  Put inheritance
 	Tango::DbDatum	inher_datum("InheritedFrom");
 	vector<string> inheritance;
-	inheritance.push_back("AccessControl");
+	inheritance.push_back("Tango::Device_4Impl");
 	inher_datum << inheritance;
 	data.push_back(inher_datum);
 
@@ -725,32 +696,25 @@ void TangoAccessControlClass::write_class_property()
 	get_db_class()->put_property(data);
 }
 
-
-
-
 //===================================================================
 //	Factory methods
 //===================================================================
 
-
 //--------------------------------------------------------
 /**
- * method : 		TangoAccessControlClass::device_factory
- * description : 	Create the device object(s)
- *                  and store them in the device list
- *
- * @param	*devlist_ptr	The device name list
+ *	Method      : TangoAccessControlClass::device_factory()
+ *	Description : Create the device object(s)
+ *                and store them in the device list
  */
 //--------------------------------------------------------
 void TangoAccessControlClass::device_factory(const Tango::DevVarStringArray *devlist_ptr)
 {
-
-	/*----- PROTECTED REGION ID(TangoAccessControl::Class::device_factory_before) ENABLED START -----*/
+	/*----- PROTECTED REGION ID(TangoAccessControlClass::device_factory_before) ENABLED START -----*/
 
 	//	Add your own code
 	
 
-	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::Class::device_factory_before
+	/*----- PROTECTED REGION END -----*/	//	TangoAccessControlClass::device_factory_before
 
 	//	Create devices and add it into the device list
 	for (unsigned long i=0 ; i<devlist_ptr->length() ; i++)
@@ -776,187 +740,317 @@ void TangoAccessControlClass::device_factory(const Tango::DevVarStringArray *dev
 			export_device(dev, dev->get_name().c_str());
 	}
 
-	/*----- PROTECTED REGION ID(TangoAccessControl::Class::device_factory_after) ENABLED START -----*/
+	/*----- PROTECTED REGION ID(TangoAccessControlClass::device_factory_after) ENABLED START -----*/
 
 	//	Add your own code
 	
 
-	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::Class::device_factory_after
-
-	
+	/*----- PROTECTED REGION END -----*/	//	TangoAccessControlClass::device_factory_after
 }
-
-
 //--------------------------------------------------------
 /**
- *	Method      : TangoAccessControl::TangoAccessControlClass::attribute_factory()
+ *	Method      : TangoAccessControlClass::attribute_factory()
  *	Description : Create the attribute object(s)
- *	              and store them in the attribute list
+ *                and store them in the attribute list
  */
 //--------------------------------------------------------
 void TangoAccessControlClass::attribute_factory(vector<Tango::Attr *> &att_list)
 {
-	/*----- PROTECTED REGION ID(TangoAccessControl::Class::attribute_factory_before) ENABLED START -----*/
+	/*----- PROTECTED REGION ID(TangoAccessControlClass::attribute_factory_before) ENABLED START -----*/
 
 	//	Add your own code
 
-	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::Class::attribute_factory_before
-
+	/*----- PROTECTED REGION END -----*/	//	TangoAccessControlClass::attribute_factory_before
+	//	Call atribute_factory for inherited class
 	AccessControl_ns::AccessControlClass::attribute_factory(att_list);
-
 
 	//	Create a list of static attributes
 	create_static_attribute_list(get_class_attr()->get_attr_list());
-
-	/*----- PROTECTED REGION ID(TangoAccessControl::Class::attribute_factory_after) ENABLED START -----*/
+	/*----- PROTECTED REGION ID(TangoAccessControlClass::attribute_factory_after) ENABLED START -----*/
 
 	//	Add your own code
 
-	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::Class::attribute_factory_after
-
+	/*----- PROTECTED REGION END -----*/	//	TangoAccessControlClass::attribute_factory_after
 }
-
-
 //--------------------------------------------------------
 /**
- *	Method      : TangoAccessControl::TangoAccessControlClass::command_factory()
+ *	Method      : TangoAccessControlClass::command_factory()
  *	Description : Create the command object(s)
- *	              and store them in the command list
+ *                and store them in the command list
  */
 //--------------------------------------------------------
 void TangoAccessControlClass::command_factory()
 {
-	/*----- PROTECTED REGION ID(TangoAccessControl::Class::command_factory_before) ENABLED START -----*/
+	/*----- PROTECTED REGION ID(TangoAccessControlClass::command_factory_before) ENABLED START -----*/
 
-	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::Class::command_factory_before
-
+	/*----- PROTECTED REGION END -----*/	//	TangoAccessControlClass::command_factory_before
+	//	Call command_factory for inherited class
 	AccessControl_ns::AccessControlClass::command_factory();
-	AddAddressForUserClass	*pAddAddressForUserCmd =
-		new AddAddressForUserClass("AddAddressForUser",
-			Tango::DEVVAR_STRINGARRAY, Tango::DEV_VOID,
-			"user name, address",
-			"",
-			Tango::OPERATOR);
-	command_list.push_back(pAddAddressForUserCmd);
-	AddDeviceForUserClass	*pAddDeviceForUserCmd =
-		new AddDeviceForUserClass("AddDeviceForUser",
-			Tango::DEVVAR_STRINGARRAY, Tango::DEV_VOID,
-			"user name, device adn value",
-			"",
-			Tango::OPERATOR);
-	command_list.push_back(pAddDeviceForUserCmd);
-	CloneUserClass	*pCloneUserCmd =
-		new CloneUserClass("CloneUser",
-			Tango::DEVVAR_STRINGARRAY, Tango::DEV_VOID,
-			"[0] - source user name.\n[1] - target user name.",
-			"",
-			Tango::OPERATOR);
-	command_list.push_back(pCloneUserCmd);
-	GetAccessClass	*pGetAccessCmd =
-		new GetAccessClass("GetAccess",
-			Tango::DEVVAR_STRINGARRAY, Tango::DEV_STRING,
-			"[0] - User name\n[1] - IP Address\n[2] - Device",
-			"access for specified inputs  read/write.",
-			Tango::OPERATOR);
-	command_list.push_back(pGetAccessCmd);
-	GetAccessForMultiIPClass	*pGetAccessForMultiIPCmd =
-		new GetAccessForMultiIPClass("GetAccessForMultiIP",
-			Tango::DEVVAR_STRINGARRAY, Tango::DEV_STRING,
-			"[0] - User name\n[1] - Device\n[2] - IP Address #1\n[3] - IP Address #2\n[4] - IP Address #3\n[5] - IP Address #4\n......",
-			"access for specified inputs  read/write.",
-			Tango::OPERATOR);
-	command_list.push_back(pGetAccessForMultiIPCmd);
-	GetAddressByUserClass	*pGetAddressByUserCmd =
-		new GetAddressByUserClass("GetAddressByUser",
-			Tango::DEV_STRING, Tango::DEVVAR_STRINGARRAY,
-			"user name.",
-			"Addresses found for the specified user.",
-			Tango::OPERATOR);
-	command_list.push_back(pGetAddressByUserCmd);
-	GetAllowedCommandClassListClass	*pGetAllowedCommandClassListCmd =
-		new GetAllowedCommandClassListClass("GetAllowedCommandClassList",
-			Tango::DEV_VOID, Tango::DEVVAR_STRINGARRAY,
-			"",
-			"Class names which have AllowedAccessCmd property defined.",
-			Tango::OPERATOR);
-	command_list.push_back(pGetAllowedCommandClassListCmd);
-	GetAllowedCommandsClass	*pGetAllowedCommandsCmd =
-		new GetAllowedCommandsClass("GetAllowedCommands",
-			Tango::DEV_STRING, Tango::DEVVAR_STRINGARRAY,
-			"Device name OR Device Class name",
-			"Allowed commands found in database for specified device",
-			Tango::OPERATOR);
-	command_list.push_back(pGetAllowedCommandsCmd);
-	GetDeviceByUserClass	*pGetDeviceByUserCmd =
-		new GetDeviceByUserClass("GetDeviceByUser",
-			Tango::DEV_STRING, Tango::DEVVAR_STRINGARRAY,
-			"user name.",
-			"devices and rights found for the specified user.",
-			Tango::OPERATOR);
-	command_list.push_back(pGetDeviceByUserCmd);
-	GetDeviceClassClass	*pGetDeviceClassCmd =
-		new GetDeviceClassClass("GetDeviceClass",
-			Tango::DEV_STRING, Tango::DEV_STRING,
-			"Device name",
-			"Class found in database for specified device",
-			Tango::OPERATOR);
-	command_list.push_back(pGetDeviceClassCmd);
-	GetUsersClass	*pGetUsersCmd =
-		new GetUsersClass("GetUsers",
-			Tango::DEV_VOID, Tango::DEVVAR_STRINGARRAY,
-			"",
-			"Users find in table access_address.",
-			Tango::OPERATOR);
-	command_list.push_back(pGetUsersCmd);
-	RegisterServiceClass	*pRegisterServiceCmd =
-		new RegisterServiceClass("RegisterService",
-			Tango::DEV_VOID, Tango::DEV_VOID,
-			"",
-			"",
-			Tango::OPERATOR);
-	command_list.push_back(pRegisterServiceCmd);
-	RemoveAddressForUserClass	*pRemoveAddressForUserCmd =
-		new RemoveAddressForUserClass("RemoveAddressForUser",
-			Tango::DEVVAR_STRINGARRAY, Tango::DEV_VOID,
-			"user name, address",
-			"",
-			Tango::OPERATOR);
-	command_list.push_back(pRemoveAddressForUserCmd);
-	RemoveDeviceForUserClass	*pRemoveDeviceForUserCmd =
-		new RemoveDeviceForUserClass("RemoveDeviceForUser",
-			Tango::DEVVAR_STRINGARRAY, Tango::DEV_VOID,
-			"user name, device and value",
-			"",
-			Tango::OPERATOR);
-	command_list.push_back(pRemoveDeviceForUserCmd);
-	RemoveUserClass	*pRemoveUserCmd =
-		new RemoveUserClass("RemoveUser",
-			Tango::DEV_STRING, Tango::DEV_VOID,
-			"user name",
-			"",
-			Tango::OPERATOR);
-	command_list.push_back(pRemoveUserCmd);
-	UnregisterServiceClass	*pUnregisterServiceCmd =
-		new UnregisterServiceClass("UnregisterService",
-			Tango::DEV_VOID, Tango::DEV_VOID,
-			"",
-			"",
-			Tango::OPERATOR);
-	command_list.push_back(pUnregisterServiceCmd);
 
-	/*----- PROTECTED REGION ID(TangoAccessControl::Class::command_factory_after) ENABLED START -----*/
+	//	Get inherited Command object AddAddressForUser if already created
+	try
+	{
+		get_cmd_by_name("AddAddressForUser");
+	}
+	catch (Tango::DevFailed &e)
+	{
+		//	Create AddAddressForUser command object
+		AddAddressForUserClass	*pAddAddressForUserCmd =
+			new AddAddressForUserClass("AddAddressForUser",
+				Tango::DEVVAR_STRINGARRAY, Tango::DEV_VOID,
+				"user name, address",
+				"",
+				Tango::OPERATOR);
+		command_list.push_back(pAddAddressForUserCmd);
+	}
+	//	Get inherited Command object AddDeviceForUser if already created
+	try
+	{
+		get_cmd_by_name("AddDeviceForUser");
+	}
+	catch (Tango::DevFailed &e)
+	{
+		//	Create AddDeviceForUser command object
+		AddDeviceForUserClass	*pAddDeviceForUserCmd =
+			new AddDeviceForUserClass("AddDeviceForUser",
+				Tango::DEVVAR_STRINGARRAY, Tango::DEV_VOID,
+				"user name, device adn value",
+				"",
+				Tango::OPERATOR);
+		command_list.push_back(pAddDeviceForUserCmd);
+	}
+	//	Get inherited Command object CloneUser if already created
+	try
+	{
+		get_cmd_by_name("CloneUser");
+	}
+	catch (Tango::DevFailed &e)
+	{
+		//	Create CloneUser command object
+		CloneUserClass	*pCloneUserCmd =
+			new CloneUserClass("CloneUser",
+				Tango::DEVVAR_STRINGARRAY, Tango::DEV_VOID,
+				"[0] - source user name.\n[1] - target user name.",
+				"",
+				Tango::OPERATOR);
+		command_list.push_back(pCloneUserCmd);
+	}
+	//	Get inherited Command object GetAccess if already created
+	try
+	{
+		get_cmd_by_name("GetAccess");
+	}
+	catch (Tango::DevFailed &e)
+	{
+		//	Create GetAccess command object
+		GetAccessClass	*pGetAccessCmd =
+			new GetAccessClass("GetAccess",
+				Tango::DEVVAR_STRINGARRAY, Tango::DEV_STRING,
+				"[0] - User name\n[1] - IP Address\n[2] - Device",
+				"access for specified inputs  read/write.",
+				Tango::OPERATOR);
+		command_list.push_back(pGetAccessCmd);
+	}
+	//	Get inherited Command object GetAccessForMultiIP if already created
+	try
+	{
+		get_cmd_by_name("GetAccessForMultiIP");
+	}
+	catch (Tango::DevFailed &e)
+	{
+		//	Create GetAccessForMultiIP command object
+		GetAccessForMultiIPClass	*pGetAccessForMultiIPCmd =
+			new GetAccessForMultiIPClass("GetAccessForMultiIP",
+				Tango::DEVVAR_STRINGARRAY, Tango::DEV_STRING,
+				"[0] - User name\n[1] - Device\n[2] - IP Address #1\n[3] - IP Address #2\n[4] - IP Address #3\n[5] - IP Address #4\n......",
+				"access for specified inputs  read/write.",
+				Tango::OPERATOR);
+		command_list.push_back(pGetAccessForMultiIPCmd);
+	}
+	//	Get inherited Command object GetAddressByUser if already created
+	try
+	{
+		get_cmd_by_name("GetAddressByUser");
+	}
+	catch (Tango::DevFailed &e)
+	{
+		//	Create GetAddressByUser command object
+		GetAddressByUserClass	*pGetAddressByUserCmd =
+			new GetAddressByUserClass("GetAddressByUser",
+				Tango::DEV_STRING, Tango::DEVVAR_STRINGARRAY,
+				"user name.",
+				"Addresses found for the specified user.",
+				Tango::OPERATOR);
+		command_list.push_back(pGetAddressByUserCmd);
+	}
+	//	Get inherited Command object GetAllowedCommandClassList if already created
+	try
+	{
+		get_cmd_by_name("GetAllowedCommandClassList");
+	}
+	catch (Tango::DevFailed &e)
+	{
+		//	Create GetAllowedCommandClassList command object
+		GetAllowedCommandClassListClass	*pGetAllowedCommandClassListCmd =
+			new GetAllowedCommandClassListClass("GetAllowedCommandClassList",
+				Tango::DEV_VOID, Tango::DEVVAR_STRINGARRAY,
+				"",
+				"Class names which have AllowedAccessCmd property defined.",
+				Tango::OPERATOR);
+		command_list.push_back(pGetAllowedCommandClassListCmd);
+	}
+	//	Get inherited Command object GetAllowedCommands if already created
+	try
+	{
+		get_cmd_by_name("GetAllowedCommands");
+	}
+	catch (Tango::DevFailed &e)
+	{
+		//	Create GetAllowedCommands command object
+		GetAllowedCommandsClass	*pGetAllowedCommandsCmd =
+			new GetAllowedCommandsClass("GetAllowedCommands",
+				Tango::DEV_STRING, Tango::DEVVAR_STRINGARRAY,
+				"Device name OR Device Class name",
+				"Allowed commands found in database for specified device",
+				Tango::OPERATOR);
+		command_list.push_back(pGetAllowedCommandsCmd);
+	}
+	//	Get inherited Command object GetDeviceByUser if already created
+	try
+	{
+		get_cmd_by_name("GetDeviceByUser");
+	}
+	catch (Tango::DevFailed &e)
+	{
+		//	Create GetDeviceByUser command object
+		GetDeviceByUserClass	*pGetDeviceByUserCmd =
+			new GetDeviceByUserClass("GetDeviceByUser",
+				Tango::DEV_STRING, Tango::DEVVAR_STRINGARRAY,
+				"user name.",
+				"devices and rights found for the specified user.",
+				Tango::OPERATOR);
+		command_list.push_back(pGetDeviceByUserCmd);
+	}
+	//	Get inherited Command object GetDeviceClass if already created
+	try
+	{
+		get_cmd_by_name("GetDeviceClass");
+	}
+	catch (Tango::DevFailed &e)
+	{
+		//	Create GetDeviceClass command object
+		GetDeviceClassClass	*pGetDeviceClassCmd =
+			new GetDeviceClassClass("GetDeviceClass",
+				Tango::DEV_STRING, Tango::DEV_STRING,
+				"Device name",
+				"Class found in database for specified device",
+				Tango::OPERATOR);
+		command_list.push_back(pGetDeviceClassCmd);
+	}
+	//	Get inherited Command object GetUsers if already created
+	try
+	{
+		get_cmd_by_name("GetUsers");
+	}
+	catch (Tango::DevFailed &e)
+	{
+		//	Create GetUsers command object
+		GetUsersClass	*pGetUsersCmd =
+			new GetUsersClass("GetUsers",
+				Tango::DEV_VOID, Tango::DEVVAR_STRINGARRAY,
+				"",
+				"Users find in table access_address.",
+				Tango::OPERATOR);
+		command_list.push_back(pGetUsersCmd);
+	}
+	//	Get inherited Command object RegisterService if already created
+	try
+	{
+		get_cmd_by_name("RegisterService");
+	}
+	catch (Tango::DevFailed &e)
+	{
+		//	Create RegisterService command object
+		RegisterServiceClass	*pRegisterServiceCmd =
+			new RegisterServiceClass("RegisterService",
+				Tango::DEV_VOID, Tango::DEV_VOID,
+				"",
+				"",
+				Tango::OPERATOR);
+		command_list.push_back(pRegisterServiceCmd);
+	}
+	//	Get inherited Command object RemoveAddressForUser if already created
+	try
+	{
+		get_cmd_by_name("RemoveAddressForUser");
+	}
+	catch (Tango::DevFailed &e)
+	{
+		//	Create RemoveAddressForUser command object
+		RemoveAddressForUserClass	*pRemoveAddressForUserCmd =
+			new RemoveAddressForUserClass("RemoveAddressForUser",
+				Tango::DEVVAR_STRINGARRAY, Tango::DEV_VOID,
+				"user name, address",
+				"",
+				Tango::OPERATOR);
+		command_list.push_back(pRemoveAddressForUserCmd);
+	}
+	//	Get inherited Command object RemoveDeviceForUser if already created
+	try
+	{
+		get_cmd_by_name("RemoveDeviceForUser");
+	}
+	catch (Tango::DevFailed &e)
+	{
+		//	Create RemoveDeviceForUser command object
+		RemoveDeviceForUserClass	*pRemoveDeviceForUserCmd =
+			new RemoveDeviceForUserClass("RemoveDeviceForUser",
+				Tango::DEVVAR_STRINGARRAY, Tango::DEV_VOID,
+				"user name, device and value",
+				"",
+				Tango::OPERATOR);
+		command_list.push_back(pRemoveDeviceForUserCmd);
+	}
+	//	Get inherited Command object RemoveUser if already created
+	try
+	{
+		get_cmd_by_name("RemoveUser");
+	}
+	catch (Tango::DevFailed &e)
+	{
+		//	Create RemoveUser command object
+		RemoveUserClass	*pRemoveUserCmd =
+			new RemoveUserClass("RemoveUser",
+				Tango::DEV_STRING, Tango::DEV_VOID,
+				"user name",
+				"",
+				Tango::OPERATOR);
+		command_list.push_back(pRemoveUserCmd);
+	}
+	//	Get inherited Command object UnregisterService if already created
+	try
+	{
+		get_cmd_by_name("UnregisterService");
+	}
+	catch (Tango::DevFailed &e)
+	{
+		//	Create UnregisterService command object
+		UnregisterServiceClass	*pUnregisterServiceCmd =
+			new UnregisterServiceClass("UnregisterService",
+				Tango::DEV_VOID, Tango::DEV_VOID,
+				"",
+				"",
+				Tango::OPERATOR);
+		command_list.push_back(pUnregisterServiceCmd);
+	}
+	/*----- PROTECTED REGION ID(TangoAccessControlClass::command_factory_after) ENABLED START -----*/
 
-	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::Class::command_factory_after
-
+	/*----- PROTECTED REGION END -----*/	//	TangoAccessControlClass::command_factory_after
 }
-
-
-
 
 //===================================================================
 //	Dynamic attributes related methods
 //===================================================================
-
 
 //--------------------------------------------------------
 /**
@@ -977,11 +1071,9 @@ void TangoAccessControlClass::create_static_attribute_list(vector<Tango::Attr *>
 
 	cout2 << defaultAttList.size() << " attributes in default list" << endl;
 
+	/*----- PROTECTED REGION ID(TangoAccessControlClass::create_static_att_list) ENABLED START -----*/
 
-	/*----- PROTECTED REGION ID(TangoAccessControl::Class::create_static_att_list) ENABLED START -----*/
-
-	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::Class::create_static_att_list
-
+	/*----- PROTECTED REGION END -----*/	//	TangoAccessControlClass::create_static_att_list
 }
 
 
@@ -1015,21 +1107,34 @@ void TangoAccessControlClass::erase_dynamic_attributes(const Tango::DevVarString
 			{
 				cout2 << att_name << " is a UNWANTED dynamic attribute for device " << (*devlist_ptr)[i] << endl;
 				Tango::Attribute &att = dev->get_device_attr()->get_attr_by_name(att_name.c_str());
-				dev->remove_attribute(att_list[att.get_attr_idx()],true);
+				dev->remove_attribute(att_list[att.get_attr_idx()], true, false);
 				--ite_att;
 			}
 		}
 	}
-	/*----- PROTECTED REGION ID(TangoAccessControl::Class::erase_dynamic_attributes) ENABLED START -----*/
+	/*----- PROTECTED REGION ID(TangoAccessControlClass::erase_dynamic_attributes) ENABLED START -----*/
 
-	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::Class::erase_dynamic_attributes
+	/*----- PROTECTED REGION END -----*/	//	TangoAccessControlClass::erase_dynamic_attributes
+}
 
+//--------------------------------------------------------
+/**
+ *	Method      : TangoAccessControlClass::get_attr_by_name()
+ *	Description : returns Tango::Attr * object found by name
+ */
+//--------------------------------------------------------
+Tango::Attr *TangoAccessControlClass::get_attr_object_by_name(vector<Tango::Attr *> &att_list, string attname)
+{
+	vector<Tango::Attr *>::iterator it;
+	for (it=att_list.begin() ; it<att_list.end() ; it++)
+		if ((*it)->get_name()==attname)
+			return (*it);
+	//	Attr does not exist
+	return NULL;
 }
 
 
+/*----- PROTECTED REGION ID(TangoAccessControlClass::Additional Methods) ENABLED START -----*/
 
-	/*----- PROTECTED REGION ID(TangoAccessControl::Class::Additional Methods) ENABLED START -----*/
-
-	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::Class::Additional Methods
-
+	/*----- PROTECTED REGION END -----*/	//	TangoAccessControlClass::Additional Methods
 } //	namespace

@@ -44,7 +44,6 @@ static const char *RcsId = "$Id$";
 namespace TangoAccessControl_ns
 {
 
-
 //+------------------------------------------------------------------
 /**
  *	Remove the Fully Qualify Domain Name for tango less than 5.2 compatibility
@@ -315,20 +314,14 @@ vector<AccessStruct>
 //============================================================
 string TangoAccessControl::get_access_for_user_device(string &user, string &device)
 {
-	vector<string>			v_dev = get_dev_members(device);
+	vector<string>			members = get_dev_members(device);
 	string	retval("read");
 
 	TangoSys_MemStream	sql_query_stream;
 	sql_query_stream << 
 		"SELECT DISTINCT user,device,rights FROM access_device WHERE "  <<
-			//	User definition
-				"(user=\"" << user << "\" OR user=\"*\")  AND  "    <<
-			//	Device definition
-				"(device=\"*/*/*\" OR "                                 <<
-				"device=\"" << v_dev[0] << "/*/*\" OR "                 <<
-				"device=\"" << v_dev[0] << "/" << v_dev[1] << "/*\" OR "<<
-				"device=\"" << device << "\")  ORDER BY device";
-	
+				"(user=\"" << user << "\" OR user=\"*\") ORDER BY device";
+
 	//cout << "ac_get_access(): sql_query " << sql_query_stream.str() << endl;
 	MYSQL_RES *result = query(sql_query_stream.str(), "ac_get_device_by_user()");
 	int	n_rows = mysql_num_rows(result);
@@ -362,60 +355,89 @@ string TangoAccessControl::get_access_for_user_device(string &user, string &devi
 	}
 	mysql_free_result(result);
 
-	if (as_user.empty()==true && as_all.empty()==true)
+	//	If both empty --> read
+	if (as_user.empty() && as_all.empty())
 		return retval;
-	if (as_user.size()==1)
-		return as_user[0].rights;
-	//	check the minimum number of stars
-	int	idx = 0;
-	if (as_user.empty()==false)
-	{
-		idx = mini_nb_stars(as_user);
-		return as_user[idx].rights;
+
+	//	Get user rigths
+	string user_rights = get_rigths(as_user, members);
+	if (user_rights != "unknown") {
+		//cout << user << " " << user_rights << endl;
+		//	if right has been matched -> return it
+		return user_rights;
 	}
-	else
-	{
-		idx = mini_nb_stars(as_all);
-		return as_all[idx].rights;
+	else {
+		//	Elese return rights for all users
+		string all_rights  = get_rigths(as_all,  members);
+		if (all_rights != "unknown") {
+			all_rights = "read";
+		}
+		return all_rights;
 	}
 }
 //============================================================
-/**
- *	Count how many specified char is found in specified string
- */
 //============================================================
-int TangoAccessControl::nb_chars(string s, char c)
+string TangoAccessControl::get_rigths(vector<AccessStruct> as, vector<string> members)
 {
-	int	nb = 0;
-	string::size_type	spos = s.find(c);
-	while (spos != string::npos)
-	{
-		nb++;
-		spos++;
-		spos = s.find(c, spos);
-	}
-	return nb;
-}
-//============================================================
-/**
- *	Return the element found in vector where the number of stars
- *		is the minimum one.
- */
-//============================================================
-int	TangoAccessControl::mini_nb_stars(vector<AccessStruct> v)
-{
-	int nb  = 3;
-	int	idx = 0;
-	for(unsigned int i=0 ; i<v.size() ; i++)
-	{
-		int n = nb_chars(v[i].device, '*');
-		if (n<nb)
-		{
-			nb = n;
-			idx = i;
+	vector<AccessStruct> matches;
+	//	Get list of structure matching device name
+	for (unsigned int i=0 ; i<as.size() ; i++) {
+		vector<string>	expMembers = get_dev_members(as[i].device);
+		bool found = true;
+		for (unsigned int j=0 ; found && j<members.size() ; j++) {	
+			found = match(expMembers[j], members[j]);
+		}
+		//	If found for the 3 members, add to vector
+		if (found) {
+			matches.push_back(as[i]);
 		}
 	}
-	return idx;
+	
+	//	Not found
+	if (matches.empty())
+		return "unknown";
+
+	//	if only one, return this one.
+	if (matches.size()==1) {
+		return matches[0].rights;
+	}
+	else {
+		//	Check if at least one is read only
+		for (unsigned int i=0 ; i<matches.size() ; i++) {
+			if (matches[i].rights=="read")
+				return "read";
+		}
+		return "write";
+	}
+}
+//============================================================
+//============================================================
+bool TangoAccessControl::match(string expression, string member)
+{
+	if (expression=="*" || expression==member)
+		return true;
+	
+	string::size_type	pos = expression.find('*');
+	if (pos != string::npos) {
+		if (pos==0) {
+			//	starts with '*'
+			pos++;
+			string	s = expression.substr(pos);
+			return (member.find(s)!=string::npos);
+		}
+		else {
+			//	get starting before '*'
+			string	s1 = expression.substr(0, pos);
+			pos++;
+			//	get ending after '*'
+			string	s2 = expression.substr(pos);
+			if (s2.empty())
+				return (member.find(s1)==0);
+			else
+				return (member.find(s1)==0 && member.find(s2)==pos);
+		}
+	}
+	return false;
 }
 //============================================================
 //============================================================

@@ -86,4 +86,4 @@ void Tango::DServer::class_factory()
 	add_class(TangoAccessControl_ns::TangoAccessControlClass::init("TangoAccessControl"));
 
 }
-/*----- PROTECTED REGION END -----*/
+/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::ClassFactory.cpp

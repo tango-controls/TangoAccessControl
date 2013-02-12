@@ -68,28 +68,26 @@ static const char *RcsId = "$Id$";
 #include <TangoAccessControl.h>
 #include <TangoAccessControlClass.h>
 
-/*----- PROTECTED REGION END -----*/
-
+/*----- PROTECTED REGION END -----*/	//	TangoAccessControl.cpp
 
 /**
- *	TangoAccessControl class description:
- *	This class is a conceate class inherited from AccessControl abstract class.<Br>
- *	<Br>
- *	This class defines how to manage the TANGO access control.<Br>
- *	It implements commands for tool to defines access for users, devices and IP addresses.<Br>
- *	It implements also commands used by client API to check access for specified user, device and address.<Br>
- *	And it implements register and unregister it as TANGO service.
+ *  TangoAccessControl class description:
+ *    This class is a conceate class inherited from AccessControl abstract class.<Br>
+ *    <Br>
+ *    This class defines how to manage the TANGO access control.<Br>
+ *    It implements commands for tool to defines access for users, devices and IP addresses.<Br>
+ *    It implements also commands used by client API to check access for specified user, device and address.<Br>
+ *    And it implements register and unregister it as TANGO service.
  */
 
 //================================================================
-//
 //  The following table gives the correspondence
 //  between command and method names.
 //
 //  Command name                |  Method name
-//----------------------------------------------------------------
-//  State                       |  dev_state
-//  Status                      |  dev_status
+//================================================================
+//  State                       |  Inherited (no method)
+//  Status                      |  Inherited (no method)
 //  AddAddressForUser           |  add_address_for_user
 //  AddDeviceForUser            |  add_device_for_user
 //  CloneUser                   |  clone_user
@@ -108,21 +106,24 @@ static const char *RcsId = "$Id$";
 //  UnregisterService           |  unregister_service
 //================================================================
 
+//================================================================
+//  Attributes managed is:
+//================================================================
+//================================================================
+
 namespace TangoAccessControl_ns
 {
-	/*----- PROTECTED REGION ID(TangoAccessControl::namespace_starting) ENABLED START -----*/
+/*----- PROTECTED REGION ID(TangoAccessControl::namespace_starting) ENABLED START -----*/
 
 	//	static initializations
 
 	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::namespace_starting
 
-
-
 //--------------------------------------------------------
 /**
  *	Method      : TangoAccessControl::TangoAccessControl()
  *	Description : Constructors for a Tango device
- *	              implementing the classTangoAccessControl
+ *                implementing the classTangoAccessControl
  */
 //--------------------------------------------------------
 TangoAccessControl::TangoAccessControl(Tango::DeviceClass *cl, string &s)
@@ -155,37 +156,54 @@ TangoAccessControl::TangoAccessControl(Tango::DeviceClass *cl, const char *s, co
 	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::constructor_3
 }
 
-
 //--------------------------------------------------------
 /**
- *	Method      : TangoAccessControl::delete_device()()
+ *	Method      : TangoAccessControl::delete_device()
  *	Description : will be called at device destruction or at init command
  */
 //--------------------------------------------------------
 void TangoAccessControl::delete_device()
 {
+	DEBUG_STREAM << "TangoAccessControl::delete_device() " << device_name << endl;
 	/*----- PROTECTED REGION ID(TangoAccessControl::delete_device) ENABLED START -----*/
 
 	//	Delete device allocated objects
 	//	Delete device's allocated object
 
 	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::delete_device
-	
-}
 
+	if (Tango::Util::instance()->is_svr_shutting_down() == false  &&
+		Tango::Util::instance()->is_device_restarting(device_name)==false)
+	{
+		//	If not shutting down call delete device for inherited object
+		AccessControl_ns::AccessControl::delete_device();
+	}
+}
 
 //--------------------------------------------------------
 /**
  *	Method      : TangoAccessControl::init_device()
- *	Description : //	will be called at device initialization.
+ *	Description : will be called at device initialization.
  */
 //--------------------------------------------------------
 void TangoAccessControl::init_device()
 {
 	DEBUG_STREAM << "TangoAccessControl::init_device() create device " << device_name << endl;
+	/*----- PROTECTED REGION ID(TangoAccessControl::init_device_before) ENABLED START -----*/
+	
+	//	Initialization before get_device_property() call
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::init_device_before
+	
+	if (Tango::Util::instance()->is_svr_starting() == false  &&
+		Tango::Util::instance()->is_device_restarting(device_name)==false)
+	{
+		//	If not starting up call init device for inherited object
+		AccessControl_ns::AccessControl::init_device();
+	}
+	//	No device property to be read from database
+	
 
-	
-	
 	/*----- PROTECTED REGION ID(TangoAccessControl::init_device) ENABLED START -----*/
 
 	// These lines have obsolutely no other goals than to make the
@@ -212,7 +230,6 @@ void TangoAccessControl::init_device()
 }
 
 
-
 //--------------------------------------------------------
 /**
  *	Method      : TangoAccessControl::always_executed_hook()
@@ -230,36 +247,42 @@ void TangoAccessControl::always_executed_hook()
 	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::always_executed_hook
 }
 
-
-
+//--------------------------------------------------------
+/**
+ *	Method      : TangoAccessControl::read_attr_hardware()
+ *	Description : Hardware acquisition for attributes
+ */
+//--------------------------------------------------------
+void TangoAccessControl::read_attr_hardware(TANGO_UNUSED(vector<long> &attr_list))
+{
+	DEBUG_STREAM << "TangoAccessControl::read_attr_hardware(vector<long> &attr_list) entering... " << endl;
+	/*----- PROTECTED REGION ID(TangoAccessControl::read_attr_hardware) ENABLED START -----*/
+	
+	//	Add your own code
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::read_attr_hardware
+}
 
 
 //--------------------------------------------------------
 /**
- *	Method      : TangoAccessControl::TangoAccessControlClass::add_dynamic_attributes()
+ *	Method      : TangoAccessControl::add_dynamic_attributes()
  *	Description : Create the dynamic attributes if any
- *	              for specified device.
+ *                for specified device.
  */
 //--------------------------------------------------------
 void TangoAccessControl::add_dynamic_attributes()
 {
-	/*----- PROTECTED REGION ID(TangoAccessControl::Class::add_dynamic_attributes) ENABLED START -----*/
-
+	/*----- PROTECTED REGION ID(TangoAccessControl::add_dynamic_attributes) ENABLED START -----*/
+	
 	//	Add your own code to create and add dynamic attributes if any
-
-	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::Class::add_dynamic_attributes
-
+	
+	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::add_dynamic_attributes
 }
-
-
-
-//========================================================
-//	Command execution methods
-//========================================================
 
 //--------------------------------------------------------
 /**
- *	Execute the AddAddressForUser command:
+ *	Command AddAddressForUser related method
  *	Description: Add an address for the specified user..
  *
  *	@param argin user name, address
@@ -305,12 +328,10 @@ void TangoAccessControl::add_address_for_user(const Tango::DevVarStringArray *ar
 	simple_query(tms.str(),"add_address_for_user()");
 
 	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::add_address_for_user
-
 }
-
 //--------------------------------------------------------
 /**
- *	Execute the AddDeviceForUser command:
+ *	Command AddDeviceForUser related method
  *	Description: Add a device and rights for the specified user..
  *
  *	@param argin user name, device adn value
@@ -359,12 +380,10 @@ void TangoAccessControl::add_device_for_user(const Tango::DevVarStringArray *arg
 	simple_query(tms.str(),"ac_add_device_for_user()");
 
 	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::add_device_for_user
-
 }
-
 //--------------------------------------------------------
 /**
- *	Execute the CloneUser command:
+ *	Command CloneUser related method
  *	Description: Copy addresses and devices from source user to target user.
  *
  *	@param argin [0] - source user name.\n[1] - target user name.
@@ -458,18 +477,16 @@ void TangoAccessControl::clone_user(const Tango::DevVarStringArray *argin)
 	}
 
 	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::clone_user
-
 }
-
 //--------------------------------------------------------
 /**
- *	Execute the GetAccess command:
+ *	Command GetAccess related method
  *	Description: Check access for specified user, device, address
- *	                  and returns access (read or write).
+ *                    and returns access (read or write).
  *
  *	@param argin [0] - User name
- *	             [1] - IP Address
- *	             [2] - Device
+ *               [1] - IP Address
+ *               [2] - Device
  *	@returns access for specified inputs  read/write.
  */
 //--------------------------------------------------------
@@ -512,23 +529,21 @@ Tango::DevString TangoAccessControl::get_access(const Tango::DevVarStringArray *
 	argout = CORBA::string_dup(result.c_str());
 
 	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::get_access
-
 	return argout;
 }
-
 //--------------------------------------------------------
 /**
- *	Execute the GetAccessForMultiIP command:
+ *	Command GetAccessForMultiIP related method
  *	Description: Check access for specified user, device and addresses
- *	                  and returns access (read or write).
+ *                    and returns access (read or write).
  *
  *	@param argin [0] - User name
- *	             [1] - Device
- *	             [2] - IP Address #1
- *	             [3] - IP Address #2
- *	             [4] - IP Address #3
- *	             [5] - IP Address #4
- *	             ......
+ *               [1] - Device
+ *               [2] - IP Address #1
+ *               [3] - IP Address #2
+ *               [4] - IP Address #3
+ *               [5] - IP Address #4
+ *               ......
  *	@returns access for specified inputs  read/write.
  */
 //--------------------------------------------------------
@@ -583,13 +598,11 @@ Tango::DevString TangoAccessControl::get_access_for_multi_ip(const Tango::DevVar
 	argout = CORBA::string_dup(result.c_str());
 
 	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::get_access_for_multi_ip
-
 	return argout;
 }
-
 //--------------------------------------------------------
 /**
- *	Execute the GetAddressByUser command:
+ *	Command GetAddressByUser related method
  *	Description: Returns address list  found for the specified user.
  *
  *	@param argin user name.
@@ -633,13 +646,11 @@ Tango::DevVarStringArray *TangoAccessControl::get_address_by_user(Tango::DevStri
 	mysql_free_result(result);
 
 	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::get_address_by_user
-
 	return argout;
 }
-
 //--------------------------------------------------------
 /**
- *	Execute the GetAllowedCommandClassList command:
+ *	Command GetAllowedCommandClassList related method
  *	Description: Returns the class names which have AllowedAccessCmd property defined.
  *
  *	@param argin 
@@ -676,15 +687,13 @@ Tango::DevVarStringArray *TangoAccessControl::get_allowed_command_class_list()
 	mysql_free_result(result);
 
 	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::get_allowed_command_class_list
-
 	return argout;
 }
-
 //--------------------------------------------------------
 /**
- *	Execute the GetAllowedCommands command:
+ *	Command GetAllowedCommands related method
  *	Description: Returns allowed command list found in database for specified device
- *	             It search the class of the specified device and then uses the class property <b>AllowedAccessCmd</b>
+ *               It search the class of the specified device and then uses the class property <b>AllowedAccessCmd</b>
  *
  *	@param argin Device name OR Device Class name
  *	@returns Allowed commands found in database for specified device
@@ -732,13 +741,11 @@ Tango::DevVarStringArray *TangoAccessControl::get_allowed_commands(Tango::DevStr
 	mysql_free_result(result);
 
 	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::get_allowed_commands
-
 	return argout;
 }
-
 //--------------------------------------------------------
 /**
- *	Execute the GetDeviceByUser command:
+ *	Command GetDeviceByUser related method
  *	Description: Returns devices and rights found for the specified user.
  *
  *	@param argin user name.
@@ -783,13 +790,11 @@ Tango::DevVarStringArray *TangoAccessControl::get_device_by_user(Tango::DevStrin
 	mysql_free_result(result);
 
 	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::get_device_by_user
-
 	return argout;
 }
-
 //--------------------------------------------------------
 /**
- *	Execute the GetDeviceClass command:
+ *	Command GetDeviceClass related method
  *	Description: Returns class for specified device.
  *
  *	@param argin Device name
@@ -834,13 +839,11 @@ Tango::DevString TangoAccessControl::get_device_class(Tango::DevString argin)
 	DEBUG_STREAM << "Class " << argout << " found for " << argin << endl;
 
 	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::get_device_class
-
 	return argout;
 }
-
 //--------------------------------------------------------
 /**
- *	Execute the GetUsers command:
+ *	Command GetUsers related method
  *	Description: Returns user list found in table access_address.
  *
  *	@param argin 
@@ -906,13 +909,11 @@ Tango::DevVarStringArray *TangoAccessControl::get_users()
 		(*argout)[i] = CORBA::string_dup(users[i].c_str());
 
 	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::get_users
-
 	return argout;
 }
-
 //--------------------------------------------------------
 /**
- *	Execute the RegisterService command:
+ *	Command RegisterService related method
  *	Description: Register device as a TANGO service.
  *
  *	@param argin 
@@ -927,12 +928,10 @@ void TangoAccessControl::register_service()
 	register_service(ServiceName, InatanceName, device_name);
 
 	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::register_service
-
 }
-
 //--------------------------------------------------------
 /**
- *	Execute the RemoveAddressForUser command:
+ *	Command RemoveAddressForUser related method
  *	Description: Remove an address for the specified user..
  *
  *	@param argin user name, address
@@ -960,12 +959,10 @@ void TangoAccessControl::remove_address_for_user(const Tango::DevVarStringArray 
 	simple_query(tms.str(),"remove_address_for_user()");
 
 	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::remove_address_for_user
-
 }
-
 //--------------------------------------------------------
 /**
- *	Execute the RemoveDeviceForUser command:
+ *	Command RemoveDeviceForUser related method
  *	Description: Remove a device and its rights for the specified user..
  *
  *	@param argin user name, device and value
@@ -995,12 +992,10 @@ void TangoAccessControl::remove_device_for_user(const Tango::DevVarStringArray *
 	simple_query(tms.str(),"remove_device_for_user()");
 
 	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::remove_device_for_user
-
 }
-
 //--------------------------------------------------------
 /**
- *	Execute the RemoveUser command:
+ *	Command RemoveUser related method
  *	Description: Remove all records for specified user.
  *
  *	@param argin user name
@@ -1028,12 +1023,10 @@ void TangoAccessControl::remove_user(Tango::DevString argin)
 	simple_query(tms.str(),"clone_user()");
 
 	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::remove_user
-
 }
-
 //--------------------------------------------------------
 /**
- *	Execute the UnregisterService command:
+ *	Command UnregisterService related method
  *	Description: Unregister device as a TANGO service.
  *
  *	@param argin 
@@ -1048,11 +1041,9 @@ void TangoAccessControl::unregister_service()
 	unregister_service(ServiceName, InatanceName, device_name);
 
 	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::unregister_service
-
 }
 
-
-	/*----- PROTECTED REGION ID(TangoAccessControl::namespace_ending) ENABLED START -----*/
+/*----- PROTECTED REGION ID(TangoAccessControl::namespace_ending) ENABLED START -----*/
 
 	//	Additional Methods
 

@@ -58,53 +58,39 @@ static const char *RcsId = "$Id$";
 #include <TangoAccessControl.h>
 #include <TangoAccessControlClass.h>
 
-/*----- PROTECTED REGION END -----*/
+/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::TangoAccessControlStateMachine.cpp
 
+//================================================================
+//  States  |  Description
+//================================================================
+//  ON      |  The MySql database handle is OK.
+//  FAULT   |  The MySql database handle is not OK.
 
-/*
- * TangoAccessControl states description:
- *
- * ON :	The MySql database handle is OK. 
- * FAULT :	The MySql database handle is not OK. 
- */
 
 namespace TangoAccessControl_ns
 {
-
 //=================================================
 //		Attributes Allowed Methods
 //=================================================
-
-
-	/*----- PROTECTED REGION ID(TangoAccessControl::are_dynamic_attributes_allowed) ENABLED START -----*/
-
-	//	Add your code to check if dynamic attributes are alowed
-
-	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::are_dynamic_attributes_allowed
-
 
 //=================================================
 //		Commands Allowed Methods
 //=================================================
 
-
 //--------------------------------------------------------
 /**
- *	Method      : TangoAccessControl::is_AddAddressForUserState_allowed()
- *	Description : Execution allowed for AddAddressForUser command.
+ *	Method      : TangoAccessControl::is_AddAddressForUser_allowed()
+ *	Description : Execution allowed for AddAddressForUser attribute
  */
 //--------------------------------------------------------
-
 bool TangoAccessControl::is_AddAddressForUser_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
-	if (	//	Compare device state with not allowed states for command 
-		get_state() == Tango::FAULT)
+	//	Compare device state with not allowed states.
+	if (get_state()==Tango::FAULT)
 	{
-
 	/*----- PROTECTED REGION ID(TangoAccessControl::AddAddressForUserStateAllowed) ENABLED START -----*/
 
 	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::AddAddressForUserStateAllowed
-
 		return false;
 	}
 	return true;
@@ -112,21 +98,18 @@ bool TangoAccessControl::is_AddAddressForUser_allowed(TANGO_UNUSED(const CORBA::
 
 //--------------------------------------------------------
 /**
- *	Method      : TangoAccessControl::is_AddDeviceForUserState_allowed()
- *	Description : Execution allowed for AddDeviceForUser command.
+ *	Method      : TangoAccessControl::is_AddDeviceForUser_allowed()
+ *	Description : Execution allowed for AddDeviceForUser attribute
  */
 //--------------------------------------------------------
-
 bool TangoAccessControl::is_AddDeviceForUser_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
-	if (	//	Compare device state with not allowed states for command 
-		get_state() == Tango::FAULT)
+	//	Compare device state with not allowed states.
+	if (get_state()==Tango::FAULT)
 	{
-
 	/*----- PROTECTED REGION ID(TangoAccessControl::AddDeviceForUserStateAllowed) ENABLED START -----*/
 
 	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::AddDeviceForUserStateAllowed
-
 		return false;
 	}
 	return true;
@@ -134,21 +117,18 @@ bool TangoAccessControl::is_AddDeviceForUser_allowed(TANGO_UNUSED(const CORBA::A
 
 //--------------------------------------------------------
 /**
- *	Method      : TangoAccessControl::is_CloneUserState_allowed()
- *	Description : Execution allowed for CloneUser command.
+ *	Method      : TangoAccessControl::is_CloneUser_allowed()
+ *	Description : Execution allowed for CloneUser attribute
  */
 //--------------------------------------------------------
-
 bool TangoAccessControl::is_CloneUser_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
-	if (	//	Compare device state with not allowed states for command 
-		get_state() == Tango::FAULT)
+	//	Compare device state with not allowed states.
+	if (get_state()==Tango::FAULT)
 	{
-
 	/*----- PROTECTED REGION ID(TangoAccessControl::CloneUserStateAllowed) ENABLED START -----*/
 
 	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::CloneUserStateAllowed
-
 		return false;
 	}
 	return true;
@@ -156,57 +136,48 @@ bool TangoAccessControl::is_CloneUser_allowed(TANGO_UNUSED(const CORBA::Any &any
 
 //--------------------------------------------------------
 /**
- *	Method      : TangoAccessControl::is_GetAccessState_allowed()
- *	Description : Execution allowed for GetAccess command.
+ *	Method      : TangoAccessControl::is_GetAccess_allowed()
+ *	Description : Execution allowed for GetAccess attribute
  */
 //--------------------------------------------------------
-
 bool TangoAccessControl::is_GetAccess_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
 	//	Not any excluded states for GetAccess command.
-
 	/*----- PROTECTED REGION ID(TangoAccessControl::GetAccessStateAllowed) ENABLED START -----*/
 
 	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::GetAccessStateAllowed
-
 	return true;
 }
 
 //--------------------------------------------------------
 /**
- *	Method      : TangoAccessControl::is_GetAccessForMultiIPState_allowed()
- *	Description : Execution allowed for GetAccessForMultiIP command.
+ *	Method      : TangoAccessControl::is_GetAccessForMultiIP_allowed()
+ *	Description : Execution allowed for GetAccessForMultiIP attribute
  */
 //--------------------------------------------------------
-
 bool TangoAccessControl::is_GetAccessForMultiIP_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
 	//	Not any excluded states for GetAccessForMultiIP command.
-
 	/*----- PROTECTED REGION ID(TangoAccessControl::GetAccessForMultiIPStateAllowed) ENABLED START -----*/
 
 	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::GetAccessForMultiIPStateAllowed
-
 	return true;
 }
 
 //--------------------------------------------------------
 /**
- *	Method      : TangoAccessControl::is_GetAddressByUserState_allowed()
- *	Description : Execution allowed for GetAddressByUser command.
+ *	Method      : TangoAccessControl::is_GetAddressByUser_allowed()
+ *	Description : Execution allowed for GetAddressByUser attribute
  */
 //--------------------------------------------------------
-
 bool TangoAccessControl::is_GetAddressByUser_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
-	if (	//	Compare device state with not allowed states for command 
-		get_state() == Tango::FAULT)
+	//	Compare device state with not allowed states.
+	if (get_state()==Tango::FAULT)
 	{
-
 	/*----- PROTECTED REGION ID(TangoAccessControl::GetAddressByUserStateAllowed) ENABLED START -----*/
 
 	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::GetAddressByUserStateAllowed
-
 		return false;
 	}
 	return true;
@@ -214,39 +185,33 @@ bool TangoAccessControl::is_GetAddressByUser_allowed(TANGO_UNUSED(const CORBA::A
 
 //--------------------------------------------------------
 /**
- *	Method      : TangoAccessControl::is_GetAllowedCommandClassListState_allowed()
- *	Description : Execution allowed for GetAllowedCommandClassList command.
+ *	Method      : TangoAccessControl::is_GetAllowedCommandClassList_allowed()
+ *	Description : Execution allowed for GetAllowedCommandClassList attribute
  */
 //--------------------------------------------------------
-
 bool TangoAccessControl::is_GetAllowedCommandClassList_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
 	//	Not any excluded states for GetAllowedCommandClassList command.
-
 	/*----- PROTECTED REGION ID(TangoAccessControl::GetAllowedCommandClassListStateAllowed) ENABLED START -----*/
 
 	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::GetAllowedCommandClassListStateAllowed
-
 	return true;
 }
 
 //--------------------------------------------------------
 /**
- *	Method      : TangoAccessControl::is_GetAllowedCommandsState_allowed()
- *	Description : Execution allowed for GetAllowedCommands command.
+ *	Method      : TangoAccessControl::is_GetAllowedCommands_allowed()
+ *	Description : Execution allowed for GetAllowedCommands attribute
  */
 //--------------------------------------------------------
-
 bool TangoAccessControl::is_GetAllowedCommands_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
-	if (	//	Compare device state with not allowed states for command 
-		get_state() == Tango::FAULT)
+	//	Compare device state with not allowed states.
+	if (get_state()==Tango::FAULT)
 	{
-
 	/*----- PROTECTED REGION ID(TangoAccessControl::GetAllowedCommandsStateAllowed) ENABLED START -----*/
 
 	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::GetAllowedCommandsStateAllowed
-
 		return false;
 	}
 	return true;
@@ -254,21 +219,18 @@ bool TangoAccessControl::is_GetAllowedCommands_allowed(TANGO_UNUSED(const CORBA:
 
 //--------------------------------------------------------
 /**
- *	Method      : TangoAccessControl::is_GetDeviceByUserState_allowed()
- *	Description : Execution allowed for GetDeviceByUser command.
+ *	Method      : TangoAccessControl::is_GetDeviceByUser_allowed()
+ *	Description : Execution allowed for GetDeviceByUser attribute
  */
 //--------------------------------------------------------
-
 bool TangoAccessControl::is_GetDeviceByUser_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
-	if (	//	Compare device state with not allowed states for command 
-		get_state() == Tango::FAULT)
+	//	Compare device state with not allowed states.
+	if (get_state()==Tango::FAULT)
 	{
-
 	/*----- PROTECTED REGION ID(TangoAccessControl::GetDeviceByUserStateAllowed) ENABLED START -----*/
 
 	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::GetDeviceByUserStateAllowed
-
 		return false;
 	}
 	return true;
@@ -276,21 +238,18 @@ bool TangoAccessControl::is_GetDeviceByUser_allowed(TANGO_UNUSED(const CORBA::An
 
 //--------------------------------------------------------
 /**
- *	Method      : TangoAccessControl::is_GetDeviceClassState_allowed()
- *	Description : Execution allowed for GetDeviceClass command.
+ *	Method      : TangoAccessControl::is_GetDeviceClass_allowed()
+ *	Description : Execution allowed for GetDeviceClass attribute
  */
 //--------------------------------------------------------
-
 bool TangoAccessControl::is_GetDeviceClass_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
-	if (	//	Compare device state with not allowed states for command 
-		get_state() == Tango::FAULT)
+	//	Compare device state with not allowed states.
+	if (get_state()==Tango::FAULT)
 	{
-
 	/*----- PROTECTED REGION ID(TangoAccessControl::GetDeviceClassStateAllowed) ENABLED START -----*/
 
 	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::GetDeviceClassStateAllowed
-
 		return false;
 	}
 	return true;
@@ -298,21 +257,18 @@ bool TangoAccessControl::is_GetDeviceClass_allowed(TANGO_UNUSED(const CORBA::Any
 
 //--------------------------------------------------------
 /**
- *	Method      : TangoAccessControl::is_GetUsersState_allowed()
- *	Description : Execution allowed for GetUsers command.
+ *	Method      : TangoAccessControl::is_GetUsers_allowed()
+ *	Description : Execution allowed for GetUsers attribute
  */
 //--------------------------------------------------------
-
 bool TangoAccessControl::is_GetUsers_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
-	if (	//	Compare device state with not allowed states for command 
-		get_state() == Tango::FAULT)
+	//	Compare device state with not allowed states.
+	if (get_state()==Tango::FAULT)
 	{
-
 	/*----- PROTECTED REGION ID(TangoAccessControl::GetUsersStateAllowed) ENABLED START -----*/
 
 	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::GetUsersStateAllowed
-
 		return false;
 	}
 	return true;
@@ -320,39 +276,33 @@ bool TangoAccessControl::is_GetUsers_allowed(TANGO_UNUSED(const CORBA::Any &any)
 
 //--------------------------------------------------------
 /**
- *	Method      : TangoAccessControl::is_RegisterServiceState_allowed()
- *	Description : Execution allowed for RegisterService command.
+ *	Method      : TangoAccessControl::is_RegisterService_allowed()
+ *	Description : Execution allowed for RegisterService attribute
  */
 //--------------------------------------------------------
-
 bool TangoAccessControl::is_RegisterService_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
 	//	Not any excluded states for RegisterService command.
-
 	/*----- PROTECTED REGION ID(TangoAccessControl::RegisterServiceStateAllowed) ENABLED START -----*/
 
 	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::RegisterServiceStateAllowed
-
 	return true;
 }
 
 //--------------------------------------------------------
 /**
- *	Method      : TangoAccessControl::is_RemoveAddressForUserState_allowed()
- *	Description : Execution allowed for RemoveAddressForUser command.
+ *	Method      : TangoAccessControl::is_RemoveAddressForUser_allowed()
+ *	Description : Execution allowed for RemoveAddressForUser attribute
  */
 //--------------------------------------------------------
-
 bool TangoAccessControl::is_RemoveAddressForUser_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
-	if (	//	Compare device state with not allowed states for command 
-		get_state() == Tango::FAULT)
+	//	Compare device state with not allowed states.
+	if (get_state()==Tango::FAULT)
 	{
-
 	/*----- PROTECTED REGION ID(TangoAccessControl::RemoveAddressForUserStateAllowed) ENABLED START -----*/
 
 	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::RemoveAddressForUserStateAllowed
-
 		return false;
 	}
 	return true;
@@ -360,21 +310,18 @@ bool TangoAccessControl::is_RemoveAddressForUser_allowed(TANGO_UNUSED(const CORB
 
 //--------------------------------------------------------
 /**
- *	Method      : TangoAccessControl::is_RemoveDeviceForUserState_allowed()
- *	Description : Execution allowed for RemoveDeviceForUser command.
+ *	Method      : TangoAccessControl::is_RemoveDeviceForUser_allowed()
+ *	Description : Execution allowed for RemoveDeviceForUser attribute
  */
 //--------------------------------------------------------
-
 bool TangoAccessControl::is_RemoveDeviceForUser_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
-	if (	//	Compare device state with not allowed states for command 
-		get_state() == Tango::FAULT)
+	//	Compare device state with not allowed states.
+	if (get_state()==Tango::FAULT)
 	{
-
 	/*----- PROTECTED REGION ID(TangoAccessControl::RemoveDeviceForUserStateAllowed) ENABLED START -----*/
 
 	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::RemoveDeviceForUserStateAllowed
-
 		return false;
 	}
 	return true;
@@ -382,21 +329,18 @@ bool TangoAccessControl::is_RemoveDeviceForUser_allowed(TANGO_UNUSED(const CORBA
 
 //--------------------------------------------------------
 /**
- *	Method      : TangoAccessControl::is_RemoveUserState_allowed()
- *	Description : Execution allowed for RemoveUser command.
+ *	Method      : TangoAccessControl::is_RemoveUser_allowed()
+ *	Description : Execution allowed for RemoveUser attribute
  */
 //--------------------------------------------------------
-
 bool TangoAccessControl::is_RemoveUser_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
-	if (	//	Compare device state with not allowed states for command 
-		get_state() == Tango::FAULT)
+	//	Compare device state with not allowed states.
+	if (get_state()==Tango::FAULT)
 	{
-
 	/*----- PROTECTED REGION ID(TangoAccessControl::RemoveUserStateAllowed) ENABLED START -----*/
 
 	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::RemoveUserStateAllowed
-
 		return false;
 	}
 	return true;
@@ -404,27 +348,17 @@ bool TangoAccessControl::is_RemoveUser_allowed(TANGO_UNUSED(const CORBA::Any &an
 
 //--------------------------------------------------------
 /**
- *	Method      : TangoAccessControl::is_UnregisterServiceState_allowed()
- *	Description : Execution allowed for UnregisterService command.
+ *	Method      : TangoAccessControl::is_UnregisterService_allowed()
+ *	Description : Execution allowed for UnregisterService attribute
  */
 //--------------------------------------------------------
-
 bool TangoAccessControl::is_UnregisterService_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
 	//	Not any excluded states for UnregisterService command.
-
 	/*----- PROTECTED REGION ID(TangoAccessControl::UnregisterServiceStateAllowed) ENABLED START -----*/
 
 	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::UnregisterServiceStateAllowed
-
 	return true;
 }
 
-
-	/*----- PROTECTED REGION ID(TangoAccessControl::are_dynamic_commands_allowed) ENABLED START -----*/
-
-	//	Add your code to check if dynamic commands are alowed
-
-	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::are_dynamic_commands_allowed
-
-}	// namespace TangoAccessControl_ns
+}	//	End of namespace

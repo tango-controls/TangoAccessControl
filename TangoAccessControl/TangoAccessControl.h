@@ -102,36 +102,21 @@ static LARGE_INTEGER	cpu_freq;
 #endif	/*	WIN32		*/
 
 
-#ifndef TANGO_UNUSED
-	#ifdef _TG_WINDOWS_
-		#define TANGO_UNUSED(var) var
-	#else
-		#if __GNUC__ == 3 && __GNUC_MINOR__ >= 4
-			#define TANGO_UNUSED(var) var __attribute__ ((unused))
-		#elif __GNUC__ > 3
-			#define TANGO_UNUSED(var) var __attribute__ ((unused))
-		#else
-			#define TANGO_UNUSED(var) var
-		#endif
-	#endif
-#endif
-
-/*----- PROTECTED REGION END -----*/
-
+/*----- PROTECTED REGION END -----*/	//	TangoAccessControl.h
 
 /**
- *	TangoAccessControl class Description:
- *	This class is a conceate class inherited from AccessControl abstract class.<Br>
- *	<Br>
- *	This class defines how to manage the TANGO access control.<Br>
- *	It implements commands for tool to defines access for users, devices and IP addresses.<Br>
- *	It implements also commands used by client API to check access for specified user, device and address.<Br>
- *	And it implements register and unregister it as TANGO service.
+ *  TangoAccessControl class description:
+ *    This class is a conceate class inherited from AccessControl abstract class.<Br>
+ *    <Br>
+ *    This class defines how to manage the TANGO access control.<Br>
+ *    It implements commands for tool to defines access for users, devices and IP addresses.<Br>
+ *    It implements also commands used by client API to check access for specified user, device and address.<Br>
+ *    And it implements register and unregister it as TANGO service.
  */
 
 namespace TangoAccessControl_ns
 {
-	/*----- PROTECTED REGION ID(TangoAccessControl::Additional Class Declarations) ENABLED START -----*/
+/*----- PROTECTED REGION ID(TangoAccessControl::Additional Class Declarations) ENABLED START -----*/
 
 		//		Additional Class Declarations
 class DummyDev: public Tango::Connection
@@ -151,12 +136,10 @@ public:
 
 	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::Additional Class Declarations
 
-
 class TangoAccessControl : public AccessControl_ns::AccessControl
 {
 
-
-	/*----- PROTECTED REGION ID(TangoAccessControl::Data Members) ENABLED START -----*/
+/*----- PROTECTED REGION ID(TangoAccessControl::Data Members) ENABLED START -----*/
 
 	//		Add your own data members
 public:
@@ -166,32 +149,25 @@ public:
 	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::Data Members
 
 
-//	Device property data members
-public:	
-
-//	Attribute data members
-public:
-
-
 
 //	Constructors and destructors
 public:
 	/**
-	 * Constructs a newly allocated Command object.
+	 * Constructs a newly device object.
 	 *
 	 *	@param cl	Class.
 	 *	@param s 	Device Name
 	 */
 	TangoAccessControl(Tango::DeviceClass *cl,string &s);
 	/**
-	 * Constructs a newly allocated Command object.
+	 * Constructs a newly device object.
 	 *
 	 *	@param cl	Class.
 	 *	@param s 	Device Name
 	 */
 	TangoAccessControl(Tango::DeviceClass *cl,const char *s);
 	/**
-	 * Constructs a newly allocated Command object.
+	 * Constructs a newly device object.
 	 *
 	 *	@param cl	Class.
 	 *	@param s 	Device name
@@ -199,10 +175,9 @@ public:
 	 */
 	TangoAccessControl(Tango::DeviceClass *cl,const char *s,const char *d);
 	/**
-	 * The object destructor.
+	 * The device object destructor.
 	 */	
 	~TangoAccessControl() {delete_device();};
-
 
 
 //	Miscellaneous methods
@@ -216,124 +191,192 @@ public:
 	 */
 	virtual void init_device();
 	/**
-	 *	Read the device properties from database
-	 */
-	 void get_device_property();
-	/**
 	 *	Always executed method before execution command method.
 	 */
 	virtual void always_executed_hook();
 
 
+//	Attribute methods
+public:
+	//--------------------------------------------------------
+	/**
+	 *	Method      : TangoAccessControl::read_attr_hardware()
+	 *	Description : Hardware acquisition for attributes.
+	 */
+	//--------------------------------------------------------
+	virtual void read_attr_hardware(vector<long> &attr_list);
+
+
+	//--------------------------------------------------------
 	/**
 	 *	Method      : TangoAccessControl::add_dynamic_attributes()
 	 *	Description : Add dynamic attributes if any.
 	 */
-		void add_dynamic_attributes();
+	//--------------------------------------------------------
+	void add_dynamic_attributes();
+
+
 
 //	Command related methods
-public: 
-
-
+public:
 	/**
-	 *	Command AddAddressForUser related methods.
+	 *	Command AddAddressForUser related method
+	 *	Description: Add an address for the specified user..
+	 *
+	 *	@param argin user name, address
+	 *	@returns 
 	 */
-	void add_address_for_user(const Tango::DevVarStringArray *argin);
+	virtual void add_address_for_user(const Tango::DevVarStringArray *argin);
 	virtual bool is_AddAddressForUser_allowed(const CORBA::Any &any);
-
 	/**
-	 *	Command AddDeviceForUser related methods.
+	 *	Command AddDeviceForUser related method
+	 *	Description: Add a device and rights for the specified user..
+	 *
+	 *	@param argin user name, device adn value
+	 *	@returns 
 	 */
-	void add_device_for_user(const Tango::DevVarStringArray *argin);
+	virtual void add_device_for_user(const Tango::DevVarStringArray *argin);
 	virtual bool is_AddDeviceForUser_allowed(const CORBA::Any &any);
-
 	/**
-	 *	Command CloneUser related methods.
+	 *	Command CloneUser related method
+	 *	Description: Copy addresses and devices from source user to target user.
+	 *
+	 *	@param argin [0] - source user name.\n[1] - target user name.
+	 *	@returns 
 	 */
-	void clone_user(const Tango::DevVarStringArray *argin);
+	virtual void clone_user(const Tango::DevVarStringArray *argin);
 	virtual bool is_CloneUser_allowed(const CORBA::Any &any);
-
 	/**
-	 *	Command GetAccess related methods.
+	 *	Command GetAccess related method
+	 *	Description: Check access for specified user, device, address
+	 *                    and returns access (read or write).
+	 *
+	 *	@param argin [0] - User name
+	 *               [1] - IP Address
+	 *               [2] - Device
+	 *	@returns access for specified inputs  read/write.
 	 */
-	Tango::DevString get_access(const Tango::DevVarStringArray *argin);
+	virtual Tango::DevString get_access(const Tango::DevVarStringArray *argin);
 	virtual bool is_GetAccess_allowed(const CORBA::Any &any);
-
 	/**
-	 *	Command GetAccessForMultiIP related methods.
+	 *	Command GetAccessForMultiIP related method
+	 *	Description: Check access for specified user, device and addresses
+	 *                    and returns access (read or write).
+	 *
+	 *	@param argin [0] - User name
+	 *               [1] - Device
+	 *               [2] - IP Address #1
+	 *               [3] - IP Address #2
+	 *               [4] - IP Address #3
+	 *               [5] - IP Address #4
+	 *               ......
+	 *	@returns access for specified inputs  read/write.
 	 */
-	Tango::DevString get_access_for_multi_ip(const Tango::DevVarStringArray *argin);
+	virtual Tango::DevString get_access_for_multi_ip(const Tango::DevVarStringArray *argin);
 	virtual bool is_GetAccessForMultiIP_allowed(const CORBA::Any &any);
-
 	/**
-	 *	Command GetAddressByUser related methods.
+	 *	Command GetAddressByUser related method
+	 *	Description: Returns address list  found for the specified user.
+	 *
+	 *	@param argin user name.
+	 *	@returns Addresses found for the specified user.
 	 */
-	Tango::DevVarStringArray *get_address_by_user(Tango::DevString argin);
+	virtual Tango::DevVarStringArray *get_address_by_user(Tango::DevString argin);
 	virtual bool is_GetAddressByUser_allowed(const CORBA::Any &any);
-
 	/**
-	 *	Command GetAllowedCommandClassList related methods.
+	 *	Command GetAllowedCommandClassList related method
+	 *	Description: Returns the class names which have AllowedAccessCmd property defined.
+	 *
+	 *	@param argin 
+	 *	@returns Class names which have AllowedAccessCmd property defined.
 	 */
-	Tango::DevVarStringArray *get_allowed_command_class_list();
+	virtual Tango::DevVarStringArray *get_allowed_command_class_list();
 	virtual bool is_GetAllowedCommandClassList_allowed(const CORBA::Any &any);
-
 	/**
-	 *	Command GetAllowedCommands related methods.
+	 *	Command GetAllowedCommands related method
+	 *	Description: Returns allowed command list found in database for specified device
+	 *               It search the class of the specified device and then uses the class property <b>AllowedAccessCmd</b>
+	 *
+	 *	@param argin Device name OR Device Class name
+	 *	@returns Allowed commands found in database for specified device
 	 */
-	Tango::DevVarStringArray *get_allowed_commands(Tango::DevString argin);
+	virtual Tango::DevVarStringArray *get_allowed_commands(Tango::DevString argin);
 	virtual bool is_GetAllowedCommands_allowed(const CORBA::Any &any);
-
 	/**
-	 *	Command GetDeviceByUser related methods.
+	 *	Command GetDeviceByUser related method
+	 *	Description: Returns devices and rights found for the specified user.
+	 *
+	 *	@param argin user name.
+	 *	@returns devices and rights found for the specified user.
 	 */
-	Tango::DevVarStringArray *get_device_by_user(Tango::DevString argin);
+	virtual Tango::DevVarStringArray *get_device_by_user(Tango::DevString argin);
 	virtual bool is_GetDeviceByUser_allowed(const CORBA::Any &any);
-
 	/**
-	 *	Command GetDeviceClass related methods.
+	 *	Command GetDeviceClass related method
+	 *	Description: Returns class for specified device.
+	 *
+	 *	@param argin Device name
+	 *	@returns Class found in database for specified device
 	 */
-	Tango::DevString get_device_class(Tango::DevString argin);
+	virtual Tango::DevString get_device_class(Tango::DevString argin);
 	virtual bool is_GetDeviceClass_allowed(const CORBA::Any &any);
-
 	/**
-	 *	Command GetUsers related methods.
+	 *	Command GetUsers related method
+	 *	Description: Returns user list found in table access_address.
+	 *
+	 *	@param argin 
+	 *	@returns Users find in table access_address.
 	 */
-	Tango::DevVarStringArray *get_users();
+	virtual Tango::DevVarStringArray *get_users();
 	virtual bool is_GetUsers_allowed(const CORBA::Any &any);
-
 	/**
-	 *	Command RegisterService related methods.
+	 *	Command RegisterService related method
+	 *	Description: Register device as a TANGO service.
+	 *
+	 *	@param argin 
+	 *	@returns 
 	 */
-	void register_service();
+	virtual void register_service();
 	virtual bool is_RegisterService_allowed(const CORBA::Any &any);
-
 	/**
-	 *	Command RemoveAddressForUser related methods.
+	 *	Command RemoveAddressForUser related method
+	 *	Description: Remove an address for the specified user..
+	 *
+	 *	@param argin user name, address
+	 *	@returns 
 	 */
-	void remove_address_for_user(const Tango::DevVarStringArray *argin);
+	virtual void remove_address_for_user(const Tango::DevVarStringArray *argin);
 	virtual bool is_RemoveAddressForUser_allowed(const CORBA::Any &any);
-
 	/**
-	 *	Command RemoveDeviceForUser related methods.
+	 *	Command RemoveDeviceForUser related method
+	 *	Description: Remove a device and its rights for the specified user..
+	 *
+	 *	@param argin user name, device and value
+	 *	@returns 
 	 */
-	void remove_device_for_user(const Tango::DevVarStringArray *argin);
+	virtual void remove_device_for_user(const Tango::DevVarStringArray *argin);
 	virtual bool is_RemoveDeviceForUser_allowed(const CORBA::Any &any);
-
 	/**
-	 *	Command RemoveUser related methods.
+	 *	Command RemoveUser related method
+	 *	Description: Remove all records for specified user.
+	 *
+	 *	@param argin user name
+	 *	@returns 
 	 */
-	void remove_user(Tango::DevString argin);
+	virtual void remove_user(Tango::DevString argin);
 	virtual bool is_RemoveUser_allowed(const CORBA::Any &any);
-
 	/**
-	 *	Command UnregisterService related methods.
+	 *	Command UnregisterService related method
+	 *	Description: Unregister device as a TANGO service.
+	 *
+	 *	@param argin 
+	 *	@returns 
 	 */
-	void unregister_service();
+	virtual void unregister_service();
 	virtual bool is_UnregisterService_allowed(const CORBA::Any &any);
 
 
-
-	/*----- PROTECTED REGION ID(TangoAccessControl::Additional Method prototypes) ENABLED START -----*/
+/*----- PROTECTED REGION ID(TangoAccessControl::Additional Method prototypes) ENABLED START -----*/
 
 	//	Additional Method prototypes
 protected :	
@@ -349,22 +392,21 @@ protected :
 	vector<AccessStruct>
 		get_access_for_user_address(string &user, string &ip_add);
 	string get_access_for_user_device(string &user, string &device);
-	int    nb_chars(string s, char c);
-	int    mini_nb_stars(vector<AccessStruct> v);
+	string get_rigths(vector<AccessStruct> as, vector<string> members);
+	bool match(string expression, string member);
 
 	void register_service(string servicename, string instname, string devname);
 	void unregister_service(string servicename, string instname, string devname);
 
 	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::Additional Method prototypes
-
 };
 
-	/*----- PROTECTED REGION ID(TangoAccessControl::Additional Classes Definitions) ENABLED START -----*/
+/*----- PROTECTED REGION ID(TangoAccessControl::Additional Classes Definitions) ENABLED START -----*/
 
 	//	Additional Classes definitions
 
 	/*----- PROTECTED REGION END -----*/	//	TangoAccessControl::Additional Classes Definitions
 
-} //	namespace
+}	//	End of namespace
 
-#endif	//	TANGOACCESSCONTROL_H
+#endif   //	TangoAccessControl_H
