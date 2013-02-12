@@ -92,5 +92,4 @@ int main(int argc,char *argv[])
 }
 
 
-/*PROTECTED REGION END*/
-//========================================================
+/*PROTECTED REGION END*/	//	TangoAccessControl::main.cpp
