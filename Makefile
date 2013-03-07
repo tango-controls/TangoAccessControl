@@ -28,7 +28,7 @@ MAKE_ENV = /segfs/tango/cppserver/env
 PACKAGE_NAME = TangoAccessControl
 MAJOR_VERS   = 2
 MINOR_VERS   = 6
-RELEASE      = Release_$(MAJOR_VERS).$(MINOR_VERS)
+RELEASE      = Release-$(MAJOR_VERS).$(MINOR_VERS)
 
 
 MYSQL_INC_DIR = /usr/include/mysql
@@ -104,7 +104,8 @@ LFLAGS_USR+= -L $(MYSQL_LIB_DIR)  -lmysqlclient_r
 #
 # -DACE_HAS_EXCEPTIONS -D__ACE_INLINE__ for ACE
 #
-#CXXFLAGS_USR+= -Wall
+CXXFLAGS_USR+= -Wall -Wextra -D_FORTIFY_SOURCE=2 \
+				 -O1 -fpie -fstack-protector
 
 
 #=============================================================================
