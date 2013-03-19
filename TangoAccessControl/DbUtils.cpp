@@ -314,7 +314,9 @@ vector<AccessStruct>
 //============================================================
 string TangoAccessControl::get_access_for_user_device(string &user, string &device)
 {
-	vector<string>			members = get_dev_members(device);
+	string deviceLower = device;
+	transform(deviceLower.begin(), deviceLower.end(), deviceLower.begin(), ::tolower);
+	vector<string>	members = get_dev_members(deviceLower);
 	string	retval("read");
 
 	TangoSys_MemStream	sql_query_stream;
@@ -338,6 +340,7 @@ string TangoAccessControl::get_access_for_user_device(string &user, string &devi
 				AccessStruct	acs;
 				acs.user   = row[0];
 				acs.device = row[1];
+				transform(acs.device.begin(), acs.device.end(), acs.device.begin(), ::tolower);
 				acs.rights = row[2];
 				/*
 				cout << "		object[" << i << "} : " << acs.user
