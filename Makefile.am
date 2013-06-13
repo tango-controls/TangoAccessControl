@@ -7,8 +7,6 @@ INCLUDES = -I$(top_srcdir)/lib/cpp/client \
 		   -I$(top_srcdir)/cppserver/AbstractClass/AccessControl \
 		   $(MYSQLCLIENT_CFLAGS) $(LIBZMQ_CFLAGS)
 
-AM_CXXFLAGS= @CPP_ELEVEN@
-
 bin_PROGRAMS=TangoAccessControl
 
 TangoAccessControl_SOURCES=ClassFactory.cpp     		\
