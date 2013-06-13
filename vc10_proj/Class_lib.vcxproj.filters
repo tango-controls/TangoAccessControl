@@ -4,9 +4,6 @@
     <ClCompile Include="..\TangoAccessControl.cpp" />
     <ClCompile Include="..\TangoAccessControlClass.cpp" />
     <ClCompile Include="..\TangoAccessControlStateMachine.cpp" />
-    <ClCompile Include="\tango_src\AbstractClasses\AccessControl/AccessControl.cpp" />
-    <ClCompile Include="\tango_src\AbstractClasses\AccessControl/AccessControlClass.cpp" />
-    <ClCompile Include="\tango_src\AbstractClasses\AccessControl/AccessControlStateMachine.cpp" />
     <ClCompile Include="C:\tango_src\AbstractClasses\AccessControl/AccessControl.cpp" />
     <ClCompile Include="C:\tango_src\AbstractClasses\AccessControl/AccessControlClass.cpp" />
     <ClCompile Include="C:\tango_src\AbstractClasses\AccessControl/AccessControlStateMachine.cpp" />
@@ -17,12 +14,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\TangoAccessControlClass.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="\tango_src\AbstractClasses\AccessControl/AccessControl.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="\tango_src\AbstractClasses\AccessControl/AccessControlClass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="C:\tango_src\AbstractClasses\AccessControl/AccessControl.h" />
