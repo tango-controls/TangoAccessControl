@@ -185,7 +185,7 @@ SVC_INHERITANCE_INCL =  $(ACCESSCONTROL_INCLUDES)
 
 #=============================================================================
 #
-SVN_TCS  =  https://tango-cs.svn.sourceforge.net/svnroot/tango-cs
+SVN_TCS  =  https://svn.code.sf.net/p/tango-cs/code
 SVN_PATH =	$(SVN_TCS)/classes/cpp/TangoAccessControl
 tag:
 	@echo "Tagging  $(PACKAGE_NAME)  for $(RELEASE)"
