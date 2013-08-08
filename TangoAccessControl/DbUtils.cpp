@@ -370,9 +370,9 @@ string TangoAccessControl::get_access_for_user_device(string &user, string &devi
 		return user_rights;
 	}
 	else {
-		//	Elese return rights for all users
+		//	Else return rights for all users
 		string all_rights  = get_rigths(as_all,  members);
-		if (all_rights != "unknown") {
+		if (all_rights != "unknown" && all_rights != "write") {
 			all_rights = "read";
 		}
 		return all_rights;
@@ -387,7 +387,7 @@ string TangoAccessControl::get_rigths(vector<AccessStruct> as, vector<string> me
 	for (unsigned int i=0 ; i<as.size() ; i++) {
 		vector<string>	expMembers = get_dev_members(as[i].device);
 		bool found = true;
-		for (unsigned int j=0 ; found && j<members.size() ; j++) {	
+		for (unsigned int j=0 ; found && j<members.size() ; j++) {
 			found = match(expMembers[j], members[j]);
 		}
 		//	If found for the 3 members, add to vector
@@ -395,7 +395,7 @@ string TangoAccessControl::get_rigths(vector<AccessStruct> as, vector<string> me
 			matches.push_back(as[i]);
 		}
 	}
-	
+
 	//	Not found
 	if (matches.empty())
 		return "unknown";
