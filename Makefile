@@ -27,7 +27,7 @@ MAKE_ENV = /segfs/tango/cppserver/env
 #
 PACKAGE_NAME = TangoAccessControl
 MAJOR_VERS   = 2
-MINOR_VERS   = 9
+MINOR_VERS   = 10
 RELEASE      = Release-$(MAJOR_VERS).$(MINOR_VERS)
 
 
