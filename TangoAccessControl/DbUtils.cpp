@@ -7,9 +7,8 @@ static const char *RcsId = "$Id$";
 //
 // project :      TANGO Device Server
 //
-// $Author$
 //
-// Copyright (C) :      2004,2005,2006,2007,2008,2009,2010,2011,2012,2013
+// Copyright (C) :      2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014
 //						European Synchrotron Radiation Facility
 //                      BP 220, Grenoble 38043
 //                      FRANCE
@@ -29,9 +28,13 @@ static const char *RcsId = "$Id$";
 // You should have received a copy of the GNU General Public License
 // along with Tango.  If not, see <http://www.gnu.org/licenses/>.
 //
-// $Revision$
 //
-//-=============================================================================
+// $Author$
+//
+// $Revision$
+// $Date$
+//
+//=============================================================================
 
 #if HAVE_CONFIG_H
 #include <ac_config.h>
