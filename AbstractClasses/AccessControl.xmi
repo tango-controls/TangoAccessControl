@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="ASCII"?>
 <pogoDsl:PogoSystem xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pogoDsl="http://www.esrf.fr/tango/pogo/PogoDsl">
-  <classes name="AccessControl">
-    <description description="This class defines how to manage the TANGO access control.&#xA;It interfaces commands for tool to defines access for users, devices and IP addresses.&#xA;It interfaces also commands used by client API to check access for specified user, device and address.&#xA;And it insterfaces to register and unregister it as TANGO service." title="cess Control abstract class" sourcePath="/segfs/tango/templates/AbstractClasses/AccessControl" language="Cpp" filestogenerate="XMI   file,Code files" hasAbstractCommand="true" hasAbstractAttribute="false">
+  <classes name="AccessControl" pogoRevision="9.0">
+    <description description="This class defines how to manage the TANGO access control.&#xA;It interfaces commands for tool to defines access for users, devices and IP addresses.&#xA;It interfaces also commands used by client API to check access for specified user, device and address.&#xA;And it insterfaces to register and unregister it as TANGO service." title="cess Control abstract class" sourcePath="/segfs/tango/templates/AbstractClasses/AccessControl" language="Cpp" filestogenerate="XMI   file,Code files" hasMandatoryProperty="false" hasConcreteProperty="false" hasAbstractCommand="true" hasAbstractAttribute="false">
       <inheritances classname="Device_4Impl" sourcePath="/segfs/tango/templates/AbstractClasses"/>
       <identification contact="at esrf.fr - accelerator-control" author="accelerator-control" emailDomain="esrf.fr" classFamily="AbstractClasses" siteSpecific="" platform="All Platforms" bus="Not Applicable" manufacturer="none" reference=""/>
-      <comments commandsTable="//================================================================&#xA;//&#xA;//  The following table gives the correspondence&#xA;//  between command and method names.&#xA;//&#xA;//  Command name          |  Method name&#xA;//----------------------------------------------------------------&#xA;//  State                 |  dev_state&#xA;//  Status                |  dev_status&#xA;//  AddAddressForUser     |  Inherited (no method)&#xA;//  AddDeviceForUser      |  Inherited (no method)&#xA;//  CloneUser             |  Inherited (no method)&#xA;//  GetAccess             |  Inherited (no method)&#xA;//  GetAccessForMultiIP   |  Inherited (no method)&#xA;//  GetAddressByUser      |  Inherited (no method)&#xA;//  GetAllowedCommands    |  Inherited (no method)&#xA;//  GetDeviceByUser       |  Inherited (no method)&#xA;//  GetDeviceClass        |  Inherited (no method)&#xA;//  GetUsers              |  Inherited (no method)&#xA;//  RegisterService       |  Inherited (no method)&#xA;//  RemoveAddressForUser  |  Inherited (no method)&#xA;//  RemoveDeviceForUser   |  Inherited (no method)&#xA;//  RemoveUser            |  Inherited (no method)&#xA;//  UnregisterService     |  Inherited (no method)&#xA;//================================================================"/>
     </description>
-    <commands name="State" description="This command gets the device state (stored in its &lt;i>device_state&lt;/i> data member) and returns it to the caller." execMethod="dev_state" displayLevel="OPERATOR">
+    <commands name="State" description="This command gets the device state (stored in its &lt;i>device_state&lt;/i> data member) and returns it to the caller." execMethod="dev_state" displayLevel="OPERATOR" polledPeriod="0">
       <argin description="none.">
         <type xsi:type="pogoDsl:VoidType"/>
       </argin>
@@ -15,7 +14,7 @@
       </argout>
       <status abstract="true" inherited="true" concrete="true" concreteHere="false"/>
     </commands>
-    <commands name="Status" description="This command gets the device status (stored in its &lt;i>device_status&lt;/i> data member) and returns it to the caller." execMethod="dev_status" displayLevel="OPERATOR">
+    <commands name="Status" description="This command gets the device status (stored in its &lt;i>device_status&lt;/i> data member) and returns it to the caller." execMethod="dev_status" displayLevel="OPERATOR" polledPeriod="0">
       <argin description="none.">
         <type xsi:type="pogoDsl:VoidType"/>
       </argin>
@@ -24,7 +23,7 @@
       </argout>
       <status abstract="true" inherited="true" concrete="true" concreteHere="false"/>
     </commands>
-    <commands name="AddAddressForUser" description="Add an address for the specified user.." execMethod="add_address_for_user" displayLevel="OPERATOR">
+    <commands name="AddAddressForUser" description="Add an address for the specified user.." execMethod="add_address_for_user" displayLevel="OPERATOR" polledPeriod="0">
       <argin description="user name, address">
         <type xsi:type="pogoDsl:StringArrayType"/>
       </argin>
@@ -34,7 +33,7 @@
       <status abstract="true"/>
       <excludedStates>FAULT</excludedStates>
     </commands>
-    <commands name="AddDeviceForUser" description="Add a device and rights for the specified user.." execMethod="add_device_for_user" displayLevel="OPERATOR">
+    <commands name="AddDeviceForUser" description="Add a device and rights for the specified user.." execMethod="add_device_for_user" displayLevel="OPERATOR" polledPeriod="0">
       <argin description="user name, device adn value">
         <type xsi:type="pogoDsl:StringArrayType"/>
       </argin>
@@ -44,7 +43,7 @@
       <status abstract="true"/>
       <excludedStates>FAULT</excludedStates>
     </commands>
-    <commands name="CloneUser" description="Copy addresses and devices from source user to target user." execMethod="clone_user" displayLevel="OPERATOR">
+    <commands name="CloneUser" description="Copy addresses and devices from source user to target user." execMethod="clone_user" displayLevel="OPERATOR" polledPeriod="0">
       <argin description="[0] - source user name.\n[1] - target user name.">
         <type xsi:type="pogoDsl:StringArrayType"/>
       </argin>
@@ -54,7 +53,7 @@
       <status abstract="true"/>
       <excludedStates>FAULT</excludedStates>
     </commands>
-    <commands name="GetAccess" description="Check access for specified user, device, address&#xA;     and returns access (read or write)." execMethod="get_access" displayLevel="OPERATOR">
+    <commands name="GetAccess" description="Check access for specified user, device, address&#xA;     and returns access (read or write)." execMethod="get_access" displayLevel="OPERATOR" polledPeriod="0">
       <argin description="[0] - User name&#xA;[1] - IP Address&#xA;[2] - Device">
         <type xsi:type="pogoDsl:StringArrayType"/>
       </argin>
@@ -63,7 +62,7 @@
       </argout>
       <status abstract="true" concrete="false" concreteHere="false"/>
     </commands>
-    <commands name="GetAccessForMultiIP" description="Check access for specified user, device and addresses&#xA;     and returns access (read or write)." execMethod="get_access_for_multi_ip" displayLevel="OPERATOR">
+    <commands name="GetAccessForMultiIP" description="Check access for specified user, device and addresses&#xA;     and returns access (read or write)." execMethod="get_access_for_multi_ip" displayLevel="OPERATOR" polledPeriod="0">
       <argin description="[0] - User name&#xA;[1] - Device&#xA;[2] - IP Address #1&#xA;[3] - IP Address #2&#xA;[4] - IP Address #3&#xA;[5] - IP Address #4&#xA;......">
         <type xsi:type="pogoDsl:StringArrayType"/>
       </argin>
@@ -72,7 +71,7 @@
       </argout>
       <status abstract="true" concrete="false" concreteHere="false"/>
     </commands>
-    <commands name="GetAddressByUser" description="Returns address list  found for the specified user." execMethod="get_address_by_user" displayLevel="OPERATOR">
+    <commands name="GetAddressByUser" description="Returns address list  found for the specified user." execMethod="get_address_by_user" displayLevel="OPERATOR" polledPeriod="0">
       <argin description="user name.">
         <type xsi:type="pogoDsl:StringType"/>
       </argin>
@@ -82,7 +81,7 @@
       <status abstract="true"/>
       <excludedStates>FAULT</excludedStates>
     </commands>
-    <commands name="GetAllowedCommands" description="Returns allowed command list found in database for specified device&#xA;It search the class of the specified device and then uses the class property &lt;b>AllowedAccessCmd&lt;/b>" execMethod="get_allowed_commands" displayLevel="OPERATOR">
+    <commands name="GetAllowedCommands" description="Returns allowed command list found in database for specified device&#xA;It search the class of the specified device and then uses the class property &lt;b>AllowedAccessCmd&lt;/b>" execMethod="get_allowed_commands" displayLevel="OPERATOR" polledPeriod="0">
       <argin description="Device name">
         <type xsi:type="pogoDsl:StringType"/>
       </argin>
@@ -92,7 +91,7 @@
       <status abstract="true"/>
       <excludedStates>FAULT</excludedStates>
     </commands>
-    <commands name="GetDeviceByUser" description="Returns devices and rights found for the specified user." execMethod="get_device_by_user" displayLevel="OPERATOR">
+    <commands name="GetDeviceByUser" description="Returns devices and rights found for the specified user." execMethod="get_device_by_user" displayLevel="OPERATOR" polledPeriod="0">
       <argin description="user name.">
         <type xsi:type="pogoDsl:StringType"/>
       </argin>
@@ -102,7 +101,7 @@
       <status abstract="true"/>
       <excludedStates>FAULT</excludedStates>
     </commands>
-    <commands name="GetDeviceClass" description="Returns class for specified device." execMethod="get_device_class" displayLevel="OPERATOR">
+    <commands name="GetDeviceClass" description="Returns class for specified device." execMethod="get_device_class" displayLevel="OPERATOR" polledPeriod="0">
       <argin description="Device name">
         <type xsi:type="pogoDsl:StringType"/>
       </argin>
@@ -112,7 +111,7 @@
       <status abstract="true"/>
       <excludedStates>FAULT</excludedStates>
     </commands>
-    <commands name="GetUsers" description="Returns user list found in table access_address." execMethod="get_users" displayLevel="OPERATOR">
+    <commands name="GetUsers" description="Returns user list found in table access_address." execMethod="get_users" displayLevel="OPERATOR" polledPeriod="0">
       <argin description="">
         <type xsi:type="pogoDsl:VoidType"/>
       </argin>
@@ -122,7 +121,7 @@
       <status abstract="true"/>
       <excludedStates>FAULT</excludedStates>
     </commands>
-    <commands name="RegisterService" description="Register device as a TANGO service." execMethod="register_service" displayLevel="OPERATOR">
+    <commands name="RegisterService" description="Register device as a TANGO service." execMethod="register_service" displayLevel="OPERATOR" polledPeriod="0">
       <argin description="">
         <type xsi:type="pogoDsl:VoidType"/>
       </argin>
@@ -131,7 +130,7 @@
       </argout>
       <status abstract="true"/>
     </commands>
-    <commands name="RemoveAddressForUser" description="Remove an address for the specified user.." execMethod="remove_address_for_user" displayLevel="OPERATOR">
+    <commands name="RemoveAddressForUser" description="Remove an address for the specified user.." execMethod="remove_address_for_user" displayLevel="OPERATOR" polledPeriod="0">
       <argin description="user name, address">
         <type xsi:type="pogoDsl:StringArrayType"/>
       </argin>
@@ -141,7 +140,7 @@
       <status abstract="true"/>
       <excludedStates>FAULT</excludedStates>
     </commands>
-    <commands name="RemoveDeviceForUser" description="Remove a device and its rights for the specified user.." execMethod="remove_device_for_user" displayLevel="OPERATOR">
+    <commands name="RemoveDeviceForUser" description="Remove a device and its rights for the specified user.." execMethod="remove_device_for_user" displayLevel="OPERATOR" polledPeriod="0">
       <argin description="user name, device and value">
         <type xsi:type="pogoDsl:StringArrayType"/>
       </argin>
@@ -151,7 +150,7 @@
       <status abstract="true"/>
       <excludedStates>FAULT</excludedStates>
     </commands>
-    <commands name="RemoveUser" description="Remove all records for specified user." execMethod="remove_user" displayLevel="OPERATOR">
+    <commands name="RemoveUser" description="Remove all records for specified user." execMethod="remove_user" displayLevel="OPERATOR" polledPeriod="0">
       <argin description="user name">
         <type xsi:type="pogoDsl:StringType"/>
       </argin>
@@ -161,7 +160,7 @@
       <status abstract="true"/>
       <excludedStates>FAULT</excludedStates>
     </commands>
-    <commands name="UnregisterService" description="Unregister device as a TANGO service." execMethod="unregister_service" displayLevel="OPERATOR">
+    <commands name="UnregisterService" description="Unregister device as a TANGO service." execMethod="unregister_service" displayLevel="OPERATOR" polledPeriod="0">
       <argin description="">
         <type xsi:type="pogoDsl:VoidType"/>
       </argin>

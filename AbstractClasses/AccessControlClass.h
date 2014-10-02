@@ -58,78 +58,63 @@
 #include <tango.h>
 #include <AccessControl.h>
 
-/*----- PROTECTED REGION END -----*/
+/*----- PROTECTED REGION END -----*/	//	AccessControlClass.h
+
 
 namespace AccessControl_ns
 {
-	/*----- PROTECTED REGION ID(AccessControl::classes for dynamic creation) ENABLED START -----*/
+/*----- PROTECTED REGION ID(AccessControlClass::classes for dynamic creation) ENABLED START -----*/
 
-	/*----- PROTECTED REGION END -----*/	//	AccessControl::classes for dynamic creation
-
-
-
-//=========================================
-//	Define classes for attributes
-//=========================================
-
-
-
+	/*----- PROTECTED REGION END -----*/	//	AccessControlClass::classes for dynamic creation
 
 //=========================================
 //	Define classes for commands
 //=========================================
 
-
-
-
 /**
- *	The TemplateDevServClass singleton definition
+ *	The AccessControlClass singleton definition
  */
 
-class
 #ifdef _TG_WINDOWS_
-	__declspec(dllexport)
+class __declspec(dllexport)  AccessControlClass : public Tango::DeviceClass
+#else
+class AccessControlClass : public Tango::DeviceClass
 #endif
-	AccessControlClass : public Tango::DeviceClass
 {
-	/*----- PROTECTED REGION ID(AccessControl::Additionnal DServer data members) ENABLED START -----*/
+	/*----- PROTECTED REGION ID(AccessControlClass::Additionnal DServer data members) ENABLED START -----*/
 
-	/*----- PROTECTED REGION END -----*/	//	AccessControl::Additionnal DServer data members
+	/*----- PROTECTED REGION END -----*/	//	AccessControlClass::Additionnal DServer data members
 
-
-
-public:
-//	write class properties data members
-	Tango::DbData	cl_prop;
-	Tango::DbData	cl_def_prop;
-	Tango::DbData	dev_def_prop;
-
-//	Method prototypes
-	static AccessControlClass *init(const char *);
-	static AccessControlClass *instance();
-	~AccessControlClass();
-	Tango::DbDatum	get_class_property(string &);
-	Tango::DbDatum	get_default_device_property(string &);
-	Tango::DbDatum	get_default_class_property(string &);
+	public:
+		//	write class properties data members
+		Tango::DbData	cl_prop;
+		Tango::DbData	cl_def_prop;
+		Tango::DbData	dev_def_prop;
 	
-protected:
-	AccessControlClass(string &);
-	static AccessControlClass *_instance;
-	void command_factory();
-	void attribute_factory(vector<Tango::Attr *> &);
-	void write_class_property();
-	void set_default_property();
-	void get_class_property();
-	string get_cvstag();
-	string get_cvsroot();
-
-private:
-	void device_factory(const Tango::DevVarStringArray *);
-
-
+		//	Method prototypes
+		static AccessControlClass *init(const char *);
+		static AccessControlClass *instance();
+		~AccessControlClass();
+		Tango::DbDatum	get_class_property(string &);
+		Tango::DbDatum	get_default_device_property(string &);
+		Tango::DbDatum	get_default_class_property(string &);
+	
+	protected:
+		AccessControlClass(string &);
+		static AccessControlClass *_instance;
+		void command_factory();
+		void attribute_factory(vector<Tango::Attr *> &);
+		void pipe_factory();
+		void write_class_property();
+		void set_default_property();
+		void get_class_property();
+		string get_cvstag();
+		string get_cvsroot();
+	
+	private:
+		void device_factory(const Tango::DevVarStringArray *);
 };
 
-}	//	namespace
+}	//	End of namespace
 
-#endif	//	ACCESSCONTROLCLASS_H
-
+#endif   //	AccessControl_H
