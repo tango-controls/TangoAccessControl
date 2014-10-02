@@ -60,26 +60,24 @@ static const char *RcsId = "$Id$";
 #include <AccessControl.h>
 #include <AccessControlClass.h>
 
-/*----- PROTECTED REGION END -----*/
-
+/*----- PROTECTED REGION END -----*/	//	AccessControl.cpp
 
 /**
- *	AccessControl class description:
- *	This class defines how to manage the TANGO access control.
- *	It interfaces commands for tool to defines access for users, devices and IP addresses.
- *	It interfaces also commands used by client API to check access for specified user, device and address.
- *	And it insterfaces to register and unregister it as TANGO service.
+ *  AccessControl class description:
+ *    This class defines how to manage the TANGO access control.
+ *    It interfaces commands for tool to defines access for users, devices and IP addresses.
+ *    It interfaces also commands used by client API to check access for specified user, device and address.
+ *    And it insterfaces to register and unregister it as TANGO service.
  */
 
 //================================================================
-//
 //  The following table gives the correspondence
 //  between command and method names.
 //
 //  Command name          |  Method name
-//----------------------------------------------------------------
-//  State                 |  dev_state
-//  Status                |  dev_status
+//================================================================
+//  State                 |  Inherited (no method)
+//  Status                |  Inherited (no method)
 //  AddAddressForUser     |  Inherited (no method)
 //  AddDeviceForUser      |  Inherited (no method)
 //  CloneUser             |  Inherited (no method)
@@ -97,25 +95,28 @@ static const char *RcsId = "$Id$";
 //  UnregisterService     |  Inherited (no method)
 //================================================================
 
+//================================================================
+//  Attributes managed is:
+//================================================================
+//================================================================
+
 namespace AccessControl_ns
 {
-	/*----- PROTECTED REGION ID(AccessControl::namespace_starting) ENABLED START -----*/
+/*----- PROTECTED REGION ID(AccessControl::namespace_starting) ENABLED START -----*/
 
 	//	static initializations
 
 	/*----- PROTECTED REGION END -----*/	//	AccessControl::namespace_starting
 
-
-
 //--------------------------------------------------------
 /**
  *	Method      : AccessControl::AccessControl()
  *	Description : Constructors for a Tango device
- *	              implementing the classAccessControl
+ *                implementing the classAccessControl
  */
 //--------------------------------------------------------
 AccessControl::AccessControl(Tango::DeviceClass *cl, string &s)
- 	: Tango::Device_4Impl(cl, s.c_str())
+ : TANGO_BASE_CLASS(cl, s.c_str())
 {
 	/*----- PROTECTED REGION ID(AccessControl::constructor_1) ENABLED START -----*/
 
@@ -125,7 +126,7 @@ AccessControl::AccessControl(Tango::DeviceClass *cl, string &s)
 }
 //--------------------------------------------------------
 AccessControl::AccessControl(Tango::DeviceClass *cl, const char *s)
- 	: Tango::Device_4Impl(cl, s)
+ : TANGO_BASE_CLASS(cl, s)
 {
 	/*----- PROTECTED REGION ID(AccessControl::constructor_2) ENABLED START -----*/
 
@@ -135,7 +136,7 @@ AccessControl::AccessControl(Tango::DeviceClass *cl, const char *s)
 }
 //--------------------------------------------------------
 AccessControl::AccessControl(Tango::DeviceClass *cl, const char *s, const char *d)
- 	: Tango::Device_4Impl(cl, s, d)
+ : TANGO_BASE_CLASS(cl, s, d)
 {
 	/*----- PROTECTED REGION ID(AccessControl::constructor_3) ENABLED START -----*/
 
@@ -144,35 +145,38 @@ AccessControl::AccessControl(Tango::DeviceClass *cl, const char *s, const char *
 	/*----- PROTECTED REGION END -----*/	//	AccessControl::constructor_3
 }
 
-
 //--------------------------------------------------------
 /**
- *	Method      : AccessControl::delete_device()()
+ *	Method      : AccessControl::delete_device()
  *	Description : will be called at device destruction or at init command
  */
 //--------------------------------------------------------
 void AccessControl::delete_device()
 {
+	DEBUG_STREAM << "AccessControl::delete_device() " << device_name << endl;
 	/*----- PROTECTED REGION ID(AccessControl::delete_device) ENABLED START -----*/
 
 	//	Delete device allocated objects
 
 	/*----- PROTECTED REGION END -----*/	//	AccessControl::delete_device
-	
 }
-
 
 //--------------------------------------------------------
 /**
  *	Method      : AccessControl::init_device()
- *	Description : //	will be called at device initialization.
+ *	Description : will be called at device initialization.
  */
 //--------------------------------------------------------
 void AccessControl::init_device()
 {
 	DEBUG_STREAM << "AccessControl::init_device() create device " << device_name << endl;
-
+	/*----- PROTECTED REGION ID(AccessControl::init_device_before) ENABLED START -----*/
 	
+	//	Initialization before get_device_property() call
+	
+	/*----- PROTECTED REGION END -----*/	//	AccessControl::init_device_before
+	
+	//	No device property to be read from database
 	
 	/*----- PROTECTED REGION ID(AccessControl::init_device) ENABLED START -----*/
 
@@ -180,7 +184,6 @@ void AccessControl::init_device()
 
 	/*----- PROTECTED REGION END -----*/	//	AccessControl::init_device
 }
-
 
 
 //--------------------------------------------------------
@@ -191,7 +194,7 @@ void AccessControl::init_device()
 //--------------------------------------------------------
 void AccessControl::always_executed_hook()
 {
-	INFO_STREAM << "AccessControl::always_executed_hook()  " << device_name << endl;
+	DEBUG_STREAM << "AccessControl::always_executed_hook()  " << device_name << endl;
 	/*----- PROTECTED REGION ID(AccessControl::always_executed_hook) ENABLED START -----*/
 
 	//	code always executed before all requests
@@ -199,19 +202,41 @@ void AccessControl::always_executed_hook()
 	/*----- PROTECTED REGION END -----*/	//	AccessControl::always_executed_hook
 }
 
+//--------------------------------------------------------
+/**
+ *	Method      : AccessControl::read_attr_hardware()
+ *	Description : Hardware acquisition for attributes
+ */
+//--------------------------------------------------------
+void AccessControl::read_attr_hardware(TANGO_UNUSED(vector<long> &attr_list))
+{
+	DEBUG_STREAM << "AccessControl::read_attr_hardware(vector<long> &attr_list) entering... " << endl;
+	/*----- PROTECTED REGION ID(AccessControl::read_attr_hardware) ENABLED START -----*/
+	
+	//	Add your own code
+	
+	/*----- PROTECTED REGION END -----*/	//	AccessControl::read_attr_hardware
+}
 
 
+//--------------------------------------------------------
+/**
+ *	Method      : AccessControl::add_dynamic_attributes()
+ *	Description : Create the dynamic attributes if any
+ *                for specified device.
+ */
+//--------------------------------------------------------
+void AccessControl::add_dynamic_attributes()
+{
+	/*----- PROTECTED REGION ID(AccessControl::add_dynamic_attributes) ENABLED START -----*/
+	
+	//	Add your own code to create and add dynamic attributes if any
+	
+	/*----- PROTECTED REGION END -----*/	//	AccessControl::add_dynamic_attributes
+}
 
 
-
-
-
-//========================================================
-//	Command execution methods
-//========================================================
-
-
-	/*----- PROTECTED REGION ID(AccessControl::namespace_ending) ENABLED START -----*/
+/*----- PROTECTED REGION ID(AccessControl::namespace_ending) ENABLED START -----*/
 
 	//	Additional Methods
 

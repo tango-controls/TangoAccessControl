@@ -56,7 +56,7 @@ static const char *HttpServer = "http://www.esrf.eu/computing/cs/tango/tango_doc
 
 #include <AccessControlClass.h>
 
-/*----- PROTECTED REGION END -----*/
+/*----- PROTECTED REGION END -----*/	//	AccessControlClass.cpp
 
 //-------------------------------------------------------------------
 /**
@@ -76,11 +76,8 @@ __declspec(dllexport)
 	}
 }
 
-
 namespace AccessControl_ns
 {
-
-
 //===================================================================
 //	Initialize pointer for singleton pattern
 //===================================================================
@@ -94,20 +91,18 @@ AccessControlClass *AccessControlClass::_instance = NULL;
  * @param s	The class name
  */
 //--------------------------------------------------------
-AccessControlClass::AccessControlClass(string &s):DeviceClass(s)
+AccessControlClass::AccessControlClass(string &s):Tango::DeviceClass(s)
 {
 	cout2 << "Entering AccessControlClass constructor" << endl;
 	set_default_property();
-	get_class_property();
 	write_class_property();
 
-	/*----- PROTECTED REGION ID(AccessControl::Class::constructor) ENABLED START -----*/
+	/*----- PROTECTED REGION ID(AccessControlClass::constructor) ENABLED START -----*/
 	string str_rcs(RcsId);
-	/*----- PROTECTED REGION END -----*/	//	AccessControl::Class::constructor
+	/*----- PROTECTED REGION END -----*/	//	AccessControlClass::constructor
 
 	cout2 << "Leaving AccessControlClass constructor" << endl;
 }
-
 
 //--------------------------------------------------------
 /**
@@ -117,9 +112,9 @@ AccessControlClass::AccessControlClass(string &s):DeviceClass(s)
 //--------------------------------------------------------
 AccessControlClass::~AccessControlClass()
 {
-	/*----- PROTECTED REGION ID(AccessControl::Class::destructor) ENABLED START -----*/
+	/*----- PROTECTED REGION ID(AccessControlClass::destructor) ENABLED START -----*/
 
-	/*----- PROTECTED REGION END -----*/	//	AccessControl::Class::destructor
+	/*----- PROTECTED REGION END -----*/	//	AccessControlClass::destructor
 
 	_instance = NULL;
 }
@@ -143,11 +138,11 @@ AccessControlClass *AccessControlClass::init(const char *name)
 			string s(name);
 			_instance = new AccessControlClass(s);
 		}
-		catch (bad_alloc)
+		catch (bad_alloc &)
 		{
 			throw;
-		}		
-	}		
+		}
+	}
 	return _instance;
 }
 
@@ -170,24 +165,17 @@ AccessControlClass *AccessControlClass::instance()
 
 
 
-
 //===================================================================
 //	Command execution method calls
 //===================================================================
 
-
-
-
 //===================================================================
 //	Properties management
 //===================================================================
-
 //--------------------------------------------------------
 /**
- * method : 		AccessControlClass::get_class_property
- * description : 	Get the class property for specified name.
- *
- * @param	name  The property name
+ *	Method      : AccessControlClass::get_class_property()
+ *	Description : Get the class property for specified name.
  */
 //--------------------------------------------------------
 Tango::DbDatum AccessControlClass::get_class_property(string &prop_name)
@@ -199,10 +187,9 @@ Tango::DbDatum AccessControlClass::get_class_property(string &prop_name)
 	return Tango::DbDatum(prop_name);
 }
 
-
 //--------------------------------------------------------
 /**
- *	Method      : AccessControl::AccessControlClass::get_default_device_property()()
+ *	Method      : AccessControlClass::get_default_device_property()
  *	Description : Return the default value for device property.
  */
 //--------------------------------------------------------
@@ -215,10 +202,9 @@ Tango::DbDatum AccessControlClass::get_default_device_property(string &prop_name
 	return Tango::DbDatum(prop_name);
 }
 
-
 //--------------------------------------------------------
 /**
- *	Method      : AccessControl::AccessControlClass::get_default_class_property()()
+ *	Method      : AccessControlClass::get_default_class_property()
  *	Description : Return the default value for class property.
  */
 //--------------------------------------------------------
@@ -234,22 +220,11 @@ Tango::DbDatum AccessControlClass::get_default_class_property(string &prop_name)
 
 //--------------------------------------------------------
 /**
- *	Method      : AccessControl::AccessControlClass::get_class_property()
- *	Description : //	Add your own code to initialize
- */
-//--------------------------------------------------------
-void AccessControlClass::get_class_property()
-{
-}
-
-
-//--------------------------------------------------------
-/**
- *	Method      : AccessControl::AccessControlClass::set_default_property()
+ *	Method      : AccessControlClass::set_default_property()
  *	Description : Set default property (class and device) for wizard.
- *	              For each property, add to wizard property name and description.
- *	              If default value has been set, add it to wizard property and.
- *	              store it in a DbDatum.
+ *                For each property, add to wizard property name and description.
+ *                If default value has been set, add it to wizard property and
+ *                store it in a DbDatum.
  */
 //--------------------------------------------------------
 void AccessControlClass::set_default_property()
@@ -258,16 +233,15 @@ void AccessControlClass::set_default_property()
 	string	prop_desc;
 	string	prop_def;
 	vector<string>	vect_data;
-	
+
 	//	Set Default Class Properties
 
-	//	Set Default Device Properties
+	//	Set Default device Properties
 }
-
 
 //--------------------------------------------------------
 /**
- *	Method      : AccessControl::AccessControlClass::write_class_property()
+ *	Method      : AccessControlClass::write_class_property()
  *	Description : Set class description fields as property in database
  */
 //--------------------------------------------------------
@@ -275,81 +249,98 @@ void AccessControlClass::write_class_property()
 {
 }
 
-
-
-
 //===================================================================
 //	Factory methods
 //===================================================================
 
-
 //--------------------------------------------------------
 /**
- * method : 		AccessControlClass::device_factory
- * description : 	Create the device object(s)
- *                  and store them in the device list
- *
- * @param	*devlist_ptr	The device name list
+ *	Method      : AccessControlClass::device_factory()
+ *	Description : Create the device object(s)
+ *                and store them in the device list
  */
 //--------------------------------------------------------
-void AccessControlClass::device_factory(TANGO_UNUSED(const Tango::DevVarStringArray *devlist_ptr))
+void AccessControlClass::device_factory(const Tango::DevVarStringArray *devlist_ptr)
 {
-
-
-
-	//	This class is not concrete and cannot implement devices
-
-	
+//	This class is not concrete and cannot implement devices
 }
-
-
 //--------------------------------------------------------
 /**
- *	Method      : AccessControl::AccessControlClass::attribute_factory()
+ *	Method      : AccessControlClass::attribute_factory()
  *	Description : Create the attribute object(s)
- *	              and store them in the attribute list
+ *                and store them in the attribute list
  */
 //--------------------------------------------------------
-void AccessControlClass::attribute_factory(TANGO_UNUSED(vector<Tango::Attr *> &att_list))
+void AccessControlClass::attribute_factory(vector<Tango::Attr *> &att_list)
 {
-	/*----- PROTECTED REGION ID(AccessControl::Class::attribute_factory_before) ENABLED START -----*/
+	/*----- PROTECTED REGION ID(AccessControlClass::attribute_factory_before) ENABLED START -----*/
 
 	//	Add your own code
 
-	/*----- PROTECTED REGION END -----*/	//	AccessControl::Class::attribute_factory_before
+	/*----- PROTECTED REGION END -----*/	//	AccessControlClass::attribute_factory_before
 
-
-
+	/*----- PROTECTED REGION ID(AccessControlClass::attribute_factory_after) ENABLED START -----*/
+	
+	//	Add your own code
+	
+	/*----- PROTECTED REGION END -----*/	//	AccessControlClass::attribute_factory_after
 }
-
-
 //--------------------------------------------------------
 /**
- *	Method      : AccessControl::AccessControlClass::command_factory()
+ *	Method      : AccessControlClass::pipe_factory()
+ *	Description : Create the pipe object(s)
+ *                and store them in the pipe list
+ */
+//--------------------------------------------------------
+void AccessControlClass::pipe_factory()
+{
+	/*----- PROTECTED REGION ID(AccessControlClass::pipe_factory_before) ENABLED START -----*/
+	
+	//	Add your own code
+	
+	/*----- PROTECTED REGION END -----*/	//	AccessControlClass::pipe_factory_before
+	/*----- PROTECTED REGION ID(AccessControlClass::pipe_factory_after) ENABLED START -----*/
+	
+	//	Add your own code
+	
+	/*----- PROTECTED REGION END -----*/	//	AccessControlClass::pipe_factory_after
+}
+//--------------------------------------------------------
+/**
+ *	Method      : AccessControlClass::command_factory()
  *	Description : Create the command object(s)
- *	              and store them in the command list
+ *                and store them in the command list
  */
 //--------------------------------------------------------
 void AccessControlClass::command_factory()
 {
-	/*----- PROTECTED REGION ID(AccessControl::Class::command_factory_before) ENABLED START -----*/
+	/*----- PROTECTED REGION ID(AccessControlClass::command_factory_before) ENABLED START -----*/
 
-	/*----- PROTECTED REGION END -----*/	//	AccessControl::Class::command_factory_before
+	/*----- PROTECTED REGION END -----*/	//	AccessControlClass::command_factory_before
 
 
-	/*----- PROTECTED REGION ID(AccessControl::Class::command_factory_after) ENABLED START -----*/
 
-	/*----- PROTECTED REGION END -----*/	//	AccessControl::Class::command_factory_after
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+	/*----- PROTECTED REGION ID(AccessControlClass::command_factory_after) ENABLED START -----*/
+
+	/*----- PROTECTED REGION END -----*/	//	AccessControlClass::command_factory_after
 }
 
 
+/*----- PROTECTED REGION ID(AccessControlClass::Additional Methods) ENABLED START -----*/
 
-
-
-
-	/*----- PROTECTED REGION ID(AccessControl::Class::Additional Methods) ENABLED START -----*/
-
-	/*----- PROTECTED REGION END -----*/	//	AccessControl::Class::Additional Methods
-
+	/*----- PROTECTED REGION END -----*/	//	AccessControlClass::Additional Methods
 } //	namespace
