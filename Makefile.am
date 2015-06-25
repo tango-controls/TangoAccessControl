@@ -1,6 +1,6 @@
 
 
-INCLUDES = -I$(top_srcdir)/lib/cpp/client \
+AM_CPPFLAGS = -I$(top_srcdir)/lib/cpp/client \
    	   -I$(top_srcdir)/lib/cpp/server $(ORB_INCLUDE_PREFIX) \
            -I$(top_srcdir)/lib/cpp/log4tango/include \
            -I$(top_builddir)/lib/cpp/log4tango/include
