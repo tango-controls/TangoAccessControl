@@ -19,7 +19,7 @@ TangoAccessControl_SOURCES=ClassFactory.cpp     		\
 				  TangoAccessControlClass.h          
 
 
-TangoAccessControl_LDADD = -L$(top_builddir)/lib/cpp/server -ltango \
+TangoAccessControl_LDADD = -L$(top_builddir)/lib/cpp/client -ltango \
         					-L$(top_builddir)/lib/cpp/log4tango/src -llog4tango \
 							$(MYSQLCLIENT_LDFLAGS) $(MYSQLCLIENT_LIBS) $(LIBZMQ_LIBS) \
 							../AbstractClass/AccessControl/libaccesscontrol.la
