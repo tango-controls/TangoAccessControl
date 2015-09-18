@@ -12,6 +12,9 @@
 #-======================================================================
 
 
+TangoAccessControl-2.11 - 18/09/2015:
+	Tango-9 IDL5 device.
+	VC12 project
 
 TangoAccessControl-2.10 - 08/08/2013:
 	Fix a bug for unknown user when everything is open.

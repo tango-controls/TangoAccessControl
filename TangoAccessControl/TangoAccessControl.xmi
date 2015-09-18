@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ASCII"?>
 <pogoDsl:PogoSystem xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pogoDsl="http://www.esrf.fr/tango/pogo/PogoDsl">
-  <classes name="TangoAccessControl" pogoRevision="8.1">
-    <description description="This class is a conceate class inherited from AccessControl abstract class.&lt;Br>&#xA;&lt;Br>&#xA;This class defines how to manage the TANGO access control.&lt;Br>&#xA;It implements commands for tool to defines access for users, devices and IP addresses.&lt;Br>&#xA;It implements also commands used by client API to check access for specified user, device and address.&lt;Br>&#xA;And it implements register and unregister it as TANGO service." title="Tango Access Control Management" sourcePath="/mntdirect/_segfs/tango/cppserver/admin/TangoAccessControl" language="Cpp" filestogenerate="XMI   file,Code files,Makefile" hasMandatoryProperty="false" hasConcreteProperty="false" hasAbstractCommand="false" hasAbstractAttribute="false">
+  <classes name="TangoAccessControl" pogoRevision="9.1">
+    <description description="This class is a conceate class inherited from AccessControl abstract class.&lt;Br>&#xA;&lt;Br>&#xA;This class defines how to manage the TANGO access control.&lt;Br>&#xA;It implements commands for tool to defines access for users, devices and IP addresses.&lt;Br>&#xA;It implements also commands used by client API to check access for specified user, device and address.&lt;Br>&#xA;And it implements register and unregister it as TANGO service." title="Tango Access Control Management" sourcePath="/mntdirect/_segfs/tango/cppserver/admin/TangoAccessControl" language="Cpp" filestogenerate="XMI   file,VC12 Project,Protected Regions" hasMandatoryProperty="false" hasConcreteProperty="false" hasAbstractCommand="false" hasAbstractAttribute="false">
       <inheritances classname="AccessControl" sourcePath="/segfs/tango/templates/AbstractClasses/AccessControl"/>
       <identification contact="at esrf.fr - accelerator-control" author="accelerator-control" emailDomain="esrf.fr" classFamily="System" siteSpecific="" platform="All Platforms" bus="Not Applicable" manufacturer="none" reference=""/>
     </description>
@@ -184,7 +184,7 @@
     <states name="FAULT" description="The MySql database handle is not OK.">
       <status abstract="false" inherited="true" concrete="true"/>
     </states>
-    <preferences docHome="./doc_html" makefileHome="/segfs/tango/cppserver/env"/>
+    <preferences docHome="./doc_html" makefileHome="$(TANGO_HOME)"/>
     <additionalFiles name="DbUtils" path="/mntdirect/_segfs/tango/cppserver/admin/TangoAccessControl/DbUtils.cpp"/>
   </classes>
 </pogoDsl:PogoSystem>
