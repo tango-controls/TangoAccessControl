@@ -80,6 +80,7 @@ void TangoAccessControl::mysql_connection()
 	const char *mysql_user = NULL;
 	const char *mysql_password = NULL;
 	const char *mysql_host = NULL;
+	const char *mysql_name = NULL;
 	unsigned int port_num = 0;
 
 	WARN_STREAM << "AccessControl::init_device() create database device " << device_name << endl;
@@ -89,7 +90,7 @@ void TangoAccessControl::mysql_connection()
 	mysql_init(&mysql);
 
 	DummyDev d;
-	string my_user,my_password,my_host;
+	string my_user,my_password,my_host,my_name;
 	string ho,port;
 	
 	if (d.get_env_var("MYSQL_USER",my_user) != -1)
@@ -116,6 +117,15 @@ void TangoAccessControl::mysql_connection()
 		}
 		else
 			mysql_host = my_host.c_str();
+	}
+	if (d.get_env_var("MYSQL_DATABASE",my_name) != -1)
+	{
+		mysql_name = my_name.c_str();
+	}
+
+	if (mysql_name != NULL)
+	{
+		database = const_cast<char *>(mysql_name);
 	}
 	
 	WARN_STREAM << "AccessControl::init_device() mysql database user =  " << mysql_user 
