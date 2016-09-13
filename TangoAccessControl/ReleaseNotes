@@ -1,0 +1,47 @@
+#+======================================================================
+# $Source:  $
+#
+# Project:      Tango Access Control
+#
+# Description:  TAC revisions
+#
+# $Author: pascal_verdier $
+#
+# $Revision: $
+#
+#-======================================================================
+
+
+TangoAccessControl-2.11 - 18/09/2015:
+	Tango-9 IDL5 device.
+	VC12 project
+
+TangoAccessControl-2.10 - 08/08/2013:
+	Fix a bug for unknown user when everything is open.
+
+TangoAccessControl-2.9 - 13/06/2013::
+	Tag release 2.9 due to change in Makefile.am
+
+TangoAccessControl-2.8 - 19/03/2013:
+	Problem on device in upper case fixed.
+
+TangoAccessControl-2.7 - 08/03/2013:
+	Update file headers.
+
+TangoAccessControl-2.6 - 07/03/2013:
+	Improve device filter.
+
+TangoAccessControl-2.5 - 24/05/2012:
+	Tag release 2.5
+
+TangoAccessControl_2_4 - 21/03/2011:
+	Tag relase with GPL headers
+
+TangoAccessControl_2_3 - 16/03/2011:
+	Tag release 2.3
+
+TangoAccessControl_2_2_distrib - 08/03/2011:
+	Create a temporary tag for source distrib
+
+TangoAccessControl_2_2 - 14/02/2011:
+	This commit was manufactured by cvs2svn to create tag.
