@@ -23,7 +23,7 @@ set(CMAKE_SKIP_RPATH true)
 
 # MAKE_ENV is the path to find common environment to buil project
 #
-set(MAKE_ENV /segfs/tango/cppserver/env)
+set(MAKE_ENV ${TANGO_HOME})
 #
 # Project definitions
 #
@@ -49,9 +49,9 @@ set(TANGOACCESSCONTROL_SRC ${TANGOACCESSCONTROL}.cpp ${TANGOACCESSCONTROL}Class.
 #
 # Files for AccessControl TANGO class
 #
-set(ACCESSCONTROL_PATH ../../../../../../../segfs/tango/templates/AbstractClasses/AccessControl)
+set(ACCESSCONTROL_PATH ../AbstractClasses)
 set(ACCESSCONTROL AccessControl)
-set(ACCESSCONTROL_INCLUDE ../../../../../../../segfs/tango/templates/AbstractClasses/AccessControl)
+set(ACCESSCONTROL_INCLUDE ../AbstractClasses)
 set(ACCESSCONTROL_SRC ${ACCESSCONTROL_PATH}/${ACCESSCONTROL}.cpp ${ACCESSCONTROL_PATH}/${ACCESSCONTROL}Class.cpp ${ACCESSCONTROL_PATH}/${ACCESSCONTROL}StateMachine.cpp)
 
 
