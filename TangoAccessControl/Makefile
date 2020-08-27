@@ -65,7 +65,7 @@ OUTPUT_DIR = ./bin/$(BIN_DIR)
 #
 #------------ Inheritance from TangoAccessControl class ------------
 ACCESSCONTROL_CLASS = AccessControl
-ACCESSCONTROL_HOME  = /segfs/tango/templates/AbstractClasses/AccessControl
+ACCESSCONTROL_HOME  = ../AbstractClasses
 
 
 #=============================================================================
