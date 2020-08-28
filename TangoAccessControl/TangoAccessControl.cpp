@@ -187,20 +187,9 @@ void TangoAccessControl::init_device()
 
 	/*----- PROTECTED REGION ID(TangoAccessControl::init_device) ENABLED START -----*/
 
-	// These lines have obsolutely no other goals than to make the
-	// hardening_check command happy. Without them, this command will return
-	// missing stack-protection and missing "Fortify source"
-	// This is for Debian packages hardening effort
-
-	char host[256];
-	gethostname(host,sizeof(host));
-	sprintf(host,"Hello world\n");
-
 	//	Initialize device
 	// Initialise variables to default values
 	//--------------------------------------------
-
-	string str_rcs(RcsId);
 
 	mysql_connection();
 
